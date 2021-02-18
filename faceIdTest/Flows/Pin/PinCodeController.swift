@@ -7,6 +7,13 @@
 
 import UIKit
 import RxSwift
+import RxRelay
+import LocalAuthentication
+
+enum PinCodeType {
+    case create
+    case confirm
+}
 
 final class PinCodeController: BaseViewController {
     
@@ -14,8 +21,11 @@ final class PinCodeController: BaseViewController {
         [1,2,3,4,5,6,7,8,9,0].map(PinPadItem.itemWithDigit)
     }()
     
-    lazy var deleteOrFaceIdButton = PinPadItem()
+    lazy var deleteOrFaceIdButton = UIButton()
     lazy var forgotPasswordButton = UIButton()
+    
+    private lazy var codeField = CodeTextField()
+    private let codeRelay = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
 
@@ -89,24 +99,38 @@ final class PinCodeController: BaseViewController {
                 .compactMap { $0 }
                 .map(String.init)
         }
-        let textSignal = Observable.merge(digitSignals)
         
-        textSignal.scan(
-            into: "",
-            accumulator: { str, digit in
-                if str.count == 4 {
-                    str = digit
-                } else {
-                    str.append(digit)
-                }
-            }
-        )
-        .subscribe()
-        .disposed(by: disposeBag)
+        // поток ввода цифр
+        let digitTapObservable = Observable.merge(digitSignals).withLatestFrom(codeRelay) { (digit, code) -> String in
+            code.count < 4 ? code.appending(digit) : code
+        }
+        
+        // поток нажатий на нижнюю правую кнопку
+        let rightButtonTap = deleteOrFaceIdButton.rx.tap.share().withLatestFrom(codeRelay)
+        
+        // если заполнен хотя бы 1 символ - кнопка работает как delete; если еще ничего не заполнено - даем возможность воспользоваться FaceID, если он разрешен
+        let deleteTap = rightButtonTap.filter { !$0.isEmpty }
+        let applyFaceID = rightButtonTap.filter { $0.isEmpty }
+        
+        // удаление последней цифры
+        let deleteObservable = deleteTap.map { code in String(code.dropLast()) }
+        
+        deleteObservable
+            .merge(with: digitTapObservable)
+            .bind(to: codeRelay)
+            .disposed(by: disposeBag)
+        
+        // икнока для правой нижней кнопки (FaceID или удаление последнего символа)
+        codeRelay
+            .map { $0.isEmpty ? UIImage(named: "faceId") : UIImage(named: "keypad_delete") }
+            .bind(to: deleteOrFaceIdButton.rx.image())
+            .disposed(by: disposeBag)
+        
+        codeRelay.asObservable().debug().subscribe().disposed(by: disposeBag)
         
         deleteOrFaceIdButton.backgroundColor = .clear
         deleteOrFaceIdButton.tintColor = Color.green()
-        deleteOrFaceIdButton.icon = UIImage(named: "faceId")
+        deleteOrFaceIdButton.setImage(UIImage(named: "faceId"), for: .normal)// = UIImage(named: "faceId")
     }
 }
 
@@ -140,8 +164,8 @@ final class PinPadItem: UIControl {
         super.init(frame: frame)
         
         backgroundColor = Color.lightGreen()
-        clipsToBounds = true
-        layer.cornerRadius = 30
+//        clipsToBounds = true
+//        layer.cornerRadius = 30
         
         digitLabel.textColor = UIColor.white
         digitLabel.textAlignment = .center
