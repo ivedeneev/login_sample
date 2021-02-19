@@ -57,7 +57,10 @@ final class MapCoordinator: BaseCoordinator<Void> {
     }
     
     private func showProfile() -> Observable<Void> {
-        rootViewController?.present(PinCodeController(), animated: true, completion: nil)
+        let vm = PinCodeViewModel(config: .init(needsRepeat: false, showForgotPassword: true, isBiometricsAvailable: true))
+        let vc = PinCodeController()
+        vc.viewModel = vm
+        rootViewController?.present(vc, animated: true, completion: nil)
         return .empty()
 //        let coordinator = ProfileCoordinator(rootViewController)
 //        return coordinate(to: coordinator)

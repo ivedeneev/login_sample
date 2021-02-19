@@ -16,12 +16,14 @@ enum Test: String {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    @Setting("tt", defaultValue: Test.foo)
-    var setting: Test
+//    @Setting("tt", defaultValue: Test.foo)
+    @Setting("rrrrr", defaultValue: "rrrrrrrrrrrrrrr")
+    var setting: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        print(setting)
+//        print(setting)
+        setting = nil
         
         return true
     }

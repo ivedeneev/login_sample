@@ -66,6 +66,11 @@
 		D6A8FDC125CAE7CA003B3412 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC025CAE7CA003B3412 /* MapViewController.swift */; };
 		D6A8FDC625CAF279003B3412 /* BasePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC525CAF279003B3412 /* BasePopover.swift */; };
 		D6A8FDC925CAF370003B3412 /* RideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC825CAF370003B3412 /* RideOptionsController.swift */; };
+		D6AFF5C025DE50AA00CC5CE3 /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */; };
+		D6AFF5C425DE688200CC5CE3 /* PinPadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5C325DE688200CC5CE3 /* PinPadItem.swift */; };
+		D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5C725DE693600CC5CE3 /* DotsField.swift */; };
+		D6AFF5CB25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */; };
+		D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */; };
 		D6BF9DF025CDDD37000C468C /* ProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DEF25CDDD37000C468C /* ProfileHeaderCell.swift */; };
 		D6BF9DF325CDDEFA000C468C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DF225CDDEFA000C468C /* User.swift */; };
 		D6BF9DF625CDE794000C468C /* CommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DF525CDE794000C468C /* CommonCell.swift */; };
@@ -141,6 +146,11 @@
 		D6A8FDC025CAE7CA003B3412 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D6A8FDC525CAF279003B3412 /* BasePopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePopover.swift; sourceTree = "<group>"; };
 		D6A8FDC825CAF370003B3412 /* RideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideOptionsController.swift; sourceTree = "<group>"; };
+		D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
+		D6AFF5C325DE688200CC5CE3 /* PinPadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPadItem.swift; sourceTree = "<group>"; };
+		D6AFF5C725DE693600CC5CE3 /* DotsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsField.swift; sourceTree = "<group>"; };
+		D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnablePinCoordinator.swift; sourceTree = "<group>"; };
+		D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		D6BF9DEF25CDDD37000C468C /* ProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCell.swift; sourceTree = "<group>"; };
 		D6BF9DF225CDDEFA000C468C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D6BF9DF525CDE794000C468C /* CommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCell.swift; sourceTree = "<group>"; };
@@ -308,14 +318,13 @@
 		D6A8FD5125CA9605003B3412 /* CoreUI */ = {
 			isa = PBXGroup;
 			children = (
+				D6AFF5BD25DE4F4900CC5CE3 /* Input */,
 				D699F83125CC4122001E7577 /* CollectionDirector */,
 				D6A0E12A25CBE00B00C8717A /* IVPopupController.swift */,
 				D6A8FDC525CAF279003B3412 /* BasePopover.swift */,
 				D6A8FD5625CA964F003B3412 /* BaseViewController.swift */,
-				D6A8FD5325CA964F003B3412 /* CodeTextField.swift */,
 				D6A8FD5425CA964F003B3412 /* Color.swift */,
 				D6A8FD5525CA964F003B3412 /* Font.swift */,
-				D6A8FDB425CADDE8003B3412 /* PhoneTextField.swift */,
 				D6BF9DF825CDF12D000C468C /* CommonButton.swift */,
 				D61FEA5025D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift */,
 			);
@@ -397,6 +406,25 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		D6AFF5BD25DE4F4900CC5CE3 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */,
+				D6A8FD5325CA964F003B3412 /* CodeTextField.swift */,
+				D6A8FDB425CADDE8003B3412 /* PhoneTextField.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		D6AFF5C225DE687200CC5CE3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D6AFF5C325DE688200CC5CE3 /* PinPadItem.swift */,
+				D6AFF5C725DE693600CC5CE3 /* DotsField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D6BF9DFB25CDF5B5000C468C /* MyAddresses */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +468,10 @@
 		D6CDD33625D7F30600D76EBE /* Pin */ = {
 			isa = PBXGroup;
 			children = (
+				D6AFF5C225DE687200CC5CE3 /* Views */,
 				D6CDD33725D7F34300D76EBE /* PinCodeController.swift */,
+				D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */,
+				D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */,
 			);
 			path = Pin;
 			sourceTree = "<group>";
@@ -527,6 +558,7 @@
 				D699F84225CC4139001E7577 /* Helpers.swift in Sources */,
 				D6A8FDB925CAE279003B3412 /* PersonalDataViewController.swift in Sources */,
 				D699F84825CC4142001E7577 /* IVCollectionView.swift in Sources */,
+				D6AFF5CB25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift in Sources */,
 				D699F85125CC414B001E7577 /* UICollectionView+Extensions.swift in Sources */,
 				D699F84925CC4142001E7577 /* Reusable.swift in Sources */,
 				D699F86125CC415A001E7577 /* Heckel.swift in Sources */,
@@ -543,6 +575,7 @@
 				D6A8FD7925CA981D003B3412 /* ConfirmCodeViewModel.swift in Sources */,
 				D699F85C25CC4153001E7577 /* MoveReducer.swift in Sources */,
 				D698B56925C32E05004BAFF6 /* ViewController.swift in Sources */,
+				D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */,
 				D61FEA5125D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				D6A8FD7825CA981D003B3412 /* AuthCoordinator.swift in Sources */,
 				D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */,
@@ -561,6 +594,7 @@
 				D6A8FDB125CADA2B003B3412 /* ConfirmCodeCoordinator.swift in Sources */,
 				D6BF9DF025CDDD37000C468C /* ProfileHeaderCell.swift in Sources */,
 				D698B56725C32E05004BAFF6 /* SceneDelegate.swift in Sources */,
+				D6AFF5C025DE50AA00CC5CE3 /* FloatingLabelTextField.swift in Sources */,
 				D6BF9E0A25CE8854000C468C /* PaymentMethodsController.swift in Sources */,
 				D699F84B25CC4142001E7577 /* Operators.swift in Sources */,
 				D699F85D25CC4153001E7577 /* Array+Extensions.swift in Sources */,
@@ -572,6 +606,8 @@
 				D60E48EA25D44F7A00DCB6E7 /* Settings.swift in Sources */,
 				D699F83A25CC412E001E7577 /* CollectionHeaderFooterView.swift in Sources */,
 				D6A8FD5E25CA9658003B3412 /* AccountManager.swift in Sources */,
+				D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */,
+				D6AFF5C425DE688200CC5CE3 /* PinPadItem.swift in Sources */,
 				D699F86225CC415A001E7577 /* WagnerFischer.swift in Sources */,
 				D699F84A25CC4142001E7577 /* Protocols.swift in Sources */,
 				D6A0E12225CBD92000C8717A /* MapViewModel.swift in Sources */,

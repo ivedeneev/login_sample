@@ -22,6 +22,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Для безопасного входа в приложение</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Геолокация необходима для работы приложения</string>
 	<key>UIApplicationSceneManifest</key>

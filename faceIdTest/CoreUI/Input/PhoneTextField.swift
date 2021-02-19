@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol PhoneTextFieldFormattingDelegate: class {
+    func formatPhoneNumber(for tf: PhoneTextField) -> String
+}
+
 final class PhoneTextField: UITextField {
+    
+    weak var formattingDelegate: PhoneTextFieldFormattingDelegate?
     
     /// Phone format string were X is digit placeholder. Default is `+X (XXX) XXX-XX-XX`
     var phoneMask: String = "+X (XXX) XXX-XX-XX"
@@ -41,6 +47,11 @@ final class PhoneTextField: UITextField {
     }
     
     @objc private func didChangeEditing() {
+        if let delegate = formattingDelegate {
+            text = delegate.formatPhoneNumber(for: self)
+            return
+        }
+        
         guard var t = text?.trimmingCharacters(in: .whitespacesAndNewlines), t != "+" else { return }
         
         switch t.first {
