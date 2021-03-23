@@ -50,15 +50,18 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
                 let needPin = true
                 
                 if needPin {
-                    return self.enablePin()
-                        .flatMapLatest { [weak self] result -> Observable<AuthResult> in
-                            switch result {
-                            case .enabled:
-                                return .just(.success)
-                            case .cancel:
-                                return .just(.success)
-                            }
-                        }.mapTo(result)
+                    return self.suggestEnablePin()
+                        .filter { $0 }
+                        .flatMapLatest { [unowned self] needToEnable -> Observable<EnablePinResult> in
+                            guard needToEnable else { return .just(.cancel) }
+                            
+                            return self.enablePin()
+                        }
+                        .flatMapLatest { (r) -> Observable<AuthResult> in
+                            guard r == .enabled else { return .just(result) }
+                            
+                            return self.enableFaceID().mapTo(result)
+                        }
                 } else {
                     return .just(result)
                 }
@@ -76,8 +79,56 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
     }
     
     func enablePin() -> Observable<EnablePinResult> {
-        let c = EnablePinCoordinator(root: rootViewController)
+        let c = EnablePinCoordinator(rootViewController: rootViewController)
         return coordinate(to: c)
+    }
+    
+    func suggestEnablePin() -> Observable<Bool> {
+        Observable.create { [rootViewController] observer in
+            let ac = UIAlertController(title: "Добавить вход по коду?", message: "Вы можете добавить код позже в настройках", preferredStyle: .actionSheet)
+            
+            ac.addAction(
+                .init(title: "Добавить", style: .default, handler: { _ in
+                    observer.onNext(true)
+                    observer.onCompleted()
+                }
+            ))
+            
+            ac.addAction(
+                .init(title: "Позже", style: .default, handler: { _ in
+                    observer.onNext(false)
+                    observer.onCompleted()
+                }
+            ))
+            
+            rootViewController?.present(ac, animated: true, completion: nil)
+            
+            return Disposables.create()
+        }
+    }
+    
+    func enableFaceID() -> Observable<Bool> {
+        Observable.create { [rootViewController] observer in
+            let ac = UIAlertController(title: "Использовать FaceID", message: "Вы можете изменить этот параметр позже в настройках", preferredStyle: .actionSheet)
+            
+            ac.addAction(
+                .init(title: "Добавить", style: .default, handler: { _ in
+                    observer.onNext(true)
+                    observer.onCompleted()
+                }
+            ))
+            
+            ac.addAction(
+                .init(title: "Позже", style: .default, handler: { _ in
+                    observer.onNext(false)
+                    observer.onCompleted()
+                }
+            ))
+            
+            rootViewController?.presentedViewController?.present(ac, animated: true, completion: nil)
+            
+            return Disposables.create()
+        }
     }
 }
 

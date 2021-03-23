@@ -22,6 +22,8 @@ final class PinPadItem: UIControl {
         didSet {
             guard let d = digit else { return }
             digitLabel.text = d.description
+            clipsToBounds = true
+            layer.cornerRadius = 30
         }
     }
     
@@ -35,17 +37,16 @@ final class PinPadItem: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = Color.lightGreen()
-//        clipsToBounds = true
-//        layer.cornerRadius = 30
+        backgroundColor = Color.lightBlueGray()
         
-        digitLabel.textColor = UIColor.white
+        digitLabel.textColor = Color.text()
         digitLabel.textAlignment = .center
         digitLabel.font = .systemFont(ofSize: 24, weight: .medium)
         
         addSubview(digitLabel)
         addSubview(iconImageView)
         iconImageView.contentMode = .scaleAspectFit
+        iconImageView.tintColor = Color.text()
     }
     
     override func layoutSubviews() {

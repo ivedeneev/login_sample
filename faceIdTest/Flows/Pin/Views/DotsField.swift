@@ -41,6 +41,14 @@ final class DotsField: UIView {
             dots.append(dot)
         }
     }
+
+    private func configureFilledDot(_ view: UIView) {
+        view.backgroundColor = filledColor
+    }
+
+    private func configureEmptyDot(_ view: UIView) {
+        view.backgroundColor = emptyColor
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -53,13 +61,13 @@ final class DotsField: UIView {
     
     func fill(count: Int) {
         for i in 0..<self.count {
-            dots[i].backgroundColor = i < count ? filledColor : emptyColor
+            let dot = dots[i]
+            i < count ? configureFilledDot(dot) : configureEmptyDot(dot)
         }
     }
     
     func shakeOnError() {
         shake(duration: 0.6)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.fill(count: 0)
         }

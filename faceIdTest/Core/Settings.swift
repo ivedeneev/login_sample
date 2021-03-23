@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if canImport(RxSwift)
+import RxSwift
+#endif
 
 ///  Обертка над `UserDefaults` для настроек, которые не требуют особой безопасности
 ///  Пример исппользования:
@@ -38,14 +41,6 @@ struct Setting<T> {
         userDefaults.object(forKey: key) as? T ?? defaultValue
     }
     
-//    private func getValue() -> T where T: RawRepresentable {
-//        guard let value = userDefaults.value(forKey: key) as? T.RawValue else {
-//            return defaultValue
-//        }
-//
-//        return T(rawValue: value) ?? defaultValue
-//    }
-    
     private func setValue(_ newValue: T) {
         switch newValue {
         case let newValue as Optional<T>:
@@ -60,8 +55,33 @@ struct Setting<T> {
         // почему-то крашится, если там nil
         userDefaults.set(newValue, forKey: key)
     }
+
+}
+
+
+protocol PreferencesProtocol {
+    var pinCode: String? { get set }
+}
+
+final class Preferences: PreferencesProtocol {
     
+    @Setting<String?>("pin_code", defaultValue: nil)
+    var pinCode: String?
+}
+
+extension Reactive where Base: Preferences {
+    
+}
+
+
+//    private func getValue() -> T where T: RawRepresentable {
+//        guard let value = userDefaults.value(forKey: key) as? T.RawValue else {
+//            return defaultValue
+//        }
+//
+//        return T(rawValue: value) ?? defaultValue
+//    }
+
 //    private func setValue(_ newValue: T) where T: RawRepresentable {
 //        userDefaults.set(newValue.rawValue, forKey: key)
 //    }
-}

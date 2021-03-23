@@ -25,6 +25,6 @@ final class ConfirmCodeCoordinator: BaseCoordinator<AuthResult> {
         let vm = ConfirmCodeViewModel(token: token, phone: phone)
         vc.viewModel = vm
         (rootViewController as? UINavigationController)?.pushViewController(vc, animated: true)
-        return vm.result
+        return vm.didAuthorize
     }
 }

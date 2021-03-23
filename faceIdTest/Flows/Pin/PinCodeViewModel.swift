@@ -23,64 +23,96 @@ protocol PinCodeViewModelProtocol {
     var incorrectCode: Observable<Void> { get }
     
     /// Требуется повторить ввод кода (для создания)
-    var needToRepeatCode: Observable<Void> { get }
+    var shouldConfirmCode: Observable<Void> { get }
     
-    /// Доступна ли биометрическая авторизация ()
-    var config: PinCodeConfig { get }
+    var pinType: PinCodeType { get }
     
     /// Нажата кнопка "забыли пароль"
     var forgotPassword: AnyObserver<Void> { get }
     var didForgotPassword: Observable<Void> { get }
 }
 
-struct PinCodeConfig {
-    let needsRepeat: Bool
-    let showForgotPassword: Bool
-    let isBiometricsAvailable: Bool
+enum PinCodeType {
+    case create
+    case confirm
+    
+    /// Требуется подтверждение кода
+    var needsConfirmation: Bool {
+        self == .create
+    }
+    
+    var canForceLogout: Bool {
+        self == .confirm
+    }
+    
+    var canUseBiometrics: Bool {
+        self == .confirm
+    }
 }
 
 final class PinCodeViewModel: PinCodeViewModelProtocol {
+    
     var code: AnyObserver<String>
-    
     var didAuthenticate: Observable<Void>
-    
     var evaluateBiometrics: AnyObserver<Void>
-    
     var incorrectCode: Observable<Void>
-    
-    var needToRepeatCode: Observable<Void>
-    
-    var config: PinCodeConfig
-    
+    var shouldConfirmCode: Observable<Void>
+    var pinType: PinCodeType
     var forgotPassword: AnyObserver<Void>
-    
     var didForgotPassword: Observable<Void>
     
     private let disposeBag = DisposeBag()
     
-    init(config: PinCodeConfig) {
-        self.config = config
+    init(pinType: PinCodeType, prefs: PreferencesProtocol = Preferences(), codeLength: Int = 4) {
+        self.pinType = pinType
         
         let _codeSubject = PublishSubject<String>()
         code = _codeSubject.asObserver()
         
-        let maybeCorrectCode = _codeSubject.asObservable().filter { $0.count == 4 }.map {
-            $0 == "5555"
-        }.share()
-        
-        let correctCode = maybeCorrectCode.compactMap { $0 ? () : nil }
-        incorrectCode = maybeCorrectCode.compactMap { !$0 ? () : nil }
+        let _code = _codeSubject.asObservable()
+            .filter { $0.count == codeLength }
+            .share()
+
         
         let _biometrics = PublishSubject<Void>()
         evaluateBiometrics = _biometrics.asObserver()
         
-        didAuthenticate = correctCode
-            .merge(with: _biometrics.asObservable())
+        if pinType.needsConfirmation {
+            let firstCode = _code.take(1)
+            shouldConfirmCode = _code.mapToVoid().share()
+            let correctlyRepeatedCode = _code.skip(1).withLatestFrom(firstCode, resultSelector: { $0 == $1 }).share()
+            incorrectCode = correctlyRepeatedCode.filter { !$0 }.mapToVoid()
+            didAuthenticate = correctlyRepeatedCode.filter { $0 }.mapToVoid()
+            
+            correctlyRepeatedCode.withLatestFrom(_code)
+                .subscribe(onNext: { code in
+                    print("set code [\(code)]")
+//                    prefs.pinCode = code
+                })
+                .disposed(by: disposeBag)
+        } else {
+            let maybeCorrectCode = _code
+                .map { $0 == "5555"}
+                .share()
+            
+            let correctCode = maybeCorrectCode.compactMap { $0 ? () : nil }
+            incorrectCode = maybeCorrectCode.compactMap { !$0 ? () : nil }
+            
+            didAuthenticate = correctCode
+                .merge(with: _biometrics.asObservable())
+            
+            shouldConfirmCode = .empty()
+        }
         
         let _forgotPassword = PublishSubject<Void>()
         forgotPassword = _forgotPassword.asObserver()
         didForgotPassword = _forgotPassword.asObservable()
-        
-        needToRepeatCode = correctCode.take(1).filter { _ in config.needsRepeat }
+    }
+}
+
+extension Observable {
+    /// Maps values to `Void`
+    func mapToVoid() -> Observable<Void> {
+        mapTo(())
     }
 }

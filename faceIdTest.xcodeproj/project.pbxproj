@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D60E48EA25D44F7A00DCB6E7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E48E925D44F7A00DCB6E7 /* Settings.swift */; };
+		D61333D525E850ED00305626 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61333D425E850ED00305626 /* SettingsViewController.swift */; };
+		D61333DA25E8CC1500305626 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61333D925E8CC1500305626 /* ToggleCell.swift */; };
 		D61FEA5125D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61FEA5025D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift */; };
+		D636C5DC25EE10B40004BC02 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636C5DB25EE10B40004BC02 /* SettingsViewModel.swift */; };
+		D636C5E025EE10D20004BC02 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636C5DF25EE10D20004BC02 /* SettingsCoordinator.swift */; };
 		D68ECB8025D09F4B00F38294 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68ECB7F25D09F4B00F38294 /* Card.swift */; };
 		D698B56725C32E05004BAFF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D698B56625C32E05004BAFF6 /* SceneDelegate.swift */; };
 		D698B56925C32E05004BAFF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D698B56825C32E05004BAFF6 /* ViewController.swift */; };
@@ -71,6 +75,8 @@
 		D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5C725DE693600CC5CE3 /* DotsField.swift */; };
 		D6AFF5CB25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */; };
 		D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */; };
+		D6B1E37325E706440066C248 /* faceIdTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B1E37225E706440066C248 /* faceIdTestTests.swift */; };
+		D6B1E37D25E706540066C248 /* PinTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B1E37C25E706540066C248 /* PinTypeTests.swift */; };
 		D6BF9DF025CDDD37000C468C /* ProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DEF25CDDD37000C468C /* ProfileHeaderCell.swift */; };
 		D6BF9DF325CDDEFA000C468C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DF225CDDEFA000C468C /* User.swift */; };
 		D6BF9DF625CDE794000C468C /* CommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9DF525CDE794000C468C /* CommonCell.swift */; };
@@ -83,11 +89,26 @@
 		D6BF9E1425CE8EEF000C468C /* RidePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */; };
 		D6BF9E1725CE953B000C468C /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1625CE953B000C468C /* Ride.swift */; };
 		D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDD33725D7F34300D76EBE /* PinCodeController.swift */; };
+		D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D6B1E37525E706440066C248 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D698B55925C32E05004BAFF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D698B56025C32E05004BAFF6;
+			remoteInfo = faceIdTest;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D60E48E925D44F7A00DCB6E7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D61333D425E850ED00305626 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D61333D925E8CC1500305626 /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		D61FEA5025D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		D636C5DB25EE10B40004BC02 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		D636C5DF25EE10D20004BC02 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		D68ECB7F25D09F4B00F38294 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D698B56125C32E05004BAFF6 /* faceIdTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = faceIdTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D698B56625C32E05004BAFF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +172,10 @@
 		D6AFF5C725DE693600CC5CE3 /* DotsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsField.swift; sourceTree = "<group>"; };
 		D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnablePinCoordinator.swift; sourceTree = "<group>"; };
 		D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
+		D6B1E37025E706440066C248 /* faceIdTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = faceIdTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6B1E37225E706440066C248 /* faceIdTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = faceIdTestTests.swift; sourceTree = "<group>"; };
+		D6B1E37425E706440066C248 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6B1E37C25E706540066C248 /* PinTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTypeTests.swift; sourceTree = "<group>"; };
 		D6BF9DEF25CDDD37000C468C /* ProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCell.swift; sourceTree = "<group>"; };
 		D6BF9DF225CDDEFA000C468C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D6BF9DF525CDE794000C468C /* CommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCell.swift; sourceTree = "<group>"; };
@@ -163,6 +188,7 @@
 		D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidePointsView.swift; sourceTree = "<group>"; };
 		D6BF9E1625CE953B000C468C /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		D6CDD33725D7F34300D76EBE /* PinCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeController.swift; sourceTree = "<group>"; };
+		D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,20 +200,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D6B1E36D25E706440066C248 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		D60E48E725D44F0A00DCB6E7 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D61333D825E8CC0500305626 /* Cells */,
+				D61333D425E850ED00305626 /* SettingsViewController.swift */,
+				D636C5DB25EE10B40004BC02 /* SettingsViewModel.swift */,
+				D636C5DF25EE10D20004BC02 /* SettingsCoordinator.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		D61333D825E8CC0500305626 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D61333D925E8CC1500305626 /* ToggleCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D698B55825C32E05004BAFF6 = {
 			isa = PBXGroup;
 			children = (
 				D698B56325C32E05004BAFF6 /* faceIdTest */,
+				D6B1E37125E706440066C248 /* faceIdTestTests */,
 				D698B56225C32E05004BAFF6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -196,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				D698B56125C32E05004BAFF6 /* faceIdTest.app */,
+				D6B1E37025E706440066C248 /* faceIdTestTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -425,6 +472,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D6B1E37125E706440066C248 /* faceIdTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				D6B1E37225E706440066C248 /* faceIdTestTests.swift */,
+				D6B1E37425E706440066C248 /* Info.plist */,
+				D6B1E37C25E706540066C248 /* PinTypeTests.swift */,
+				D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */,
+			);
+			path = faceIdTestTests;
+			sourceTree = "<group>";
+		};
 		D6BF9DFB25CDF5B5000C468C /* MyAddresses */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +557,26 @@
 			productReference = D698B56125C32E05004BAFF6 /* faceIdTest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D6B1E36F25E706440066C248 /* faceIdTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6B1E37925E706440066C248 /* Build configuration list for PBXNativeTarget "faceIdTestTests" */;
+			buildPhases = (
+				D6B1E36C25E706440066C248 /* Sources */,
+				D6B1E36D25E706440066C248 /* Frameworks */,
+				D6B1E36E25E706440066C248 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D6B1E37625E706440066C248 /* PBXTargetDependency */,
+			);
+			name = faceIdTestTests;
+			packageProductDependencies = (
+			);
+			productName = faceIdTestTests;
+			productReference = D6B1E37025E706440066C248 /* faceIdTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -510,6 +588,10 @@
 				TargetAttributes = {
 					D698B56025C32E05004BAFF6 = {
 						CreatedOnToolsVersion = 12.2;
+					};
+					D6B1E36F25E706440066C248 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = D698B56025C32E05004BAFF6;
 					};
 				};
 			};
@@ -530,6 +612,7 @@
 			projectRoot = "";
 			targets = (
 				D698B56025C32E05004BAFF6 /* faceIdTest */,
+				D6B1E36F25E706440066C248 /* faceIdTestTests */,
 			);
 		};
 /* End PBXProject section */
@@ -545,6 +628,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D6B1E36E25E706440066C248 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -555,6 +645,7 @@
 				D699F85225CC414B001E7577 /* UITableView+Extensions.swift in Sources */,
 				D6A0E12525CBD94000C8717A /* MapCoordinator.swift in Sources */,
 				D699F85A25CC4153001E7577 /* Change.swift in Sources */,
+				D61333DA25E8CC1500305626 /* ToggleCell.swift in Sources */,
 				D699F84225CC4139001E7577 /* Helpers.swift in Sources */,
 				D6A8FDB925CAE279003B3412 /* PersonalDataViewController.swift in Sources */,
 				D699F84825CC4142001E7577 /* IVCollectionView.swift in Sources */,
@@ -562,6 +653,7 @@
 				D699F85125CC414B001E7577 /* UICollectionView+Extensions.swift in Sources */,
 				D699F84925CC4142001E7577 /* Reusable.swift in Sources */,
 				D699F86125CC415A001E7577 /* Heckel.swift in Sources */,
+				D61333D525E850ED00305626 /* SettingsViewController.swift in Sources */,
 				D6A8FD7C25CA981D003B3412 /* LoginViewController.swift in Sources */,
 				D6A8FDC625CAF279003B3412 /* BasePopover.swift in Sources */,
 				D699F83925CC412E001E7577 /* CollectionUpdater.swift in Sources */,
@@ -585,6 +677,7 @@
 				D6A0E11D25CB48ED00C8717A /* Address.swift in Sources */,
 				D6A8FD7B25CA981D003B3412 /* LoginViewModel.swift in Sources */,
 				D699F83C25CC412E001E7577 /* CollectionDirector.swift in Sources */,
+				D636C5DC25EE10B40004BC02 /* SettingsViewModel.swift in Sources */,
 				D699F85925CC4153001E7577 /* DeepDiff.swift in Sources */,
 				D6A0E12E25CBE9EF00C8717A /* ProfileViewController.swift in Sources */,
 				D6BF9DF925CDF12D000C468C /* CommonButton.swift in Sources */,
@@ -618,6 +711,7 @@
 				D6BF9E0625CE7995000C468C /* FavoriteDestinationCell.swift in Sources */,
 				D699F82E25CC3F7D001E7577 /* TariffCell.swift in Sources */,
 				D6A8FD5F25CA9658003B3412 /* Coordinator.swift in Sources */,
+				D636C5E025EE10D20004BC02 /* SettingsCoordinator.swift in Sources */,
 				D6A8FD5A25CA9650003B3412 /* BaseViewController.swift in Sources */,
 				D6A8FD4A25CA95B3003B3412 /* AppDelegate.swift in Sources */,
 				D6A8FDC925CAF370003B3412 /* RideOptionsController.swift in Sources */,
@@ -627,7 +721,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D6B1E36C25E706440066C248 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6B1E37325E706440066C248 /* faceIdTestTests.swift in Sources */,
+				D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */,
+				D6B1E37D25E706540066C248 /* PinTypeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6B1E37625E706440066C248 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D698B56025C32E05004BAFF6 /* faceIdTest */;
+			targetProxy = D6B1E37525E706440066C248 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D698B56A25C32E05004BAFF6 /* Main.storyboard */ = {
@@ -805,6 +917,44 @@
 			};
 			name = Release;
 		};
+		D6B1E37725E706440066C248 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = faceIdTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.agima.faceIdTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/faceIdTest.app/faceIdTest";
+			};
+			name = Debug;
+		};
+		D6B1E37825E706440066C248 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = faceIdTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.agima.faceIdTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/faceIdTest.app/faceIdTest";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -822,6 +972,15 @@
 			buildConfigurations = (
 				D698B57625C32E13004BAFF6 /* Debug */,
 				D698B57725C32E13004BAFF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6B1E37925E706440066C248 /* Build configuration list for PBXNativeTarget "faceIdTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6B1E37725E706440066C248 /* Debug */,
+				D6B1E37825E706440066C248 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

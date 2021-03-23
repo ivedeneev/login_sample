@@ -107,7 +107,6 @@ final class MapViewController: BaseViewController {
         
         viewModel.paymentMethod
             .asDriver()
-//            .map { $0.name }
             .drive(rideOptions.paymentMethodButton.rx.paymentMethod)
             .disposed(by: disposeBag)
     }

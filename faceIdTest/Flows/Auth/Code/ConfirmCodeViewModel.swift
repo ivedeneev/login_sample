@@ -10,6 +10,8 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 
+let codeTimerLimit = 3
+
 enum AuthResult {
     case success
     case needPersonalData
@@ -24,14 +26,16 @@ protocol ConfirmCodeViewModelProtocol {
     var getNewCode: AnyObserver<Void> { get }
     
     /// Результат подтверждения кода
-    var result: Observable<AuthResult> { get }
+    var didAuthorize: Observable<AuthResult> { get }
+    
+    /// Один индикатор на все запросы на этом экране
     var isLoading: BehaviorRelay<Bool> { get }
     
     /// Ошибки из всех запросов на этом экране
-    var errors: BehaviorRelay<String?> { get }
+    var errors: Observable<String> { get }
     
     /// Таймер отправки нового кода
-    var newCodeTimer: BehaviorRelay<Int?> { get }
+    var newCodeTimer: BehaviorRelay<Int> { get }
     
     /// Запросили новый код при нажатии на "отправить заново"
     var didRequestNewCode: Observable<Void> { get }
@@ -42,14 +46,19 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
     var code: AnyObserver<String>
     var getNewCode: AnyObserver<Void>
     var isLoading = BehaviorRelay<Bool>(value: false)
-    var errors = BehaviorRelay<String?>(value: nil)
-    var newCodeTimer = BehaviorRelay<Int?>(value: nil)
-    var result: Observable<AuthResult>
+    var errors: Observable<String>
+    var newCodeTimer = BehaviorRelay<Int>(value: codeTimerLimit)
+    var didAuthorize: Observable<AuthResult>
     var didRequestNewCode: Observable<Void>
     
     private let disposeBag = DisposeBag()
     
-    init(token: String, phone: String, authService: AuthServiceProtocol = AuthService()) {
+    init(token: String,
+         phone: String,
+         codeLength: Int = 4,
+         
+         authService: AuthServiceProtocol = AuthService())
+    {
         let _codeSubject = PublishSubject<String>()
         code = _codeSubject.asObserver()
         
@@ -58,7 +67,7 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         
         let codeObservable = _codeSubject.asObservable()
         
-        let validCodeObservable = codeObservable.filter { $0.count == 4 }
+        let validCodeObservable = codeObservable.filter { $0.count == codeLength }
         
         // запрос нового кода
         let fetchNewCode = _getCode.asObservable()
@@ -66,43 +75,32 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
                 authService.loginByPhone(phone: phone).materialize()
             }.share()
         
-        didRequestNewCode = fetchNewCode.elements().mapTo(())
+        didRequestNewCode = fetchNewCode.elements().mapToVoid()
         
         let codeEvents = validCodeObservable
             .flatMap { (code) in
                 authService.confirmCode(code: code, token: token).materialize()
             }.share()
         
-        result = codeEvents.elements()
+        didAuthorize = codeEvents.elements()
         
-        let codeTimer = 3
-        validCodeObservable.mapTo(()).merge(with: didRequestNewCode)
-            .take(until: fetchNewCode)
-            .flatMap { _ -> Observable<Int?> in
+        Observable.merge(validCodeObservable.mapToVoid(), didRequestNewCode, .just(()))
+            .flatMap { _ -> Observable<Int> in
                 Observable.interval(.seconds(1), scheduler: MainScheduler.instance)
-                    .take(codeTimer + 1)
-                    .map { (tick: Int) -> Int? in
-                        let res = codeTimer - tick - 1
-                        return res < 0 ? nil : res
-                    }
+                    .map { codeTimerLimit - $0 - 1 }
+                    .take(while: { $0 >= 0 })
             }
             .bind(to: newCodeTimer)
             .disposed(by: disposeBag)
         
-        codeEvents.mapTo(false).bind(to: isLoading).disposed(by: disposeBag)
-        validCodeObservable.mapTo(true).bind(to: isLoading).disposed(by: disposeBag)
+        codeEvents.mapTo(false).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
+        validCodeObservable.mapTo(true).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
         
-        _getCode.asObservable().mapTo(true).bind(to: isLoading).disposed(by: disposeBag)
-        fetchNewCode.mapTo(false).bind(to: isLoading).disposed(by: disposeBag)
+        _getCode.asObservable().mapTo(true).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
+        fetchNewCode.mapTo(false).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
         
-        codeEvents.errors()
+        errors = codeEvents.errors()
             .compactMap { ($0 as? AuthErrorType)?.localizedDescription }
-            .bind(to: errors)
-            .disposed(by: disposeBag)
-        
-        codeObservable
-            .mapTo(Optional<String>.none)
-            .bind(to: errors)
-            .disposed(by: disposeBag)
     }
 }
+

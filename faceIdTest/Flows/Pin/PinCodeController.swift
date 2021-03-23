@@ -11,11 +11,6 @@ import RxRelay
 import LocalAuthentication
 import RxCocoa
 
-enum PinCodeType {
-    case create
-    case confirm
-}
-
 final class PinCodeController: BaseViewController {
     
     var viewModel: PinCodeViewModelProtocol!
@@ -45,6 +40,22 @@ final class PinCodeController: BaseViewController {
     private func setup() {
         setupPinPad()
         setupDots()
+        setupTitle()
+    }
+    
+    private func setupTitle() {
+        view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.font = Font.largeTitle
+        titleLabel.textColor = Color.text()
+        titleLabel.text = "Введите код"
+        titleLabel.textAlignment = .center
+        
+        NSLayoutConstraint.activate([
+            titleLabel.bottomAnchor.constraint(equalTo: codeField.topAnchor, constant: -40),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+        ])
     }
     
     private func setupDots() {
@@ -78,16 +89,6 @@ final class PinCodeController: BaseViewController {
         line3.spacing = 8
         line3.distribution = .equalCentering
         
-//        let line4 = UIStackView()
-//        let dummyItem = PinPadItem()
-//        dummyItem.backgroundColor = .clear
-//        line4.addArrangedSubview(dummyItem)
-//        line4.addArrangedSubview(keyboardDigits[9])
-//        line4.addArrangedSubview(deleteButton)
-//
-//        line4.spacing = 8
-//        line4.distribution = .equalCentering
-        
         let vericalSpacing: CGFloat = 12
         
         stack.spacing = vericalSpacing
@@ -96,7 +97,6 @@ final class PinCodeController: BaseViewController {
         stack.addArrangedSubview(line1)
         stack.addArrangedSubview(line2)
         stack.addArrangedSubview(line3)
-//        stack.addArrangedSubview(line4)
         
         view.addSubview(stack)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +149,7 @@ final class PinCodeController: BaseViewController {
         deleteButton.tintColor = Color.green()
         
         faceIdButton.backgroundColor = .clear
-        faceIdButton.setImage(UIImage(named: "faceId"), for: .normal)
+        faceIdButton.setImage(UIImage(named: "faceId")?.withTintColor(Color.text()), for: .normal)
         faceIdButton.tintColor = Color.green()
     }
     
@@ -177,7 +177,7 @@ final class PinCodeController: BaseViewController {
         let deleteObservable = deleteTap.map { code in String(code.dropLast()) }
         
         // результирующий поток с кодом
-        Observable.merge(digitTapObservable, deleteObservable, viewModel.incorrectCode.map { "" })
+        Observable.merge(digitTapObservable, deleteObservable, viewModel.incorrectCode.map { "" }, viewModel.shouldConfirmCode.map { "" })
             .observe(on: MainScheduler.asyncInstance) // рекомендация от RxSwift для избежания циклического биндинга
             .bind(to: codeRelay)
             .disposed(by: disposeBag)
@@ -190,7 +190,7 @@ final class PinCodeController: BaseViewController {
         
         codeRelay
             .map { [unowned self] code -> Bool in
-                return !(code.isEmpty && self.viewModel.config.isBiometricsAvailable)
+                return !(code.isEmpty && self.viewModel.pinType.canUseBiometrics)
             }
             .bind(to: faceIdButton.rx.isHidden)
             .disposed(by: disposeBag)
@@ -198,16 +198,15 @@ final class PinCodeController: BaseViewController {
         // заполнить точки
         codeRelay
             .map { $0.count }
-            .filter { $0 > 0 } // для того, чтобы точки сразу не стирались при ошибке
             .bind(to: codeField.rx.numberOfFilledDots)
             .disposed(by: disposeBag)
         
         // "автоматом" заполнить точки, если сработала авторизация по FaceID
-        let faceIdIsOn = true
+        let faceIdIsOn = viewModel.pinType.canUseBiometrics
         let viewDidAppearObservable = rx.sentMessage(#selector(viewDidAppear(_:)))
             .take(1)
             .filter { _ in faceIdIsOn }
-            .mapTo(())
+            .mapToVoid()
             .share()
         
         let evaluatedBiometrics = faceIdButton.rx.tap.asObservable()
@@ -217,10 +216,7 @@ final class PinCodeController: BaseViewController {
             }.share()
             
         evaluatedBiometrics
-            .debug()
-            .map { _ in
-                4
-            }
+            .map { _ in 4 }
             .bind(to: codeField.rx.numberOfFilledDots)
             .disposed(by: disposeBag)
         
@@ -236,8 +232,14 @@ final class PinCodeController: BaseViewController {
         evaluatedBiometrics.bind(to: viewModel.evaluateBiometrics).disposed(by: disposeBag)
         forgotPasswordButton.rx.tap.bind(to: viewModel.forgotPassword).disposed(by: disposeBag)
         
-        forgotPasswordButton.isHidden = !viewModel.config.showForgotPassword
-        faceIdButton.isHidden = !viewModel.config.isBiometricsAvailable
+        forgotPasswordButton.isHidden = !viewModel.pinType.canForceLogout
+        faceIdButton.isHidden = !viewModel.pinType.canUseBiometrics
+        
+        
+        viewModel.shouldConfirmCode
+            .mapTo("Повторите код")
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
     func evaluateBiometrics() -> Observable<Void> {

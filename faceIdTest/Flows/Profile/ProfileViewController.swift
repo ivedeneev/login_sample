@@ -11,6 +11,8 @@ import RxSwift
 
 final class ProfileViewController: CollectionViewController {
     
+    var viewModel: ProfileViewModelProtocol!
+    
     lazy var logoImageView = UIImageView(image: UIImage(named: "Logo"))
     
     override func viewDidLoad() {
@@ -43,7 +45,7 @@ final class ProfileViewController: CollectionViewController {
         
         settingsSection += CollectionItem<CommonCell>(item: .init(title: "Настройки", subtitle: nil, icon: nil))
             .onSelect { [unowned self] _ in
-                self.navigationController?.pushViewController(PaymentMethodsController(), animated: true)
+                self.viewModel.showSettings.onNext(())
             }
         director += settingsSection
         
@@ -53,20 +55,49 @@ final class ProfileViewController: CollectionViewController {
 
 final class ProfileCoordinator: BaseCoordinator<Void> {
     
+    private let disposeBag = DisposeBag()
+    
     init(_ rootVc: UIViewController?) {
         super.init()
         rootViewController = rootVc
     }
     
-    
     override func start() -> Observable<Void> {
         let vc = ProfileViewController()
-        
+        let vm = ProfileViewModel()
+        vc.viewModel = vm
         
         let nc = TranslucentNavigationController(rootViewController: vc)
         
         rootViewController?.present(nc, animated: true, completion: nil)
         
+        vm.didShowSettings.flatMap { [unowned self] in
+            self.showSettings(in: nc)
+        }
+        .subscribe()
+        .disposed(by: disposeBag)
+        
         return .never()
+    }
+    
+    private func showSettings(in nc: UINavigationController) -> Observable<Void> {
+        let coordinator = SettingsCoordinator(rootViewController: nc)
+        return coordinate(to: coordinator)
+    }
+}
+
+protocol ProfileViewModelProtocol {
+    var showSettings: AnyObserver<Void> { get }
+    var didShowSettings: Observable<Void> { get }
+}
+
+final class ProfileViewModel: ProfileViewModelProtocol {
+    var showSettings: AnyObserver<Void>
+    var didShowSettings: Observable<Void>
+    
+    init() {
+        let _settings = PublishSubject<Void>()
+        showSettings = _settings.asObserver()
+        didShowSettings = _settings.asObservable()
     }
 }

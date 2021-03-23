@@ -15,6 +15,11 @@ protocol CoordinatorProtocol {
 class BaseCoordinator<T>: CoordinatorProtocol {
        var rootViewController: UIViewController?
     
+    convenience init(rootViewController: UIViewController?) {
+        self.init()
+        self.rootViewController = rootViewController
+    }
+    
        private let identifier = UUID()
 
        /// Dictionary of the child coordinators. Every child coordinator should be added
@@ -52,7 +57,9 @@ class BaseCoordinator<T>: CoordinatorProtocol {
 //                self?.free(coordinator: coordinator)
 //            })
             .do(onDispose: { [weak self] in
+                #if DEBUG
                 print("free \(coordinator)")
+                #endif
                 self?.free(coordinator: coordinator)
             })
        }

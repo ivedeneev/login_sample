@@ -15,6 +15,12 @@ final class ConfirmCodeViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     
     let codeTextField = CodeTextField()
+    let stackView = UIStackView()
+    let helloLabel = UILabel()
+    let errorLabel = UILabel()
+    let loader = UIActivityIndicatorView()
+    let timerLabel = UILabel()
+    let retryButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +29,6 @@ final class ConfirmCodeViewController: BaseViewController {
     }
     
     private func setup() {
-        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
@@ -38,7 +43,6 @@ final class ConfirmCodeViewController: BaseViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 84),
         ])
         
-        let helloLabel = UILabel()
         helloLabel.text = "Код подтверждения:"
         helloLabel.font = Font.title
         helloLabel.textAlignment = .center
@@ -47,27 +51,20 @@ final class ConfirmCodeViewController: BaseViewController {
         
         stackView.addArrangedSubview(helloLabel)
         
-        
-//        codeTextField.placeholder = "____"
         codeTextField.showDashes = true
         codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
         stackView.addArrangedSubview(codeTextField)
-//        codeTextField.backgroundColor = UIColor.blue.withAlphaComponent(0.25)
         stackView.setCustomSpacing(20, after: codeTextField)
         
-        let errorLabel = UILabel()
         errorLabel.numberOfLines = 2
         errorLabel.textColor = Color.red()
         stackView.addArrangedSubview(errorLabel)
         
-        let loader = UIActivityIndicatorView()
         stackView.addArrangedSubview(loader)
         
-        let timerLabel = UILabel()
         timerLabel.numberOfLines = 2
         stackView.addArrangedSubview(timerLabel)
         
-        let retryButton = UIButton(type: .system)
         retryButton.setTitleColor(UIColor.white, for: .normal)
         retryButton.setTitle("отправить заново".uppercased(), for: .normal)
         retryButton.isHidden = true
@@ -77,11 +74,14 @@ final class ConfirmCodeViewController: BaseViewController {
         
         stackView.addArrangedSubview(retryButton)
         
-        codeTextField.rx
+        let codeText = codeTextField.rx
             .controlEvent(.editingChanged)
             .map { [unowned codeTextField] in
                 return codeTextField.text ?? ""
             }
+            .share()
+        
+        codeText
             .bind(to: viewModel.code)
             .disposed(by: disposeBag)
         
@@ -101,30 +101,35 @@ final class ConfirmCodeViewController: BaseViewController {
             .disposed(by: disposeBag)
 
         viewModel.errors
-            .asDriver()
+            .asDriver(onErrorJustReturn: "")
             .drive(errorLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.didRequestNewCode
+        codeText.mapToVoid()
+            .merge(with: viewModel.didRequestNewCode)
             .mapTo(Optional<String>.none)
             .asDriver(onErrorJustReturn: Optional<String>.none)
             .drive(errorLabel.rx.text)
             .disposed(by: disposeBag)
         
         let newCodeDriver = viewModel.newCodeTimer.asDriver()
+        let codeTimerIsActive = viewModel.newCodeTimer.map { $0 != 0 }
         
         newCodeDriver
-            .map { (sec) -> String? in
-                guard let s = sec else { return nil }
-                return "Не пришел код? Повторый запрос возможен через  \(s) сек"
+            .map { (sec) -> String in
+                print(sec)
+                return "Не пришел код? Повторый запрос возможен через  \(sec) сек"
             }
             .drive(timerLabel.rx.text)
             .disposed(by: disposeBag)
         
-        newCodeDriver
-            .map { $0 != nil }
-            .skip(1)
-            .drive(retryButton.rx.isHidden)
+        codeTimerIsActive
+            .bind(to: retryButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        codeTimerIsActive
+            .map { !$0 }
+            .bind(to: timerLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     

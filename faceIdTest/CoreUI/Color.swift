@@ -63,7 +63,7 @@ final class Color {
     }
 
     static func lightBlueGray() -> UIColor {
-        return color(light: "#E5EAF5", dark: "#E5EAF5")
+        return color(light: "#E5EAF5", dark: "#353A45")
     }
 
     static func lightRedBackground() -> UIColor {
