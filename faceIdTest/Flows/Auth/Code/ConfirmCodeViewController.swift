@@ -76,13 +76,13 @@ final class ConfirmCodeViewController: BaseViewController {
         
         let codeText = codeTextField.rx
             .controlEvent(.editingChanged)
+            .asDriver()
             .map { [unowned codeTextField] in
-                return codeTextField.text ?? ""
+                return codeTextField.text ?? "" // "хитрая" реализация для текстфилда ввода кода
             }
-            .share()
         
         codeText
-            .bind(to: viewModel.code)
+            .drive(viewModel.code)
             .disposed(by: disposeBag)
         
         retryButton.rx.tap
@@ -90,46 +90,40 @@ final class ConfirmCodeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .asDriver()
             .drive(loader.rx.isAnimating)
             .disposed(by: disposeBag)
         
         viewModel.didRequestNewCode
             .mapTo("")
-            .asDriver(onErrorJustReturn: "")
             .drive(codeTextField.rx.text)
             .disposed(by: disposeBag)
 
         viewModel.errors
-            .asDriver(onErrorJustReturn: "")
             .drive(errorLabel.rx.text)
             .disposed(by: disposeBag)
         
-        codeText.mapToVoid()
-            .merge(with: viewModel.didRequestNewCode)
-            .mapTo(Optional<String>.none)
-            .asDriver(onErrorJustReturn: Optional<String>.none)
+        Driver.merge([codeText.mapTo(Void()), viewModel.didRequestNewCode])
+            .mapTo(nil)
             .drive(errorLabel.rx.text)
             .disposed(by: disposeBag)
         
-        let newCodeDriver = viewModel.newCodeTimer.asDriver()
+        let newCodeDriver = viewModel.newCodeTimer
         let codeTimerIsActive = viewModel.newCodeTimer.map { $0 != 0 }
         
         newCodeDriver
             .map { (sec) -> String in
-                print(sec)
                 return "Не пришел код? Повторый запрос возможен через  \(sec) сек"
             }
             .drive(timerLabel.rx.text)
             .disposed(by: disposeBag)
         
         codeTimerIsActive
-            .bind(to: retryButton.rx.isHidden)
+            .drive(retryButton.rx.isHidden)
             .disposed(by: disposeBag)
         
         codeTimerIsActive
             .map { !$0 }
-            .bind(to: timerLabel.rx.isHidden)
+            .drive(timerLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     

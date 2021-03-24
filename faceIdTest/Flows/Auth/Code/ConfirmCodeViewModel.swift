@@ -26,37 +26,40 @@ protocol ConfirmCodeViewModelProtocol {
     var getNewCode: AnyObserver<Void> { get }
     
     /// Результат подтверждения кода
-    var didAuthorize: Observable<AuthResult> { get }
+    var didAuthorize: Driver<AuthResult> { get }
     
     /// Один индикатор на все запросы на этом экране
-    var isLoading: BehaviorRelay<Bool> { get }
+    var isLoading: Driver<Bool> { get }
     
     /// Ошибки из всех запросов на этом экране
-    var errors: Observable<String> { get }
+    var errors: Driver<String> { get }
     
     /// Таймер отправки нового кода
-    var newCodeTimer: BehaviorRelay<Int> { get }
+    var newCodeTimer: Driver<Int> { get }
     
     /// Запросили новый код при нажатии на "отправить заново"
-    var didRequestNewCode: Observable<Void> { get }
+    var didRequestNewCode: Driver<Void> { get }
 }
 
 final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
     
-    var code: AnyObserver<String>
-    var getNewCode: AnyObserver<Void>
-    var isLoading = BehaviorRelay<Bool>(value: false)
-    var errors: Observable<String>
-    var newCodeTimer = BehaviorRelay<Int>(value: codeTimerLimit)
-    var didAuthorize: Observable<AuthResult>
-    var didRequestNewCode: Observable<Void>
+    let code: AnyObserver<String>
+    let getNewCode: AnyObserver<Void>
+    
+    let didAuthorize: Driver<AuthResult>
+    
+    let isLoading: Driver<Bool>
+    let errors: Driver<String>
+    
+    let newCodeTimer: Driver<Int>
+    let didRequestNewCode: Driver<Void>
     
     private let disposeBag = DisposeBag()
     
     init(token: String,
          phone: String,
          codeLength: Int = 4,
-         
+         resendCodeTimeout: Int = 3,
          authService: AuthServiceProtocol = AuthService())
     {
         let _codeSubject = PublishSubject<String>()
@@ -75,32 +78,39 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
                 authService.loginByPhone(phone: phone).materialize()
             }.share()
         
-        didRequestNewCode = fetchNewCode.elements().mapToVoid()
+        let _newCode = fetchNewCode.elements().mapToVoid()
+        didRequestNewCode = _newCode.asDriver(onErrorJustReturn: ())
         
         let codeEvents = validCodeObservable
             .flatMap { (code) in
                 authService.confirmCode(code: code, token: token).materialize()
             }.share()
         
-        didAuthorize = codeEvents.elements()
+        didAuthorize = codeEvents.elements().asDriver(onErrorJustReturn: .needPersonalData)
         
-        Observable.merge(validCodeObservable.mapToVoid(), didRequestNewCode, .just(()))
+        let _timer = BehaviorRelay<Int>(value: codeTimerLimit)
+        newCodeTimer = _timer.asDriver()
+        
+        Observable.merge(validCodeObservable.mapToVoid(), _newCode, .just(()))
             .flatMap { _ -> Observable<Int> in
                 Observable.interval(.seconds(1), scheduler: MainScheduler.instance)
-                    .map { codeTimerLimit - $0 - 1 }
+                    .map { resendCodeTimeout - $0 - 1 }
                     .take(while: { $0 >= 0 })
             }
-            .bind(to: newCodeTimer)
+            .bind(to: _timer)
             .disposed(by: disposeBag)
         
-        codeEvents.mapTo(false).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
-        validCodeObservable.mapTo(true).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
+        let isLoadingRelay = BehaviorRelay<Bool>(value: false)
+        isLoading = isLoadingRelay.asDriver()
         
-        _getCode.asObservable().mapTo(true).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
-        fetchNewCode.mapTo(false).distinctUntilChanged().bind(to: isLoading).disposed(by: disposeBag)
+        codeEvents.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
+        validCodeObservable.mapTo(true).bind(to: isLoadingRelay).disposed(by: disposeBag)
         
-        errors = codeEvents.errors()
-            .compactMap { ($0 as? AuthErrorType)?.localizedDescription }
+        _getCode.asObservable().mapTo(true).bind(to: isLoadingRelay).disposed(by: disposeBag)
+        fetchNewCode.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
+        
+        errors = codeEvents.errors().merge(with: fetchNewCode.errors())
+            .compactMap { ($0 as? ErrorType)?.localizedDescription }
+            .asDriver(onErrorJustReturn: "")
     }
 }
-

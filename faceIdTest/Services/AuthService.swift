@@ -48,20 +48,24 @@ final class AuthService: AuthServiceProtocol {
     }
 }
 
-enum ErrorType: Error {
-    case text(String)
-    
-    var localizedDescription: String {
-        switch self {
-        case .text(let text):
-            return text
-        default:
-            break
-        }
-    }
+protocol ErrorType {
+    var localizedDescription: String { get }
 }
 
-enum AuthErrorType: Error {
+//enum ErrorType: Error {
+//    case text(String)
+//
+//    var localizedDescription: String {
+//        switch self {
+//        case .text(let text):
+//            return text
+//        default:
+//            break
+//        }
+//    }
+//}
+
+enum AuthErrorType: Error, ErrorType {
     case atempsLeft(Int)
     case blocked
     

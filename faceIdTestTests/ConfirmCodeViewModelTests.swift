@@ -8,7 +8,7 @@
 import XCTest
 import RxSwift
 import RxBlocking
-
+//import RxTest
 @testable import faceIdTest
 
 class ConfirmCodeViewModelTests: XCTestCase {
@@ -24,12 +24,15 @@ class ConfirmCodeViewModelTests: XCTestCase {
        )
         
         let text = Observable.from(["2", "23", "234", "2345"])
+        viewModel.didAuthorize.do(onNext: { _ in
+                                    print("T_T")
+        }).subscribe().disposed(by: disposeBag)
+        
         text.bind(to: viewModel.code).disposed(by: disposeBag)
-        viewModel.didAuthorize.debug().subscribe().disposed(by: disposeBag)
 //        XCTAssertEqual(try viewModel.numeratorText.toBlocking().first(), "4")
 //        viewModel.isLoading.
-        let ttt = try text.toBlocking().toArray()
-        XCTAssertEqual(try viewModel.isLoading.toBlocking().toArray(), [false, true])
+        let ttt = try viewModel.didAuthorize.toBlocking().toArray()
+//        XCTAssertEqual(try viewModel.didAuthorize.toBlocking().toArray(), [false, true])
     }
     
     func testConfirmCode() throws {
