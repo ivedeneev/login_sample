@@ -11,6 +11,12 @@ import RxRelay
 import LocalAuthentication
 import RxCocoa
 
+enum PinInputEvent {
+    case digit(Int)
+    case delete
+    case clear
+}
+
 final class PinCodeController: BaseViewController {
     
     var viewModel: PinCodeViewModelProtocol!
@@ -26,7 +32,7 @@ final class PinCodeController: BaseViewController {
     lazy var titleLabel = UILabel()
     
     private lazy var codeField = DotsField()
-    private let codeRelay = BehaviorRelay<String>(value: "")
+//    private let codeRelay = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
 
@@ -154,41 +160,42 @@ final class PinCodeController: BaseViewController {
     }
     
     private func bind() {
-        let digitSignals = keyboardDigits.map {
-            $0.rx.controlEvent(.touchUpInside)
-                .mapTo($0.digit)
-                .compactMap { $0 }
-                .map(String.init)
-        }
+        let digitSignals = keyboardDigits.map { item -> Observable<PinInputEvent> in
+            item.rx.controlEvent(.touchUpInside)
+                .compactMap { item.digit }
+                .map { PinInputEvent.digit($0) }
+            }
         
         // поток ввода цифр
-        let digitTapObservable = Observable.merge(digitSignals).withLatestFrom(codeRelay) { (digit, code) -> String in
-            code.count < 4 ? code.appending(digit) : code
-        }
-        
-        // поток нажатий на нижнюю правую кнопку
-        let rightButtonTap = deleteButton.rx.tap.share().map { [unowned self] in self.codeRelay.value }
-        
-        // если заполнен хотя бы 1 символ - кнопка работает как delete;
-        // если еще ничего не заполнено - даем возможность воспользоваться FaceID, если он разрешен
-        let deleteTap = rightButtonTap.filter { !$0.isEmpty }
-        
-        // удаление последней цифры
-        let deleteObservable = deleteTap.map { code in String(code.dropLast()) }
-        
-        // результирующий поток с кодом
-        Observable.merge(digitTapObservable, deleteObservable, viewModel.incorrectCode.map { "" }, viewModel.shouldConfirmCode.map { "" })
-            .observe(on: MainScheduler.asyncInstance) // рекомендация от RxSwift для избежания циклического биндинга
-            .bind(to: codeRelay)
-            .disposed(by: disposeBag)
+        let inputEvents =
+            Observable.merge(digitSignals)
+                .merge(with: [
+                        deleteButton.rx.tap.mapTo(PinInputEvent.delete),
+                        viewModel.incorrectCode.mapTo(PinInputEvent.clear),
+                        viewModel.shouldConfirmCode.mapTo(PinInputEvent.clear)
+                        ]
+                )
+                .scan("", accumulator: { (code, kbdItem) -> String in
+                    switch kbdItem {
+                    case .digit(let digit):
+                        return code.appending(String(digit))
+                    case .delete:
+                        return String(code.dropLast())
+                    case .clear:
+                        return ""
+                    }
+                })
+                .startWith("")
+                .share()
+                .do(onNext: {print($0)})
         
         // икнока для правой нижней кнопки (FaceID или удаление последнего символа)
-        codeRelay
+        inputEvents
             .map { $0.isEmpty }
             .bind(to: deleteButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        codeRelay
+        inputEvents
             .map { [unowned self] code -> Bool in
                 return !(code.isEmpty && self.viewModel.pinType.canUseBiometrics)
             }
@@ -196,7 +203,7 @@ final class PinCodeController: BaseViewController {
             .disposed(by: disposeBag)
         
         // заполнить точки
-        codeRelay
+        inputEvents
             .map { $0.count }
             .bind(to: codeField.rx.numberOfFilledDots)
             .disposed(by: disposeBag)
@@ -225,7 +232,8 @@ final class PinCodeController: BaseViewController {
             .bind(to: codeField.rx.error)
             .disposed(by: disposeBag)
         
-        codeRelay
+        inputEvents
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: viewModel.code)
             .disposed(by: disposeBag)
         
@@ -252,9 +260,8 @@ final class PinCodeController: BaseViewController {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "pls") { (success, authError) in
                 if success {
                     obs.onNext(())
-                    obs.onCompleted()
-                    return
                 }
+                obs.onCompleted()
             }
             
             return Disposables.create()

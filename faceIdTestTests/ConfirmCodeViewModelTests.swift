@@ -24,9 +24,10 @@ class ConfirmCodeViewModelTests: XCTestCase {
        )
         
         let text = Observable.from(["2", "23", "234", "2345"])
-        viewModel.didAuthorize.do(onNext: { _ in
-                                    print("T_T")
-        }).subscribe().disposed(by: disposeBag)
+        viewModel.didAuthorize
+            .do(onNext: { _ in print("T_T")})
+            .drive()
+            .disposed(by: disposeBag)
         
         text.bind(to: viewModel.code).disposed(by: disposeBag)
 //        XCTAssertEqual(try viewModel.numeratorText.toBlocking().first(), "4")

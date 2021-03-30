@@ -74,24 +74,27 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         
         // запрос нового кода
         let fetchNewCode = _getCode.asObservable()
-            .flatMap {
+            .flatMapLatest {
                 authService.loginByPhone(phone: phone).materialize()
-            }.share()
+            }
+            .share()
         
         let _newCode = fetchNewCode.elements().mapToVoid()
         didRequestNewCode = _newCode.asDriver(onErrorJustReturn: ())
         
         let codeEvents = validCodeObservable
-            .flatMap { (code) in
+            .flatMapLatest { (code) in
                 authService.confirmCode(code: code, token: token).materialize()
-            }.share()
+            }
+            .share()
         
         didAuthorize = codeEvents.elements().asDriver(onErrorJustReturn: .needPersonalData)
         
         let _timer = BehaviorRelay<Int>(value: codeTimerLimit)
         newCodeTimer = _timer.asDriver()
         
-        Observable.merge(validCodeObservable.mapToVoid(), _newCode, .just(()))
+        Observable.merge(validCodeObservable.mapToVoid(), _newCode)
+            .startWith(Void())
             .flatMap { _ -> Observable<Int> in
                 Observable.interval(.seconds(1), scheduler: MainScheduler.instance)
                     .map { resendCodeTimeout - $0 - 1 }
@@ -109,7 +112,8 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         _getCode.asObservable().mapTo(true).bind(to: isLoadingRelay).disposed(by: disposeBag)
         fetchNewCode.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
         
-        errors = codeEvents.errors().merge(with: fetchNewCode.errors())
+        errors = codeEvents.errors()
+            .merge(with: fetchNewCode.errors())
             .compactMap { ($0 as? ErrorType)?.localizedDescription }
             .asDriver(onErrorJustReturn: "")
     }

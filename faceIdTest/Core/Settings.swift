@@ -70,7 +70,11 @@ final class Preferences: PreferencesProtocol {
 }
 
 extension Reactive where Base: Preferences {
-    
+    var pinCode: Binder<String?> {
+        Binder(base) { (settings, value) in
+            settings.pinCode = value
+        }
+    }
 }
 
 

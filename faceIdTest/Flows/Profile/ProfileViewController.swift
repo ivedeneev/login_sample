@@ -71,11 +71,12 @@ final class ProfileCoordinator: BaseCoordinator<Void> {
         
         rootViewController?.present(nc, animated: true, completion: nil)
         
-        vm.didShowSettings.flatMap { [unowned self] in
-            self.showSettings(in: nc)
-        }
-        .subscribe()
-        .disposed(by: disposeBag)
+        vm.didShowSettings
+            .flatMap { [unowned self] in
+                self.showSettings(in: nc)
+            }
+            .subscribe()
+            .disposed(by: disposeBag)
         
         return .never()
     }
