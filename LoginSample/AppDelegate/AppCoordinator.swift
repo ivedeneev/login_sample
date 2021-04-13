@@ -11,16 +11,15 @@ import RxSwift
 final class AppCoordinator: BaseCoordinator<Void> {
     
     private var window: UIWindow?
+    private let accountManager: AccountManagerProtocol
     
-    init(window: UIWindow?) {
+    init(window: UIWindow?, accountManager: AccountManagerProtocol = AccountManager()) {
         self.window = window
+        self.accountManager = accountManager
     }
    
     override func start() -> Observable<Void> {
-        let isLoggedIn = false
-        
-        if isLoggedIn {
-            
+        if accountManager.isLoggedIn {
             return coordinate(to: MainCoordinator(window))
         } else {
             return coordinate(to: AuthCoordinator(window))

@@ -34,7 +34,7 @@ final class CodeTextField: UITextField {
     }
     
     private var _placeholder: String {
-        String(repeating: "•", count: length)
+        String(repeating: "0", count: length)
     }
     
     private var symbolWidth: CGFloat!
