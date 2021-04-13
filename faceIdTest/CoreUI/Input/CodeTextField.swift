@@ -33,21 +33,8 @@ final class CodeTextField: UITextField {
         }
     }
     
-//    override var placeholder: String? {
-//        didSet {
-//            guard let placeholder = placeholder else { return }
-//            attributedPlaceholder = NSAttributedString(
-//                string: placeholder,
-//                attributes: [
-//                    .font : font!,
-//                    .kern: letterSpacing,
-//                ])
-//        }
-//    }
-    
     private var _placeholder: String {
-//        String(repeating: "•", count: length)
-        String(repeating: "0", count: length)
+        String(repeating: "•", count: length)
     }
     
     private var symbolWidth: CGFloat!
@@ -78,22 +65,6 @@ final class CodeTextField: UITextField {
             textContentType = .oneTimeCode
         }
     }
-    
-//    override func drawText(in rect: CGRect) {
-//        let s = NSMutableParagraphStyle()
-//        s.minimumLineHeight = font!.lineHeight
-//        let attrstr = NSAttributedString(
-//            string: _placeholder,
-//            attributes: [
-//                .font : font!,
-//                .foregroundColor: placeholderColor,
-//                .kern: letterSpacing
-//            ])
-//
-//        attrstr.draw(in: textRect(forBounds: bounds))
-//
-//        super.drawText(in: rect)
-//    }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)

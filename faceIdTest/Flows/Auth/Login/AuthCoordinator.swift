@@ -27,31 +27,6 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         loginVc.viewModel = vm
         (rootViewController as? UINavigationController)?.setViewControllers([loginVc], animated: false)
         
-        let numbers = Observable.of(1...10)
-        
-        numbers.subscribe { (num) in
-            print(num)
-        } onError: { (error) in
-            print(error.localizedDescription)
-        } onCompleted: {
-            print("completed")
-        } onDisposed: {
-            print("disposed")
-        }.disposed(by: disposeBag)
-
-        
-//        let testObservable =
-//            Observable<String>.create { (observer) -> Disposable in
-//                observer.onNext("h")
-//                observer.onNext("he")
-//                observer.onNext("hel")
-//                observer.onCompleted()
-//                observer.onNext("hell")
-//                observer.onNext("helo")
-//                
-//                return Disposables.create()
-//            }
-        
         return vm.tokenForPhoneNumber
             .observe(on: MainScheduler.instance)
             .flatMap { [weak self] (token, phone) -> Observable<AuthResult> in
@@ -69,28 +44,6 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
                     return .just(.success)
                 }
             }
-            .flatMapLatest { [weak self]  (result) -> Observable<AuthResult> in
-                guard let self = self else { return .empty() }
-                
-                let needPin = true
-                
-                if needPin {
-                    return self.suggestEnablePin()
-                        .filter { $0 }
-                        .flatMapLatest { [unowned self] needToEnable -> Observable<EnablePinResult> in
-                            guard needToEnable else { return .just(.cancel) }
-                            
-                            return self.enablePin()
-                        }
-                        .flatMapLatest { (r) -> Observable<AuthResult> in
-                            guard r == .enabled else { return .just(result) }
-                            
-                            return self.enableFaceID().mapTo(result)
-                        }
-                } else {
-                    return .just(result)
-                }
-            }
     }
     
     private func confirmCode(token: String, phone: String) -> Observable<AuthResult> {
@@ -101,59 +54,6 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
     private func showFillPersonalData() -> Observable<AuthResult> {
         let coordinator = PersonalDataCoordinator(nc: rootViewController)
         return coordinate(to: coordinator)
-    }
-    
-    func enablePin() -> Observable<EnablePinResult> {
-        let c = EnablePinCoordinator(rootViewController: rootViewController)
-        return coordinate(to: c)
-    }
-    
-    func suggestEnablePin() -> Observable<Bool> {
-        Observable.create { [rootViewController] observer in
-            let ac = UIAlertController(title: "Добавить вход по коду?", message: "Вы можете добавить код позже в настройках", preferredStyle: .actionSheet)
-            
-            ac.addAction(
-                .init(title: "Добавить", style: .default, handler: { _ in
-                    observer.onNext(true)
-                    observer.onCompleted()
-                }
-            ))
-            
-            ac.addAction(
-                .init(title: "Позже", style: .default, handler: { _ in
-                    observer.onNext(false)
-                    observer.onCompleted()
-                }
-            ))
-            
-            rootViewController?.present(ac, animated: true, completion: nil)
-            
-            return Disposables.create()
-        }
-    }
-    
-    func enableFaceID() -> Observable<Bool> {
-        Observable.create { [rootViewController] observer in
-            let ac = UIAlertController(title: "Использовать FaceID", message: "Вы можете изменить этот параметр позже в настройках", preferredStyle: .actionSheet)
-            
-            ac.addAction(
-                .init(title: "Добавить", style: .default, handler: { _ in
-                    observer.onNext(true)
-                    observer.onCompleted()
-                }
-            ))
-            
-            ac.addAction(
-                .init(title: "Позже", style: .default, handler: { _ in
-                    observer.onNext(false)
-                    observer.onCompleted()
-                }
-            ))
-            
-            rootViewController?.presentedViewController?.present(ac, animated: true, completion: nil)
-            
-            return Disposables.create()
-        }
     }
 }
 
@@ -171,9 +71,6 @@ class TranslucentNavigationController: UINavigationController {
         navigationBar.shadowImage = UIImage()
         navigationBar.isTranslucent = true
         
-//        navigationBar.tintColor = Color.accent()
         navigationBar.tintColor = Color.text()
-//        navigationBar.backIndicatorImage = Asset.backButtonIcon.image
-//        navigationBar.backIndicatorTransitionMaskImage = Asset.backButtonIcon.image
     }
 }

@@ -29,10 +29,6 @@ final class Color {
         return color(light: "#999999", dark: "#aaaaaa")
     }
     
-    static func selectedTariff() -> UIColor {
-        return color(light: "#ebebeb", dark: "#323232")
-    }
-    
     /// - Returns: #B8C2DA
     static func accent() -> UIColor {
         return color(light: "#24B763", dark: "#24B763")
@@ -60,62 +56,6 @@ final class Color {
 
     static func lightGreen() -> UIColor {
         return color(light: "#1EC078", dark: "#1EC078")
-    }
-
-    static func lightBlueGray() -> UIColor {
-        return color(light: "#E5EAF5", dark: "#353A45")
-    }
-
-    static func lightRedBackground() -> UIColor {
-        return color(light: "#FFF2F3", dark: "#FFF2F3")
-    }
-
-    static func collectionBackground() -> UIColor {
-        return color(light: "#E3EAF8", dark: "#E3EAF8")
-    }
-
-    static func orange() -> UIColor {
-        return color(light: "#FFA134", dark: "#FFA134")
-    }
-
-    static func blueGray() -> UIColor {
-        return color(light: "#737C92", dark: "#737C92")
-    }
-
-    /// - Returns: #F2F8FB
-    static func lightBlueBackground() -> UIColor {
-         return color(light: "#F2F8FB", dark: "#F2F8FB")
-     }
-
-    /// - Returns: #E5EAF5
-    static func separatorColor() -> UIColor {
-        return color(light: "#E5EAF5", dark: "#E5EAF5")
-    }
-
-    /// - Returns: #252E55
-    static func shadowColor() -> UIColor {
-        return color(light: "#252E55", dark: "#252E55")
-    }
-
-    /// - Returns: #ECF0F8
-    static func disabledButtonColor() -> UIColor {
-        return color(light: "#ECF0F8", dark: "#ECF0F8")
-    }
-
-    static func purpleColor() -> UIColor {
-        return color(light: "#5B49DD", dark: "#5B49DD")
-    }
-    
-    static func mediumPurpleColor() -> UIColor {
-        return color(light: "#B583F3", dark: "#B583F3")
-    }
-
-    static func darkPurpleColor() -> UIColor {
-        return color(light: "#6C06E8", dark: "#6C06E8")
-    }
-
-    static func blueColor() -> UIColor {
-        return color(light: "#3C85F3", dark: "#3C85F3")
     }
 }
 

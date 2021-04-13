@@ -31,7 +31,7 @@ final class AuthService: AuthServiceProtocol {
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 1) {
                 
                 if code == "1111" {
-                    if token == "+7 (915) 305-16-53" {
+                    if token == "+7 (999) 999-99-99" {
                         obs.onNext(AuthResult.success)
                     } else {
                         obs.onNext(AuthResult.needPersonalData)
@@ -51,19 +51,6 @@ final class AuthService: AuthServiceProtocol {
 protocol ErrorType {
     var localizedDescription: String { get }
 }
-
-//enum ErrorType: Error {
-//    case text(String)
-//
-//    var localizedDescription: String {
-//        switch self {
-//        case .text(let text):
-//            return text
-//        default:
-//            break
-//        }
-//    }
-//}
 
 enum AuthErrorType: Error, ErrorType {
     case atempsLeft(Int)

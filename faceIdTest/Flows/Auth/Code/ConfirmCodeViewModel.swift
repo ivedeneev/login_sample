@@ -79,7 +79,7 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
             }
             .share()
         
-        let _newCode = fetchNewCode.elements().mapToVoid()
+        let _newCode = fetchNewCode.elements().mapTo(Void())
         didRequestNewCode = _newCode.asDriver(onErrorJustReturn: ())
         
         let codeEvents = validCodeObservable
@@ -93,7 +93,7 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         let _timer = BehaviorRelay<Int>(value: codeTimerLimit)
         newCodeTimer = _timer.asDriver()
         
-        Observable.merge(validCodeObservable.mapToVoid(), _newCode)
+        Observable.merge(validCodeObservable.mapTo(Void()), _newCode)
             .startWith(Void())
             .flatMap { _ -> Observable<Int> in
                 Observable.interval(.seconds(1), scheduler: MainScheduler.instance)
