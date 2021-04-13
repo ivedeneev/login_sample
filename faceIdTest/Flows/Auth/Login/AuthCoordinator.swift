@@ -27,6 +27,31 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         loginVc.viewModel = vm
         (rootViewController as? UINavigationController)?.setViewControllers([loginVc], animated: false)
         
+        let numbers = Observable.of(1...10)
+        
+        numbers.subscribe { (num) in
+            print(num)
+        } onError: { (error) in
+            print(error.localizedDescription)
+        } onCompleted: {
+            print("completed")
+        } onDisposed: {
+            print("disposed")
+        }.disposed(by: disposeBag)
+
+        
+//        let testObservable =
+//            Observable<String>.create { (observer) -> Disposable in
+//                observer.onNext("h")
+//                observer.onNext("he")
+//                observer.onNext("hel")
+//                observer.onCompleted()
+//                observer.onNext("hell")
+//                observer.onNext("helo")
+//                
+//                return Disposables.create()
+//            }
+        
         return vm.tokenForPhoneNumber
             .observe(on: MainScheduler.instance)
             .flatMap { [weak self] (token, phone) -> Observable<AuthResult> in

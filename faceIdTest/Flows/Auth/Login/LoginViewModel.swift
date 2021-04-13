@@ -62,6 +62,6 @@ final class LoginViewModel: LoginViewModelProtocol {
             .compactMap { ($0 as? ErrorType)?.localizedDescription }
             .bind(to: errors).disposed(by: disposeBag)
         
-        phoneObservable.mapTo(Optional<String>.none).bind(to: errors).disposed(by: disposeBag)
+        phoneObservable.mapTo(nil).bind(to: errors).disposed(by: disposeBag)
     }
 }

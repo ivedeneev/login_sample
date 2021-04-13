@@ -1,18 +1,13 @@
 //
-//  LoginViewController.swift
+//  MVPLoginViewController.swift
 //  faceIdTest
 //
-//  Created by Igor Vedeneev on 02.02.2021.
+//  Created by Igor Vedeneev on 31.03.2021.
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 
-final class LoginViewController: BaseViewController {
-    
-    var viewModel: LoginViewModelProtocol!
-    private let disposeBag = DisposeBag()
+final class MVPLoginViewController: UIViewController, LoginView {
     
     lazy var phoneTextField = PhoneTextField()
     
@@ -30,7 +25,8 @@ final class LoginViewController: BaseViewController {
     private func setup() {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.alignment = .center
+        stackView.alignment = .leading
+//        stackView.alignment = .center
         stackView.distribution = .equalSpacing
         stackView.axis = .vertical
         stackView.spacing = 4
@@ -43,11 +39,23 @@ final class LoginViewController: BaseViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 150),
         ])
         
+//        let helloLabel = UILabel()
+//        helloLabel.text = "Введите номер телефона"
+//        helloLabel.font = Font.title
+////        helloLabel.textAlignment = .center
+//        helloLabel.textColor = Color.text()
+//        helloLabel.numberOfLines = 2
+//
+//        stackView.addArrangedSubview(helloLabel)
+        
         let enterPhoneLabel = UILabel()
         enterPhoneLabel.text = "Мы отправим на него СМС-код"
         enterPhoneLabel.font = Font.title2
+//        enterPhoneLabel.textAlignment = .center
         enterPhoneLabel.textColor = Color.text()
         
+        
+//        phoneTextField.attributedPlaceholder = phoneTextField.phoneMask
         phoneTextField.placeholder = "Ваш номер телефона"
         phoneTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .semibold)
         stackView.addArrangedSubview(phoneTextField)
@@ -82,6 +90,9 @@ final class LoginViewController: BaseViewController {
         
         stackView.addArrangedSubview(termsTextView)
         
+//        stackView.setCustomSpacing(0, after: helloLabel)
+//        stackView.setCustomSpacing(20, after: phoneTextField)
+        
         let loader = UIActivityIndicatorView()
         stackView.addArrangedSubview(loader)
         
@@ -89,28 +100,51 @@ final class LoginViewController: BaseViewController {
         errorButton.setTitleColor(Color.red(), for: .normal)
         
         stackView.addArrangedSubview(errorButton)
-        
-        phoneTextField.rx
-            .controlEvent(.editingChanged)
-            .map { [unowned phoneTextField] in
-                return phoneTextField.text ?? ""
-            }
-            .bind(to: viewModel.phoneNumber)
-            .disposed(by: disposeBag)
-        
-        errorButton.rx.tap
-            .bind(to: viewModel.resendPhone)
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(loader.rx.isAnimating)
-            .disposed(by: disposeBag)
-        
-        viewModel.errors
-            .asDriver()
-            .drive(errorButton.rx.title())
-            .disposed(by: disposeBag)
+    
+    }
+    
+    func obtainError(_ error: Error) {
         
     }
+    
+    func obtainLoading(_ isLoading: Bool) {
+        
+    }
+}
+
+final class LoginPresenterImpl: LoginPresenter {
+    
+    weak var view: LoginView?
+    
+    init(authService: AuthService) {
+        
+    }
+    
+    func obtainPhone(_ phone: String) {
+        
+    }
+    
+    func resendPhone() {
+        
+    }
+    
+    func showTerms() {
+        
+    }
+}
+
+protocol LoginView: AnyObject {
+    func obtainError(_ error: Error)
+    func obtainLoading(_ isLoading: Bool)
+}
+
+protocol LoginPresenter {
+    var view: LoginView? { get set }
+    
+    /// Input
+    func obtainPhone(_ phone: String)
+    func resendPhone()
+    func showTerms()
+    
+    /// Output
 }

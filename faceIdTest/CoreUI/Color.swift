@@ -117,31 +117,6 @@ final class Color {
     static func blueColor() -> UIColor {
         return color(light: "#3C85F3", dark: "#3C85F3")
     }
-
-    class MyAnnouncements {
-        /// - Returns: #FF6770
-        static func red() -> UIColor {
-            return color(light: "#FF6770", dark: "#FF6770")
-        }
-        /// - Returns: #7E88A4
-        static func gray() -> UIColor {
-            return color(light: "#7E88A4", dark: "#7E88A4")
-        }
-        /// - Returns: #4ACE93
-        static func green() -> UIColor {
-            return color(light: "#4ACE93", dark: "#4ACE93")
-        }
-        /// - Returns: #FFA134
-        static func orange() -> UIColor {
-            return color(light: "#FFA134", dark: "#FFA134")
-        }
-        /// - Returns: #CFD7E8
-        static func separatorColor() -> UIColor {
-            return color(light: "#CFD7E8", dark: "#CFD7E8")
-        }
-
-    }
-
 }
 
 extension Color {

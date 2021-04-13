@@ -15,7 +15,6 @@
 		D636C5E025EE10D20004BC02 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636C5DF25EE10D20004BC02 /* SettingsCoordinator.swift */; };
 		D68ECB8025D09F4B00F38294 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68ECB7F25D09F4B00F38294 /* Card.swift */; };
 		D698B56725C32E05004BAFF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D698B56625C32E05004BAFF6 /* SceneDelegate.swift */; };
-		D698B56925C32E05004BAFF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D698B56825C32E05004BAFF6 /* ViewController.swift */; };
 		D698B56C25C32E05004BAFF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D698B56A25C32E05004BAFF6 /* Main.storyboard */; };
 		D698B56E25C32E13004BAFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D698B56D25C32E13004BAFF6 /* Assets.xcassets */; };
 		D698B57125C32E13004BAFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D698B56F25C32E13004BAFF6 /* LaunchScreen.storyboard */; };
@@ -90,6 +89,7 @@
 		D6BF9E1725CE953B000C468C /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1625CE953B000C468C /* Ride.swift */; };
 		D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDD33725D7F34300D76EBE /* PinCodeController.swift */; };
 		D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */; };
+		D6FEC87C261474E200961873 /* MVPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FEC87B261474E200961873 /* MVPLoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +112,6 @@
 		D68ECB7F25D09F4B00F38294 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D698B56125C32E05004BAFF6 /* faceIdTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = faceIdTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D698B56625C32E05004BAFF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D698B56825C32E05004BAFF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D698B56B25C32E05004BAFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D698B56D25C32E13004BAFF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D698B57025C32E13004BAFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -189,6 +188,7 @@
 		D6BF9E1625CE953B000C468C /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		D6CDD33725D7F34300D76EBE /* PinCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeController.swift; sourceTree = "<group>"; };
 		D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeViewModelTests.swift; sourceTree = "<group>"; };
+		D6FEC87B261474E200961873 /* MVPLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPLoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +250,7 @@
 		D698B56325C32E05004BAFF6 /* faceIdTest */ = {
 			isa = PBXGroup;
 			children = (
+				D6FEC876261474C200961873 /* MVP */,
 				D6BF9E1225CE8ECC000C468C /* Views */,
 				D6A0E11B25CB48C400C8717A /* Model */,
 				D6A8FD8025CA98AE003B3412 /* Services */,
@@ -258,7 +259,6 @@
 				D6A8FD4E25CA95D2003B3412 /* Core */,
 				D6A8FD4625CA95A6003B3412 /* AppDelegate */,
 				D698B56625C32E05004BAFF6 /* SceneDelegate.swift */,
-				D698B56825C32E05004BAFF6 /* ViewController.swift */,
 				D698B56A25C32E05004BAFF6 /* Main.storyboard */,
 				D698B56D25C32E13004BAFF6 /* Assets.xcassets */,
 				D698B56F25C32E13004BAFF6 /* LaunchScreen.storyboard */,
@@ -534,6 +534,30 @@
 			path = Pin;
 			sourceTree = "<group>";
 		};
+		D6FEC876261474C200961873 /* MVP */ = {
+			isa = PBXGroup;
+			children = (
+				D6FEC87F261474E500961873 /* Auth */,
+			);
+			path = MVP;
+			sourceTree = "<group>";
+		};
+		D6FEC87F261474E500961873 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D6FEC880261474FE00961873 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D6FEC880261474FE00961873 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D6FEC87B261474E200961873 /* MVPLoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -666,7 +690,6 @@
 				D6A8FD4925CA95B3003B3412 /* AppCoordinator.swift in Sources */,
 				D6A8FD7925CA981D003B3412 /* ConfirmCodeViewModel.swift in Sources */,
 				D699F85C25CC4153001E7577 /* MoveReducer.swift in Sources */,
-				D698B56925C32E05004BAFF6 /* ViewController.swift in Sources */,
 				D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */,
 				D61FEA5125D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				D6A8FD7825CA981D003B3412 /* AuthCoordinator.swift in Sources */,
@@ -698,6 +721,7 @@
 				D6A8FDC125CAE7CA003B3412 /* MapViewController.swift in Sources */,
 				D60E48EA25D44F7A00DCB6E7 /* Settings.swift in Sources */,
 				D699F83A25CC412E001E7577 /* CollectionHeaderFooterView.swift in Sources */,
+				D6FEC87C261474E200961873 /* MVPLoginViewController.swift in Sources */,
 				D6A8FD5E25CA9658003B3412 /* AccountManager.swift in Sources */,
 				D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */,
 				D6AFF5C425DE688200CC5CE3 /* PinPadItem.swift in Sources */,
