@@ -178,6 +178,7 @@
 		D6A8FD6125CA96DF003B3412 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				D6A8FD7325CA981C003B3412 /* AuthCoordinator.swift */,
 				D6A8FDBD25CAE2D0003B3412 /* PersonalData */,
 				D6A8FDBC25CAE2CC003B3412 /* Code */,
 				D6A8FDBB25CAE2C7003B3412 /* Login */,
@@ -196,7 +197,6 @@
 		D6A8FDBB25CAE2C7003B3412 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				D6A8FD7325CA981C003B3412 /* AuthCoordinator.swift */,
 				D6A8FD7725CA981D003B3412 /* LoginViewController.swift */,
 				D6A8FD7625CA981D003B3412 /* LoginViewModel.swift */,
 			);
