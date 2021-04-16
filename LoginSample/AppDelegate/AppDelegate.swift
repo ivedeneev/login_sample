@@ -7,12 +7,7 @@
 
 import UIKit
 
-enum Test: String {
-    case foo
-    case bar
-}
 
-//@main
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
