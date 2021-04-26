@@ -114,6 +114,7 @@ final class MVPLoginViewController: UIViewController, LoginView {
 
 final class LoginPresenterImpl: LoginPresenter {
     
+    
     weak var view: LoginView?
     
     init(authService: AuthService) {
@@ -145,6 +146,4 @@ protocol LoginPresenter {
     func obtainPhone(_ phone: String)
     func resendPhone()
     func showTerms()
-    
-    /// Output
 }

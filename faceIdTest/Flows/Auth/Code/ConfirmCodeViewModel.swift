@@ -39,6 +39,9 @@ protocol ConfirmCodeViewModelProtocol {
     
     /// Запросили новый код при нажатии на "отправить заново"
     var didRequestNewCode: Driver<Void> { get }
+    
+    /// Таймер отправки нового кода активен
+    var codeTimerIsActive: Driver<Bool> { get }
 }
 
 final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
@@ -54,14 +57,17 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
     let newCodeTimer: Driver<Int>
     let didRequestNewCode: Driver<Void>
     
+    let codeTimerIsActive: Driver<Bool>
+    
     private let disposeBag = DisposeBag()
     
     init(token: String,
          phone: String,
          codeLength: Int = 4,
          resendCodeTimeout: Int = 3,
-         authService: AuthServiceProtocol = AuthService())
-    {
+         authService: AuthServiceProtocol = AuthService(),
+         timerScheduler: SchedulerType = MainScheduler.instance
+    ) {
         let _codeSubject = PublishSubject<String>()
         code = _codeSubject.asObserver()
         
@@ -90,24 +96,22 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         
         didAuthorize = codeEvents.elements().asDriver(onErrorJustReturn: .needPersonalData)
         
-        let _timer = BehaviorRelay<Int>(value: codeTimerLimit)
-        newCodeTimer = _timer.asDriver()
-        
-        Observable.merge(validCodeObservable.mapToVoid(), _newCode)
+        newCodeTimer = Observable.merge(validCodeObservable.mapToVoid(), _newCode)
             .startWith(Void())
             .flatMap { _ -> Observable<Int> in
-                Observable.interval(.seconds(1), scheduler: MainScheduler.instance)
+                return Observable.interval(.seconds(1), scheduler: timerScheduler)
                     .map { resendCodeTimeout - $0 - 1 }
                     .take(while: { $0 >= 0 })
             }
-            .bind(to: _timer)
-            .disposed(by: disposeBag)
+            .asDriver(onErrorJustReturn: 0)
         
         let isLoadingRelay = BehaviorRelay<Bool>(value: false)
-        isLoading = isLoadingRelay.asDriver()
         
-        codeEvents.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
         validCodeObservable.mapTo(true).bind(to: isLoadingRelay).disposed(by: disposeBag)
+        codeEvents.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
+        
+        isLoading = isLoadingRelay.asDriver().distinctUntilChanged()
+        
         
         _getCode.asObservable().mapTo(true).bind(to: isLoadingRelay).disposed(by: disposeBag)
         fetchNewCode.mapTo(false).bind(to: isLoadingRelay).disposed(by: disposeBag)
@@ -116,5 +120,16 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
             .merge(with: fetchNewCode.errors())
             .compactMap { ($0 as? ErrorType)?.localizedDescription }
             .asDriver(onErrorJustReturn: "")
+        
+        let _codeTimerIsActive = BehaviorRelay<Bool>(value: true)
+        newCodeTimer
+            .filter { $0 == resendCodeTimeout - 1 || $0 == 0 }
+            .map { $0 != 0 }
+            .skip(1)
+            .distinctUntilChanged()
+            .drive(_codeTimerIsActive)
+            .disposed(by: disposeBag)
+        
+        codeTimerIsActive = _codeTimerIsActive.asDriver()
     }
 }

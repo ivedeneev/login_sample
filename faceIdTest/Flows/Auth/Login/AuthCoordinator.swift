@@ -27,69 +27,20 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         loginVc.viewModel = vm
         (rootViewController as? UINavigationController)?.setViewControllers([loginVc], animated: false)
         
-        let numbers = Observable.of(1...10)
-        
-        numbers.subscribe { (num) in
-            print(num)
-        } onError: { (error) in
-            print(error.localizedDescription)
-        } onCompleted: {
-            print("completed")
-        } onDisposed: {
-            print("disposed")
-        }.disposed(by: disposeBag)
-
-        
-//        let testObservable =
-//            Observable<String>.create { (observer) -> Disposable in
-//                observer.onNext("h")
-//                observer.onNext("he")
-//                observer.onNext("hel")
-//                observer.onCompleted()
-//                observer.onNext("hell")
-//                observer.onNext("helo")
-//                
-//                return Disposables.create()
-//            }
-        
         return vm.tokenForPhoneNumber
             .observe(on: MainScheduler.instance)
-            .flatMap { [weak self] (token, phone) -> Observable<AuthResult> in
+            .flatMapLatest { [weak self] (token, phone) -> Observable<AuthResult> in
                 guard let self = self else { return .empty() }
                 return self.confirmCode(token: token, phone: phone)
             }
             .observe(on: MainScheduler.instance)
             .flatMapLatest { [weak self] result -> Observable<AuthResult> in
                 guard let self = self else { return .empty() }
-                
-                switch result {
-                case .needPersonalData:
-                    return self.showFillPersonalData()
-                case .success:
-                    return .just(.success)
-                }
+                return self.showFillPersonalDataIfNeeded(authResult: result)
             }
-            .flatMapLatest { [weak self]  (result) -> Observable<AuthResult> in
+            .flatMapLatest { [weak self] (result) -> Observable<AuthResult> in
                 guard let self = self else { return .empty() }
-                
-                let needPin = true
-                
-                if needPin {
-                    return self.suggestEnablePin()
-                        .filter { $0 }
-                        .flatMapLatest { [unowned self] needToEnable -> Observable<EnablePinResult> in
-                            guard needToEnable else { return .just(.cancel) }
-                            
-                            return self.enablePin()
-                        }
-                        .flatMapLatest { (r) -> Observable<AuthResult> in
-                            guard r == .enabled else { return .just(result) }
-                            
-                            return self.enableFaceID().mapTo(result)
-                        }
-                } else {
-                    return .just(result)
-                }
+                return self.enablePinAndFaceId(authResult: result)
             }
     }
     
@@ -98,14 +49,33 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         return coordinate(to: coordinator)
     }
     
-    private func showFillPersonalData() -> Observable<AuthResult> {
-        let coordinator = PersonalDataCoordinator(nc: rootViewController)
-        return coordinate(to: coordinator)
+    /// предложить вход по пин-коду -> создать пин -> предложить добавить FaceID -> добавить FaceID
+    func enablePinAndFaceId(authResult: AuthResult) -> Observable<AuthResult> {
+        suggestEnablePin()
+            .flatMapLatest { [unowned self] needToEnable -> Observable<EnablePinResult> in
+                guard needToEnable else { return .just(.cancel) }
+                return self.enablePin()
+            }
+            .flatMapLatest { [unowned self] (r) -> Observable<AuthResult> in
+                guard r == .enabled else { return .just(authResult) }
+                
+                return self.enableFaceID().mapTo(authResult)
+            }
     }
     
     func enablePin() -> Observable<EnablePinResult> {
         let c = EnablePinCoordinator(rootViewController: rootViewController)
         return coordinate(to: c)
+    }
+    
+    private func showFillPersonalDataIfNeeded(authResult: AuthResult) -> Observable<AuthResult> {
+        switch authResult {
+        case .needPersonalData:
+            let coordinator = PersonalDataCoordinator(nc: rootViewController)
+            return coordinate(to: coordinator)
+        case .success:
+            return .just(.success)
+        }
     }
     
     func suggestEnablePin() -> Observable<Bool> {

@@ -187,7 +187,7 @@ final class PinCodeController: BaseViewController {
                 })
                 .startWith("")
                 .share()
-                .do(onNext: {print($0)})
+//                .do(onNext: {print($0)})
         
         // икнока для правой нижней кнопки (FaceID или удаление последнего символа)
         inputEvents
