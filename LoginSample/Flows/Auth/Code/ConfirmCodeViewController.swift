@@ -67,7 +67,6 @@ final class ConfirmCodeViewController: BaseViewController {
         
         retryButton.setTitleColor(UIColor.white, for: .normal)
         retryButton.setTitle("отправить заново".uppercased(), for: .normal)
-        retryButton.isHidden = true
         retryButton.backgroundColor = Color.accent()
         retryButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         retryButton.titleEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
@@ -107,21 +106,18 @@ final class ConfirmCodeViewController: BaseViewController {
             .drive(errorLabel.rx.text)
             .disposed(by: disposeBag)
         
-        let newCodeDriver = viewModel.newCodeTimer
-        let codeTimerIsActive = viewModel.newCodeTimer.map { $0 != 0 }
-        
-        newCodeDriver
+        viewModel.newCodeTimer
             .map { (sec) -> String in
                 return "Не пришел код? Повторый запрос возможен через  \(sec) сек"
             }
             .drive(timerLabel.rx.text)
             .disposed(by: disposeBag)
         
-        codeTimerIsActive
+        viewModel.codeTimerIsActive
             .drive(retryButton.rx.isHidden)
             .disposed(by: disposeBag)
         
-        codeTimerIsActive
+        viewModel.codeTimerIsActive
             .map { !$0 }
             .drive(timerLabel.rx.isHidden)
             .disposed(by: disposeBag)
