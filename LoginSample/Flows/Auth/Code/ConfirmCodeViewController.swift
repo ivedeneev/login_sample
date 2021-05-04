@@ -26,6 +26,7 @@ final class ConfirmCodeViewController: BaseViewController {
         super.viewDidLoad()
         
         setup()
+        bind()
     }
     
     private func setup() {
@@ -72,7 +73,9 @@ final class ConfirmCodeViewController: BaseViewController {
         retryButton.titleEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
         
         stackView.addArrangedSubview(retryButton)
-        
+    }
+    
+    private func bind() {
         let codeText = codeTextField.rx
             .controlEvent(.editingChanged)
             .asDriver()
