@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxSwiftExt
 
 final class LoginViewController: BaseViewController {
     
@@ -91,10 +92,7 @@ final class LoginViewController: BaseViewController {
         stackView.addArrangedSubview(errorButton)
         
         phoneTextField.rx
-            .controlEvent(.editingChanged)
-            .map { [unowned phoneTextField] in
-                return phoneTextField.text ?? ""
-            }
+            .formattedPhone
             .bind(to: viewModel.phoneNumber)
             .disposed(by: disposeBag)
         
@@ -103,7 +101,6 @@ final class LoginViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .asDriver()
             .drive(loader.rx.isAnimating)
             .disposed(by: disposeBag)
         
@@ -112,5 +109,9 @@ final class LoginViewController: BaseViewController {
             .drive(errorButton.rx.title())
             .disposed(by: disposeBag)
         
+        viewModel.isLoading
+            .not()
+            .drive(phoneTextField.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 }
