@@ -58,12 +58,14 @@ final class CodeTextField: UITextField {
     
     private func setup() {
         addTarget(self, action: #selector(didChangeEditing), for: .editingChanged)
+        addTarget(self, action: #selector(didEndEditing), for: .editingDidEnd)
         defaultTextAttributes.updateValue(letterSpacing, forKey: .kern)
         tintColor = .clear
         keyboardType = .numberPad
         if #available(iOS 12.0, *) {
             textContentType = .oneTimeCode
         }
+        backgroundColor = .green
     }
     
     override func draw(_ rect: CGRect) {
@@ -72,6 +74,7 @@ final class CodeTextField: UITextField {
         guard let context = UIGraphicsGetCurrentContext(), showDashes else { return }
         
         context.setStrokeColor(placeholderColor.cgColor)
+        context.setFillColor(placeholderColor.cgColor)
         context.setLineWidth(dashHeight)
         context.move(to: CGPoint(x: 0, y: bounds.height))
         context.addLine(to: CGPoint(x: bounds.width, y: bounds.height))
@@ -81,23 +84,27 @@ final class CodeTextField: UITextField {
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(
-            origin: CGPoint(x: 0, y: 0),
-            size: CGSize(width: bounds.width + letterSpacing, height: bounds.height)
+            origin: .zero,
+            size: CGSize(width: bounds.width + letterSpacing + symbolWidth, height: bounds.height)
         )
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         CGRect(
-            origin: CGPoint(x: 0, y: 0),
+            origin: .zero,
             size: CGSize(width: bounds.width + letterSpacing, height: bounds.height)
         )
     }
     
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         CGRect(
-            origin: CGPoint(x: 0, y: 0),
+            origin: .zero,
             size: CGSize(width: bounds.width + letterSpacing, height: bounds.height)
         )
+    }
+    
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        .zero
     }
     
     override var intrinsicContentSize: CGSize {
@@ -132,9 +139,12 @@ final class CodeTextField: UITextField {
     }
     
     @objc private func didChangeEditing() {
-        guard let text = text else { return }
-        if text.count > length {
-            self.text = String(text.prefix(length))
-        }
+        guard let text = text, text.count > length else { return }
+        self.text = String(text.dropFirst(length))
+    }
+    
+    @objc private func didEndEditing() {
+        guard let text = text, text.count > length else { return }
+        self.text = String(text.prefix(length))
     }
 }
