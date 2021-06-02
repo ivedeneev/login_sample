@@ -1,6 +1,6 @@
 //
 //  LoginViewModel.swift
-//  LoginSample
+//  faceIdTest
 //
 //  Created by Igor Vedeneev on 02.02.2021.
 //
@@ -16,17 +16,18 @@ protocol LoginViewModelProtocol {
     var phoneNumber: AnyObserver<String> { get }
     var resendPhone: AnyObserver<Void> { get }
     var tokenForPhoneNumber: Observable<LoginOutput> { get }
-    var isLoading: BehaviorRelay<Bool> { get }
-    var errors: BehaviorRelay<String?> { get }
+    var isLoading: Driver<Bool> { get }
+    var errors: Driver<String?> { get }
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
+    var isLoading: Driver<Bool>
+    var errors: Driver<String?>
+    
     
     var phoneNumber: AnyObserver<String>
     var resendPhone: AnyObserver<Void>
     var tokenForPhoneNumber: Observable<LoginOutput>
-    var isLoading = BehaviorRelay<Bool>(value: false)
-    var errors = BehaviorRelay<String?>(value: nil)
     
     private let disposeBag = DisposeBag()
     
@@ -55,13 +56,20 @@ final class LoginViewModel: LoginViewModelProtocol {
                 resultSelector: { LoginOutput(token: $0, phone: $1) }
             )
         
-        phoneEvents.mapTo(false).bind(to: isLoading).disposed(by: disposeBag)
-        validPhoneObservable.mapTo(true).bind(to: isLoading).disposed(by: disposeBag)
+        let _isLoading = BehaviorRelay<Bool>(value: false)
+        isLoading = _isLoading.asDriver()
+        
+        let _errors = BehaviorRelay<String?>(value: nil)
+        errors = _errors.asDriver()
+        
+        phoneEvents.mapTo(false).bind(to: _isLoading).disposed(by: disposeBag)
+        validPhoneObservable.mapTo(true).bind(to: _isLoading).disposed(by: disposeBag)
         
         phoneEvents.errors()
             .compactMap { ($0 as? ErrorType)?.localizedDescription }
-            .bind(to: errors).disposed(by: disposeBag)
+            .bind(to: _errors)
+            .disposed(by: disposeBag)
         
-        phoneObservable.mapTo(nil).bind(to: errors).disposed(by: disposeBag)
+        phoneObservable.mapTo(nil).bind(to: _errors).disposed(by: disposeBag)
     }
 }
