@@ -40,7 +40,7 @@ protocol ConfirmCodeViewModelProtocol {
     /// Запросили новый код при нажатии на "отправить заново"
     var didRequestNewCode: Driver<Void> { get }
     
-    /// Таймер отправки нового кода активен
+    /// Таймер отправки нового кода запущен
     var codeTimerIsActive: Driver<Bool> { get }
 }
 
