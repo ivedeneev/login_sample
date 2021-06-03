@@ -102,3 +102,16 @@ extension String {
         return pred.evaluate(with: self)
     }
 }
+
+#if canImport(RxSwift)
+import RxSwift
+
+extension Reactive where Base: PhoneTextField {
+    var formattedPhone: Observable<String> {
+        controlEvent(.editingChanged)
+            .map { [weak base] in
+                return base?.text ?? ""
+            }
+    }
+}
+#endif

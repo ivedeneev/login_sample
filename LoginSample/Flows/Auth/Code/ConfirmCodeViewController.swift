@@ -52,7 +52,7 @@ final class ConfirmCodeViewController: BaseViewController {
         
         stackView.addArrangedSubview(helloLabel)
         
-        codeTextField.showDashes = true
+        codeTextField.highlightStyle = .rect
         codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
         stackView.addArrangedSubview(codeTextField)
         stackView.setCustomSpacing(20, after: codeTextField)
