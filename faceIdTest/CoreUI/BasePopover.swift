@@ -100,7 +100,7 @@ class BasePopover: BaseViewController {
 //                make.bottom.equalTo(self.view.superview!.safeAreaLayoutGuide.snp.bottom).offset(offset)
 //            }
             
-            self.view.constraints.first(where: { $0.firstAttribute == .height })?.constant = self.maxHeight
+            self.view.constraints.first(where: { $0.firstAttribute == .height })?.constant = self.maxHeight + rect.height
 
             UIView.animate(withDuration: duration,
                delay: 0,

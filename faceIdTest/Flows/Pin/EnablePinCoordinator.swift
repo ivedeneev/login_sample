@@ -118,3 +118,14 @@ final class ConfirmCodeCoordniator: BaseCoordinator<EnablePinResult> {
 //            vc.present(ac, animated: true, completion: nil)
 //        }
 //        .disposed(by: disposeBag)
+
+//extension Reactive where Base: UIViewController {
+//    func dismissAndEmmitValue<T>(_ value: T) -> Observable<T> {
+//        Observable<T>.create { (obs: AnyObserver<T>) -> Disposable in
+//            base.dismiss(animated: true) {
+//                obs.onNext(value)
+//                obs.onCompleted()
+//            }
+//        }
+//    }
+//}

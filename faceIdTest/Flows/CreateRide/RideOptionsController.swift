@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IVCollectionKit
 
 final class RideOptionsController: BasePopover {
     
@@ -32,6 +33,7 @@ final class RideOptionsController: BasePopover {
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = Color.background()
         section.insetForSection = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
         section.lineSpacing = 8
@@ -83,7 +85,12 @@ final class RideOptionsController: BasePopover {
         ])
         
         section.removeAll()
-        section += [CollectionItem<TariffCell>(item: ()), CollectionItem<TariffCell>(item: ()), CollectionItem<TariffCell>(item: ())]
+        let eco = Tariff(title: "Эконом", type: .econom, price: 330, hasDiscount: false, isPriceIncreased: false)
+        let comfort = Tariff(title: "Комфорт", type: .econom, price: 415, hasDiscount: false, isPriceIncreased: false)
+        let comfortPlus = Tariff(title: "Комфорт плюс", type: .econom, price: 634, hasDiscount: false, isPriceIncreased: false)
+        let business = Tariff(title: "Комфорт плюс", type: .econom, price: 634, hasDiscount: false, isPriceIncreased: false)
+        let viewModels = [eco, comfort, comfortPlus, business].map(TariffCellViewModel.init)
+        section += viewModels.map(CollectionItem<TariffCell>.init)
         director.sections = [section]
         director.reload()
     }

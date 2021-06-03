@@ -7,7 +7,7 @@
 
 import UIKit
 import RxSwift
-
+import IVCollectionKit
 
 final class ProfileViewController: CollectionViewController {
     

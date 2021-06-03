@@ -32,7 +32,6 @@ final class PinCodeController: BaseViewController {
     lazy var titleLabel = UILabel()
     
     private lazy var codeField = DotsField()
-//    private let codeRelay = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
 
@@ -187,7 +186,6 @@ final class PinCodeController: BaseViewController {
                 })
                 .startWith("")
                 .share()
-//                .do(onNext: {print($0)})
         
         // икнока для правой нижней кнопки (FaceID или удаление последнего символа)
         inputEvents
@@ -268,3 +266,43 @@ final class PinCodeController: BaseViewController {
         }
     }
 }
+
+import IVCollectionKit
+#if canImport(RxSwift)
+extension CollectionItem {
+  struct Reactive {
+    let base: CollectionItem
+    
+    fileprivate init(_ base: CollectionItem) {
+      self.base = base
+    }
+  }
+  
+  var reactive: Reactive {
+    return Reactive(self)
+  }
+}
+
+extension CollectionItem.Reactive {
+    var onSelectObservable: Observable<CellType.T> {
+        return Observable.create { (obs) -> Disposable in
+            base.onSelect = { _ in
+                obs.onNext(base.item)
+            }
+            return Disposables.create()
+        }
+    }
+}
+
+
+//extension CollectionItem {
+//    var onSelectObservable: Observable<CellType.T> {
+//        return Observable.create { [unowned self] (obs) -> Disposable in
+//            self.onSelect = { _ in
+//                obs.onNext(self.item)
+//            }
+//            return Disposables.create()
+//        }
+//    }
+//}
+#endif

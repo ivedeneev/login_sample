@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxRelay
+import IVCollectionKit
 
 final class ToggleCell: UICollectionViewCell {
     private let titleLabel = UILabel()

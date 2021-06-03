@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IVCollectionKit
 
 struct CommonCellViewModel: Hashable {
     let title: String

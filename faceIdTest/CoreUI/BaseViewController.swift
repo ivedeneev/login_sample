@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IVCollectionKit
 
 class BaseViewController: UIViewController {
     

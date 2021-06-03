@@ -8,8 +8,7 @@ target 'faceIdTest' do
   pod 'RxSwift'
   pod 'RxSwiftExt'
   pod 'RxCocoa'
-  pod 'RxTest'
-  pod 'RxBlocking'
+  pod 'IVCollectionKit'
 
 end
 
@@ -37,4 +36,3 @@ post_install do |installer|
       end
     end
 end
-

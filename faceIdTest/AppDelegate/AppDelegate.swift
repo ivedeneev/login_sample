@@ -6,21 +6,20 @@
 //
 
 import UIKit
+import UserNotifications
 
-enum Test: String {
-    case foo
-    case bar
-}
 
 //@main
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    @Setting("rrrrr", defaultValue: "rrrrrrrrrrrrrrr")
-    var setting: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        setting = nil
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, _) in
+            
+        }
+
         
         return true
     }
@@ -40,5 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
 }
 

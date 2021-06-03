@@ -6,6 +6,19 @@
 //
 
 import UIKit
+import IVCollectionKit
+
+struct TariffCellViewModel {
+    let title: String
+    let price: String
+    let icon: String
+    
+    init(tariff: Tariff) {
+        self.title = tariff.title
+        self.price = "\(tariff.price) Р"
+        self.icon = "bentley"
+    }
+}
 
 final class TariffCell: UICollectionViewCell {
     
@@ -57,13 +70,13 @@ final class TariffCell: UICollectionViewCell {
 }
 
 extension TariffCell: ConfigurableCollectionItem {
-    static func estimatedSize(item: Void, boundingSize: CGSize, in section: AbstractCollectionSection) -> CGSize {
+    static func estimatedSize(item: TariffCellViewModel, boundingSize: CGSize, in section: AbstractCollectionSection) -> CGSize {
         CGSize(width: 95, height: 90)
     }
     
-    func configure(item: ()) {
-        titleLabel.text = "Эконом"
-        priceLabel.text = "155 Р"
-        iconImageView.image = UIImage(named: "bentley")
+    func configure(item: TariffCellViewModel) {
+        titleLabel.text = item.title
+        priceLabel.text = item.price
+        iconImageView.image = UIImage(named: item.icon)
     }
 }

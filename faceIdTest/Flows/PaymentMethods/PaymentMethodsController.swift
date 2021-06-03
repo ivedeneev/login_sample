@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import IVCollectionKit
 
 final class PaymentMethodsController: CollectionViewController, PopupContentView {
     var frameInPopup: CGRect {

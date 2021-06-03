@@ -63,7 +63,7 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     
-    init(pinType: PinCodeType, prefs: PreferencesProtocol = Preferences(), codeLength: Int = 4) {
+    init(pinType: PinCodeType, prefs: Preferences = Preferences(), codeLength: Int = 4) {
         self.pinType = pinType
         
         let _codeSubject = PublishSubject<String>()
@@ -72,7 +72,6 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
         let _code = _codeSubject.asObservable()
             .filter { $0.count == codeLength }
             .share()
-
         
         let _biometrics = PublishSubject<Void>()
         evaluateBiometrics = _biometrics.asObserver()
@@ -85,14 +84,11 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
             didAuthenticate = correctlyRepeatedCode.filter { $0 }.mapToVoid()
             
             correctlyRepeatedCode.withLatestFrom(_code)
-                .subscribe(onNext: { code in
-                    print("set code [\(code)]")
-//                    prefs.pinCode = code
-                })
+                .bind(to: prefs.rx.keyPath(kp: \.pinCode))
                 .disposed(by: disposeBag)
         } else {
             let maybeCorrectCode = _code
-                .map { $0 == "5555"}
+                .map { $0 == prefs.pinCode }
                 .share()
             
             let correctCode = maybeCorrectCode.compactMap { $0 ? () : nil }

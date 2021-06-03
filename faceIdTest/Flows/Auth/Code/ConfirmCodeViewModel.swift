@@ -76,7 +76,7 @@ final class ConfirmCodeViewModel: ConfirmCodeViewModelProtocol {
         
         let codeObservable = _codeSubject.asObservable()
         
-        let validCodeObservable = codeObservable.filter { $0.count == codeLength }
+        let validCodeObservable = codeObservable.filter { $0.count == codeLength }.share()
         
         // запрос нового кода
         let fetchNewCode = _getCode.asObservable()

@@ -41,6 +41,11 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
             .flatMapLatest { [weak self] (result) -> Observable<AuthResult> in
                 guard let self = self else { return .empty() }
                 return self.enablePinAndFaceId(authResult: result)
+                    .do { (result) in
+//                        switch result {
+//                        case .
+//                        }
+                    }
             }
     }
     

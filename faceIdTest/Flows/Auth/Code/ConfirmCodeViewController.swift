@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 
 final class ConfirmCodeViewController: BaseViewController {
     
@@ -51,8 +52,9 @@ final class ConfirmCodeViewController: BaseViewController {
         
         stackView.addArrangedSubview(helloLabel)
         
-        codeTextField.showDashes = true
-        codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
+        codeTextField.highlightStyle = .rect
+//        codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
+        codeTextField.font = code
         stackView.addArrangedSubview(codeTextField)
         stackView.setCustomSpacing(20, after: codeTextField)
         
@@ -76,7 +78,8 @@ final class ConfirmCodeViewController: BaseViewController {
         let codeText = codeTextField.rx
             .controlEvent(.editingChanged)
             .asDriver()
-            .map { [unowned codeTextField] in
+            .map { [unowned codeTextField] _ -> String in
+//                print(codeTextField.text)
                 return codeTextField.text ?? "" // "хитрая" реализация для текстфилда ввода кода
             }
         
@@ -118,8 +121,13 @@ final class ConfirmCodeViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         viewModel.codeTimerIsActive
-            .map { !$0 }
+            .not()
             .drive(timerLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .not()
+            .drive(codeTextField.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     
@@ -128,3 +136,22 @@ final class ConfirmCodeViewController: BaseViewController {
         codeTextField.becomeFirstResponder()
     }
 }
+
+
+let code: UIFont = {
+    guard let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1).withDesign(.rounded) else {
+        return .monospacedSystemFont(ofSize: 30, weight: .semibold)
+    }
+    
+    let bodyMonospacedNumbersFontDescriptor = bodyFontDescriptor
+        .addingAttributes([
+      UIFontDescriptor.AttributeName.featureSettings: [
+        [UIFontDescriptor.FeatureKey.featureIdentifier:
+         kNumberSpacingType,
+         UIFontDescriptor.FeatureKey.typeIdentifier:
+            kMonospacedNumbersSelector]
+      ]
+    ])
+    
+    return UIFont(descriptor: bodyMonospacedNumbersFontDescriptor, size: 32)
+}()

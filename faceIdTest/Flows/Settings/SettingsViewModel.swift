@@ -17,6 +17,8 @@ protocol SettingsViewModelProtocol {
     
     var editPin: AnyObserver<Void> { get }
     var showEditPin: Observable<Void> { get }
+    
+    var toggleBiometrics: AnyObserver<Bool> { get }
 }
 
 final class SettingsViewModel: SettingsViewModelProtocol {
@@ -30,9 +32,15 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     let editPin: AnyObserver<Void>
     let showEditPin: Observable<Void>
     
-    private let disposeBag = DisposeBag()
+    let toggleBiometrics: AnyObserver<Bool>
     
-    init() {
+    private let disposeBag = DisposeBag()
+    private let prefs: Preferences
+    
+    init(prefs: Preferences = Preferences()) {
+        
+        self.prefs = prefs
+        
         let _enable = PublishSubject<Void>()
         showEnablePin = _enable.asObserver()
         didShowEnablePin = _enable.asObservable()
@@ -45,5 +53,16 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         editPin = _edit.asObserver()
         showEditPin = _edit.asObservable()
         
+        let _biometrics = PublishSubject<Bool>()
+        toggleBiometrics = _biometrics.asObserver()
+        
+//        _biometrics.asObservable()
+//            .debug()
+//            .bind(to: prefs.rx.biometricsIsOn)
+//            .disposed(by: disposeBag)
+        _biometrics.asObservable()
+            .debug()
+            .bind(to: prefs.rx.keyPath(kp: \.biometricsIsOn))
+            .disposed(by: disposeBag)
     }
 }

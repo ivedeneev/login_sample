@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import UserNotifications
 
 protocol AuthServiceProtocol {
     func loginByPhone(phone: String) -> Observable<String>
@@ -17,6 +18,22 @@ final class AuthService: AuthServiceProtocol {
     func loginByPhone(phone: String) -> Observable<String> {
         Observable<String>.create { (obs) -> Disposable in
             DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + 1) {
+                let content = UNMutableNotificationContent()
+                content.body = "Ваш код: 1337"
+                content.sound = .default
+                
+                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                        
+                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(request) {(error) in
+                    if let error = error {
+                        #if DEBUG
+                        print("scheduled notification error: \(error)")
+                        #endif
+                    }
+                }
+
+                
                 obs.onNext(phone)
                 obs.onCompleted()
 //                obs.onError(ErrorType.text("Ошибка сервера. Попробовать еще раз"))

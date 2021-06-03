@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IVCollectionKit
 
 final class MyAddressesController: CollectionViewController {
     

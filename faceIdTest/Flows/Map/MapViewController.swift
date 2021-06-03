@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import MapKit
 import CoreLocation
+import IVCollectionKit
 
 final class MapViewController: BaseViewController {
     

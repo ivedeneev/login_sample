@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IVCollectionKit
 
 final class TariffSliderCell: UICollectionViewCell {
     
@@ -29,12 +30,17 @@ final class TariffSliderCell: UICollectionViewCell {
 
 extension TariffSliderCell: ConfigurableCollectionItem {
     static func estimatedSize(item: Void, boundingSize: CGSize, in section: AbstractCollectionSection) -> CGSize {
-        CGSize(width: boundingSize.width, height: 120)
+        CGSize(width: boundingSize.width, height: 90)
     }
     
     func configure(item: ()) {
         section.removeAll()
-        section += [CollectionItem<TariffCell>(item: ()), CollectionItem<TariffCell>(item: ()), CollectionItem<TariffCell>(item: ())]
+        let eco = Tariff(title: "Эконом", type: .econom, price: 330, hasDiscount: false, isPriceIncreased: false)
+        let comfort = Tariff(title: "Комфорт", type: .econom, price: 415, hasDiscount: false, isPriceIncreased: false)
+        let comfortPlus = Tariff(title: "Комфорт плюс", type: .econom, price: 634, hasDiscount: false, isPriceIncreased: false)
+        let business = Tariff(title: "Комфорт плюс", type: .econom, price: 634, hasDiscount: false, isPriceIncreased: false)
+        let viewModels = [eco, comfort, comfortPlus, business].map(TariffCellViewModel.init)
+        section += viewModels.map(CollectionItem<TariffCell>.init)
         director.sections = [section]
         director.reload()
     }
