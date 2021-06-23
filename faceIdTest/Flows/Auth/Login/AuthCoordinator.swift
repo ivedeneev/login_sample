@@ -10,6 +10,10 @@ import RxSwift
 
 final class AuthCoordinator: BaseCoordinator<AuthResult> {
     
+    deinit {
+        print("AuthCoordinator")
+    }
+    
     private let disposeBag = DisposeBag()
     
     init(_ window: UIWindow?) {
@@ -29,24 +33,11 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         
         return vm.tokenForPhoneNumber
             .observe(on: MainScheduler.instance)
-            .flatMapLatest { [weak self] (token, phone) -> Observable<AuthResult> in
-                guard let self = self else { return .empty() }
-                return self.confirmCode(token: token, phone: phone)
-            }
-            .observe(on: MainScheduler.instance)
-            .flatMapLatest { [weak self] result -> Observable<AuthResult> in
-                guard let self = self else { return .empty() }
-                return self.showFillPersonalDataIfNeeded(authResult: result)
-            }
-            .flatMapLatest { [weak self] (result) -> Observable<AuthResult> in
-                guard let self = self else { return .empty() }
-                return self.enablePinAndFaceId(authResult: result)
-                    .do { (result) in
-//                        switch result {
-//                        case .
-//                        }
-                    }
-            }
+            .withUnretained(self)
+            .flatMapLatest {  }
+            .flatMapLatest(showFillPersonalDataIfNeeded)
+            .flatMapLatest(enablePinAndFaceId)
+            .take(1)
     }
     
     private func confirmCode(token: String, phone: String) -> Observable<AuthResult> {

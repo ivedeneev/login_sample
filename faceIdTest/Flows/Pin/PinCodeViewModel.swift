@@ -78,7 +78,7 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
         
         if pinType.needsConfirmation {
             let firstCode = _code.take(1)
-            shouldConfirmCode = _code.mapToVoid().share()
+            shouldConfirmCode = _code.mapToVoid().take(1).share()
             let correctlyRepeatedCode = _code.skip(1).withLatestFrom(firstCode, resultSelector: { $0 == $1 }).share()
             incorrectCode = correctlyRepeatedCode.filter { !$0 }.mapToVoid()
             didAuthenticate = correctlyRepeatedCode.filter { $0 }.mapToVoid()

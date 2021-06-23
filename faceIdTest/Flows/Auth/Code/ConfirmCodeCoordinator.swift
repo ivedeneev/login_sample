@@ -10,6 +10,10 @@ import RxSwift
 
 final class ConfirmCodeCoordinator: BaseCoordinator<AuthResult> {
     
+    deinit {
+        print("ConfirmCodeCoordinator")
+    }
+    
     private let token: String
     private let phone: String
     

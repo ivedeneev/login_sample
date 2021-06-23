@@ -244,7 +244,7 @@ final class PinCodeController: BaseViewController {
         
         viewModel.shouldConfirmCode
             .mapTo("Повторите код")
-            .bind(to: titleLabel.rx.text)
+            .bind(to: titleLabel.rx.animatedText)
             .disposed(by: disposeBag)
     }
     
@@ -293,7 +293,6 @@ extension CollectionItem.Reactive {
         }
     }
 }
-
 
 //extension CollectionItem {
 //    var onSelectObservable: Observable<CellType.T> {

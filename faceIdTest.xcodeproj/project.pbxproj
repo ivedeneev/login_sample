@@ -66,6 +66,7 @@
 		D6BF9E0F25CE8D32000C468C /* ConfigureRideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E0E25CE8D32000C468C /* ConfigureRideController.swift */; };
 		D6BF9E1425CE8EEF000C468C /* RidePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */; };
 		D6BF9E1725CE953B000C468C /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1625CE953B000C468C /* Ride.swift */; };
+		D6C2423C266F88DA00CDB286 /* UILabel+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */; };
 		D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDD33725D7F34300D76EBE /* PinCodeController.swift */; };
 		D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */; };
 		D6FEC87C261474E200961873 /* MVPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FEC87B261474E200961873 /* MVPLoginViewController.swift */; };
@@ -149,6 +150,7 @@
 		D6BF9E0E25CE8D32000C468C /* ConfigureRideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureRideController.swift; sourceTree = "<group>"; };
 		D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidePointsView.swift; sourceTree = "<group>"; };
 		D6BF9E1625CE953B000C468C /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
+		D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Reactive.swift"; sourceTree = "<group>"; };
 		D6CDD33725D7F34300D76EBE /* PinCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeController.swift; sourceTree = "<group>"; };
 		D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeViewModelTests.swift; sourceTree = "<group>"; };
 		D6FEC87B261474E200961873 /* MVPLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPLoginViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		D698B56325C32E05004BAFF6 /* faceIdTest */ = {
 			isa = PBXGroup;
 			children = (
+				D6C2423A266F88C000CDB286 /* Extensions */,
 				D6FEC876261474C200961873 /* MVP */,
 				D6BF9E1225CE8ECC000C468C /* Views */,
 				D6A0E11B25CB48C400C8717A /* Model */,
@@ -479,6 +482,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D6C2423A266F88C000CDB286 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D6CDD33625D7F30600D76EBE /* Pin */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,6 +731,7 @@
 				D6A8FD5825CA9650003B3412 /* Color.swift in Sources */,
 				D6A0E11D25CB48ED00C8717A /* Address.swift in Sources */,
 				D6A8FD7B25CA981D003B3412 /* LoginViewModel.swift in Sources */,
+				D6C2423C266F88DA00CDB286 /* UILabel+Reactive.swift in Sources */,
 				D636C5DC25EE10B40004BC02 /* SettingsViewModel.swift in Sources */,
 				D6A0E12E25CBE9EF00C8717A /* ProfileViewController.swift in Sources */,
 				D6BF9DF925CDF12D000C468C /* CommonButton.swift in Sources */,
