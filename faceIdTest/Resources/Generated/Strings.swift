@@ -11,6 +11,11 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum AddCard {
+    /// Add card
+    internal static let title = L10n.tr("Localizable", "add_card.title")
+  }
+
   internal enum Login {
     /// Enter phone number
     internal static let phonePlaceholder = L10n.tr("Localizable", "login.phone_placeholder")

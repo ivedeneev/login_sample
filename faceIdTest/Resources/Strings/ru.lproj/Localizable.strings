@@ -8,3 +8,5 @@
 
 "login.phone_placeholder" = "Ваш номер телефона";
 "login.sms" = "Мы отправим на него СМС-код";
+
+"add_card.title" = "Добавить карту";

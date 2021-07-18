@@ -8,3 +8,5 @@
 
 "login.phone_placeholder" = "Enter phone number";
 "login.sms" = "We will send sms code";
+
+"add_card.title" = "Add card";

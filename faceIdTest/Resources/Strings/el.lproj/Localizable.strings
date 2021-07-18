@@ -9,3 +9,5 @@
 "login.phone_placeholder" = "τηλεφωνικό νούμερο";
 "login.sms" = "θα στείλουμε τον κωδικό sms";
 
+"add_card.title" = "Προσθήκη κάρτας";
+
