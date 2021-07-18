@@ -143,7 +143,7 @@ class FadeAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return duration
+        duration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -153,19 +153,21 @@ class FadeAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         if type == .present {
             transVC = toVC as! PopupControllerProtocol
             transitionContext.containerView.insertSubview(toVC.view, aboveSubview: fromVC.view)
-            transVC.contentView.transform = CGAffineTransform(translationX: 0, y: transVC.contentFrame.height)
+            let originalFrame = transVC.contentFrame
+            transVC.contentView.frame = CGRect(x: originalFrame.minX, y: fromVC.view.frame.maxY, width: originalFrame.width, height: originalFrame.height)
         } else {
             transVC = fromVC as! PopupControllerProtocol
         }
-        
+
         let duration: TimeInterval = transitionDuration(using: transitionContext)
         UIView.animate(withDuration: duration, delay: 0, options: [.curveLinear], animations: {
             if self.type == .present {
                 toVC.view.backgroundColor = self.dimColor
-                transVC.contentView.transform = .identity
+                transVC.contentView.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - transVC.contentFrame.height, width: transVC.contentFrame.width, height: transVC.contentFrame.height)
             } else {
                 fromVC.view.backgroundColor = .clear
-                transVC.contentView.transform = CGAffineTransform(translationX: 0, y: transVC.contentFrame.height)
+                let originalFrame = transVC.contentFrame
+                transVC.contentView.frame = CGRect(x: originalFrame.minX, y: UIScreen.main.bounds.height, width: originalFrame.width, height: originalFrame.height)
             }
         }) { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -208,7 +210,7 @@ extension PopupController: PopupControllerProtocol {
 
 extension PopupContentView {
     func setupKeyboardObserving() {
-        let o1 = NotificationCenter.default
+        _ = NotificationCenter.default
             .addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: .main) { [weak self] (note) in
                 guard
                     let self = self,

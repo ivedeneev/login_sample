@@ -29,7 +29,7 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             }
 
             layoutAttribute.frame.origin.x = leftMargin
-            print(leftMargin, sectionInset.left)
+//            print(leftMargin, sectionInset.left)
 
             leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)

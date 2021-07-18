@@ -33,8 +33,7 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
         
         return vm.tokenForPhoneNumber
             .observe(on: MainScheduler.instance)
-            .withUnretained(self)
-            .flatMapLatest {  }
+            .flatMapLatest(confirmCode)
             .flatMapLatest(showFillPersonalDataIfNeeded)
             .flatMapLatest(enablePinAndFaceId)
             .take(1)

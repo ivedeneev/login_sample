@@ -69,6 +69,18 @@ final class PhoneTextField: UITextField {
         
         text = t.formattedNumber(mask: phoneMask)
     }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        guard let p = placeholder else { return bounds }
+        let placeholderWidth = p.boundingRect(
+            with: CGSize(width: 500, height: 500),
+            options: [.usesFontLeading, .usesLineFragmentOrigin],
+            attributes: [.font: font],
+            context: nil
+        ).size.width.rounded(.up)
+        
+        return CGRect(x: (bounds.width - placeholderWidth) / 2, y: 0, width: placeholderWidth, height: bounds.height)
+    }
 }
 
 extension String {

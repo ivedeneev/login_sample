@@ -22,6 +22,9 @@
 		D698B57125C32E13004BAFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D698B56F25C32E13004BAFF6 /* LaunchScreen.storyboard */; };
 		D699F82E25CC3F7D001E7577 /* TariffCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699F82D25CC3F7D001E7577 /* TariffCell.swift */; };
 		D699F86525CC41C8001E7577 /* TariffSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D699F86425CC41C8001E7577 /* TariffSliderCell.swift */; };
+		D69FEE5826A4915100B3B226 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D69FEE5A26A4915100B3B226 /* Localizable.strings */; };
+		D69FEE8D26A4AD8200B3B226 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE8B26A4AD8200B3B226 /* Strings.swift */; };
+		D69FEE8E26A4AD8200B3B226 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE8C26A4AD8200B3B226 /* Assets.swift */; };
 		D6A0E11925CB48A000C8717A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E11825CB48A000C8717A /* UserService.swift */; };
 		D6A0E11D25CB48ED00C8717A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E11C25CB48ED00C8717A /* Address.swift */; };
 		D6A0E12225CBD92000C8717A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E12125CBD92000C8717A /* MapViewModel.swift */; };
@@ -104,6 +107,18 @@
 		D698B57225C32E13004BAFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D699F82D25CC3F7D001E7577 /* TariffCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TariffCell.swift; sourceTree = "<group>"; };
 		D699F86425CC41C8001E7577 /* TariffSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TariffSliderCell.swift; sourceTree = "<group>"; };
+		D69FEE5926A4915100B3B226 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D69FEE6826A491C800B3B226 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		D69FEE6926A491CA00B3B226 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D69FEE6A26A491CA00B3B226 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D69FEE6D26A4934500B3B226 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		D69FEE6E26A4934500B3B226 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D69FEE6F26A4934500B3B226 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D69FEE8326A4AB6500B3B226 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Main.strings; sourceTree = "<group>"; };
+		D69FEE8426A4AB6500B3B226 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D69FEE8526A4AB6600B3B226 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D69FEE8B26A4AD8200B3B226 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		D69FEE8C26A4AD8200B3B226 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		D6A0E11825CB48A000C8717A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D6A0E11C25CB48ED00C8717A /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		D6A0E12125CBD92000C8717A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -238,6 +253,7 @@
 		D698B56325C32E05004BAFF6 /* faceIdTest */ = {
 			isa = PBXGroup;
 			children = (
+				D69FEE5126A490DD00B3B226 /* Resources */,
 				D6C2423A266F88C000CDB286 /* Extensions */,
 				D6FEC876261474C200961873 /* MVP */,
 				D6BF9E1225CE8ECC000C468C /* Views */,
@@ -272,6 +288,32 @@
 				D699F86425CC41C8001E7577 /* TariffSliderCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		D69FEE5126A490DD00B3B226 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D69FEE8826A4ABD200B3B226 /* Generated */,
+				D69FEE8226A4AB4500B3B226 /* Strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D69FEE8226A4AB4500B3B226 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				D69FEE5A26A4915100B3B226 /* Localizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		D69FEE8826A4ABD200B3B226 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				D69FEE8C26A4AD8200B3B226 /* Assets.swift */,
+				D69FEE8B26A4AD8200B3B226 /* Strings.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		D6A0E11B25CB48C400C8717A /* Model */ = {
@@ -533,6 +575,7 @@
 			buildConfigurationList = D698B57525C32E13004BAFF6 /* Build configuration list for PBXNativeTarget "faceIdTest" */;
 			buildPhases = (
 				68371D1752E878F35B823EDD /* [CP] Check Pods Manifest.lock */,
+				D69FEE7F26A495A400B3B226 /* Swiftgen */,
 				D698B55D25C32E05004BAFF6 /* Sources */,
 				D698B55E25C32E05004BAFF6 /* Frameworks */,
 				D698B55F25C32E05004BAFF6 /* Resources */,
@@ -592,6 +635,9 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				ru,
+				el,
 			);
 			mainGroup = D698B55825C32E05004BAFF6;
 			productRefGroup = D698B56225C32E05004BAFF6 /* Products */;
@@ -610,6 +656,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D698B57125C32E13004BAFF6 /* LaunchScreen.storyboard in Resources */,
+				D69FEE5826A4915100B3B226 /* Localizable.strings in Resources */,
 				D698B56E25C32E13004BAFF6 /* Assets.xcassets in Resources */,
 				D698B56C25C32E05004BAFF6 /* Main.storyboard in Resources */,
 			);
@@ -703,6 +750,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-faceIdTestTests/Pods-faceIdTestTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D69FEE7F26A495A400B3B226 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT\"/SwiftGen/bin/swiftgen\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -712,6 +777,7 @@
 			files = (
 				D6A0E12525CBD94000C8717A /* MapCoordinator.swift in Sources */,
 				D61333DA25E8CC1500305626 /* ToggleCell.swift in Sources */,
+				D69FEE8E26A4AD8200B3B226 /* Assets.swift in Sources */,
 				D6A8FDB925CAE279003B3412 /* PersonalDataViewController.swift in Sources */,
 				D6AFF5CB25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift in Sources */,
 				D61333D525E850ED00305626 /* SettingsViewController.swift in Sources */,
@@ -744,6 +810,7 @@
 				D6AFF5C025DE50AA00CC5CE3 /* FloatingLabelTextField.swift in Sources */,
 				D6BF9E0A25CE8854000C468C /* PaymentMethodsController.swift in Sources */,
 				D6A8FD5925CA9650003B3412 /* Font.swift in Sources */,
+				D69FEE8D26A4AD8200B3B226 /* Strings.swift in Sources */,
 				D6BF9E1725CE953B000C468C /* Ride.swift in Sources */,
 				D699F86525CC41C8001E7577 /* TariffSliderCell.swift in Sources */,
 				D6A8FDC125CAE7CA003B3412 /* MapViewController.swift in Sources */,
@@ -793,6 +860,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				D698B56B25C32E05004BAFF6 /* Base */,
+				D69FEE6826A491C800B3B226 /* es */,
+				D69FEE6D26A4934500B3B226 /* ru */,
+				D69FEE8326A4AB6500B3B226 /* el */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -801,8 +871,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				D698B57025C32E13004BAFF6 /* Base */,
+				D69FEE6926A491CA00B3B226 /* es */,
+				D69FEE6E26A4934500B3B226 /* ru */,
+				D69FEE8426A4AB6500B3B226 /* el */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D69FEE5A26A4915100B3B226 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D69FEE5926A4915100B3B226 /* en */,
+				D69FEE6A26A491CA00B3B226 /* es */,
+				D69FEE6F26A4934500B3B226 /* ru */,
+				D69FEE8526A4AB6600B3B226 /* el */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -812,6 +896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -873,6 +958,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

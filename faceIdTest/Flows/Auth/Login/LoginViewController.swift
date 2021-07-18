@@ -45,11 +45,11 @@ final class LoginViewController: BaseViewController {
         ])
         
         let enterPhoneLabel = UILabel()
-        enterPhoneLabel.text = "Мы отправим на него СМС-код"
+        enterPhoneLabel.text = L10n.Login.sms
         enterPhoneLabel.font = Font.title2
         enterPhoneLabel.textColor = Color.text()
         
-        phoneTextField.placeholder = "Ваш номер телефона"
+        phoneTextField.placeholder = L10n.Login.phonePlaceholder
         phoneTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .semibold)
         stackView.addArrangedSubview(phoneTextField)
         stackView.addArrangedSubview(enterPhoneLabel)

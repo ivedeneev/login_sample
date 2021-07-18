@@ -1,0 +1,10 @@
+strings:
+  inputs: faceIdTest/Resources/Strings/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: faceIdTest/Resources/Generated/Strings.swift
+xcassets:
+  inputs: faceIdTest/Assets.xcassets
+  outputs:
+    - templatePath: SwiftGenTemplates/ImageAssets.stencil
+      output: faceIdTest/Resources/Generated/Assets.swift

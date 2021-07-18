@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  faceIdTest
+
+  Created by Igor Vedeneev on 18.07.2021.
+  
+*/
+
+"login.phone_placeholder" = "Ваш номер телефона";
+"login.sms" = "Мы отправим на него СМС-код";

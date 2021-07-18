@@ -17,8 +17,8 @@ final class AppCoordinator: BaseCoordinator<Void> {
     }
    
     override func start() -> Observable<Void> {
-//        let isLoggedIn = true
-        let isLoggedIn = false
+        let isLoggedIn = true
+//        let isLoggedIn = false
         
         if isLoggedIn {
             return coordinate(to: MapCoordinator(window))

@@ -53,6 +53,7 @@ final class ConfirmCodeViewController: BaseViewController {
         stackView.addArrangedSubview(helloLabel)
         
         codeTextField.highlightStyle = .rect
+        codeTextField.digitsBackgroundColor = Color.secondaryBackground()
 //        codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
         codeTextField.font = code
         stackView.addArrangedSubview(codeTextField)
@@ -79,7 +80,6 @@ final class ConfirmCodeViewController: BaseViewController {
             .controlEvent(.editingChanged)
             .asDriver()
             .map { [unowned codeTextField] _ -> String in
-//                print(codeTextField.text)
                 return codeTextField.text ?? "" // "хитрая" реализация для текстфилда ввода кода
             }
         

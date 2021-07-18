@@ -9,6 +9,7 @@ target 'faceIdTest' do
   pod 'RxSwiftExt'
   pod 'RxCocoa'
   pod 'IVCollectionKit'
+  pod 'SwiftGen'
 
 end
 

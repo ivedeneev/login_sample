@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  faceIdTest
+
+  Created by Igor Vedeneev on 18.07.2021.
+  
+*/
+
+"login.phone_placeholder" = "τηλεφωνικό νούμερο";
+"login.sms" = "θα στείλουμε τον κωδικό sms";
+
