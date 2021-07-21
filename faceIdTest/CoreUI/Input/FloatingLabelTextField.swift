@@ -16,10 +16,18 @@ class FloatingLabelTextField : UITextField {
     var flotatingLabelTopPosition: CGFloat = -14
     var showUnderlineView = true
     
-    var kg_placeholder: String? {
+//    var kg_placeholder: String? {
+//        didSet {
+//            guard kg_placeholder != nil else { return }
+//            placeholderLabel.text = kg_placeholder
+//            placeholderLabel.sizeToFit()
+//        }
+//    }
+    
+    override var placeholder: String? {
         didSet {
-            guard kg_placeholder != nil else { return }
-            placeholderLabel.text = kg_placeholder
+            guard placeholder != nil else { return }
+            placeholderLabel.text = placeholder
             placeholderLabel.sizeToFit()
         }
     }
@@ -33,8 +41,8 @@ class FloatingLabelTextField : UITextField {
         initialSetup()
     }
     
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         initialSetup()
     }
     
@@ -49,10 +57,12 @@ class FloatingLabelTextField : UITextField {
         addSubview(placeholderLabel)
         clearButtonMode = .always
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(kg_textDidChange(notif:)),
-                                               name: UITextField.textDidChangeNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(kg_textDidChange(notif:)),
+            name: UITextField.textDidChangeNotification,
+            object: nil
+        )
     }
     
     private func setupPlaceholderLabel() {
@@ -100,18 +110,18 @@ class FloatingLabelTextField : UITextField {
         }
     }
     
-    let padding = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0);
+    let padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        bounds.inset(by: padding)
     }
 
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        .zero//textRect(forBounds: bounds)
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: padding)
+        bounds.inset(by: padding)
     }
     
     override func layoutSubviews() {

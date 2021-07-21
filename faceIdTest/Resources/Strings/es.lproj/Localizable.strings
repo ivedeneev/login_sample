@@ -10,3 +10,4 @@
 "login.sms" = "Eenviaremos el código sms";
 
 "add_card.title" = "Agregar tarjeta";
+"add_card.add" = "Agregar";

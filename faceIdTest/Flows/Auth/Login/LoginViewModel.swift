@@ -10,7 +10,10 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
-typealias LoginOutput = (token: String, phone: String)
+struct LoginOutput: Equatable {
+    let token: String
+    let phone: String
+}
 
 protocol LoginViewModelProtocol {
     var phoneNumber: AnyObserver<String> { get }

@@ -39,8 +39,12 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
             .take(1)
     }
     
-    private func confirmCode(token: String, phone: String) -> Observable<AuthResult> {
-        let coordinator = ConfirmCodeCoordinator(token: token, phone: phone, nc: rootViewController)
+    private func confirmCode(loginOutput: LoginOutput) -> Observable<AuthResult> {
+        let coordinator = ConfirmCodeCoordinator(
+            token: loginOutput.token,
+            phone: loginOutput.phone,
+            nc: rootViewController
+        )
         return coordinate(to: coordinator)
     }
     
@@ -141,4 +145,11 @@ class TranslucentNavigationController: UINavigationController {
 //        navigationBar.backIndicatorImage = Asset.backButtonIcon.image
 //        navigationBar.backIndicatorTransitionMaskImage = Asset.backButtonIcon.image
     }
+}
+
+
+protocol VCFabric {
+    associatedtype VCType
+    
+    static func make() -> VCType
 }

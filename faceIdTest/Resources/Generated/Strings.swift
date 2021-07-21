@@ -12,6 +12,8 @@ import Foundation
 internal enum L10n {
 
   internal enum AddCard {
+    /// Add
+    internal static let add = L10n.tr("Localizable", "add_card.add")
     /// Add card
     internal static let title = L10n.tr("Localizable", "add_card.title")
   }

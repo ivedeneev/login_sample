@@ -10,3 +10,4 @@
 "login.sms" = "We will send sms code";
 
 "add_card.title" = "Add card";
+"add_card.add" = "Add";

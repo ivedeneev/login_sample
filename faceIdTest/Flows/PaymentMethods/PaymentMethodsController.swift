@@ -100,13 +100,12 @@ class AddCardViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        cardTextField.becomeFirstResponder()
     }
     
     private func setup() {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.alignment = .center
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.axis = .vertical
@@ -122,39 +121,57 @@ class AddCardViewController: BaseViewController {
         
         let helloLabel = UILabel()
         helloLabel.text = L10n.AddCard.title
-        helloLabel.font = Font.title
-        helloLabel.textAlignment = .center
+        helloLabel.font = Font.largeTitle
+//        helloLabel.textAlignment = .center
         helloLabel.textColor = Color.text()
         
         stackView.addArrangedSubview(helloLabel)
         
-        cardTextField.placeholder = "____ ____ ____ ____"
+        cardTextField.placeholder = "Card number"
         let scanButton = UIButton()
-        scanButton.setImage(UIImage(named: "faceId"), for: .normal)
+        scanButton.setImage(Asset.faceId, for: .normal)
         cardTextField.rightView = scanButton
         cardTextField.rightViewMode = .always
-        cardTextField.font = .monospacedDigitSystemFont(ofSize: 24, weight: .light)
+        cardTextField.font = .monospacedDigitSystemFont(ofSize: 16, weight: .semibold)
         
-        cardTextField.backgroundColor = Color.secondaryBackground()
+//        cardTextField.backgroundColor = Color.secondaryBackground()
         cardTextField.clipsToBounds = true
         cardTextField.layer.cornerRadius = 8
+        cardTextField.tintColor = Color.accent()
         stackView.addArrangedSubview(cardTextField)
+        
+        
+        let st2 = UIStackView()
+//        st2.translatesAutoresizingMaskIntoConstraints = false
+        st2.alignment = .fill
+        st2.distribution = .fillEqually
+        st2.axis = .horizontal
+        st2.spacing = 16
+        
+        let expirationDateField = FloatingLabelTextField()
+        let cvvField = FloatingLabelTextField()
+        expirationDateField.placeholder = "Expires"
+        cvvField.placeholder = "CVV"
+        st2.addArrangedSubview(expirationDateField)
+        st2.addArrangedSubview(cvvField)
+        stackView.addArrangedSubview(st2)
         
         let addButton = CommonButton()
         addButton.backgroundColor = Color.accent()
-        addButton.setTitle("Добавить", for: .normal)
+        addButton.setTitle(L10n.AddCard.add, for: .normal)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(addButton)
         NSLayoutConstraint.activate([
             addButton.heightAnchor.constraint(equalToConstant: 48)
         ])
         
+        
         let close = UIBarButtonItem(barButtonSystemItem: .close, target: nil, action: nil)
         navigationItem.leftBarButtonItem = close
     }
 }
 
-class CardTextField: UITextField {
+class CardTextField: FloatingLabelTextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -178,39 +195,8 @@ class CardTextField: UITextField {
 //        }
 //
         guard var t = text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
-//
-//        switch t.first {
-//        case "8":
-//            t = "+7" + t.dropFirst()
-//        case "9":
-//            t = "+7" + t
-//        default:
-//            break
-//        }
-//
-//        if t.count > 1, t.first != "+" || String(Array(t)[1]) != "7" && t.first == "+" {
-//            t.insert(contentsOf: "+7", at: .init(utf16Offset: 0, in: t))
-//        }
         
         text = t.formattedNumber(mask: "XXXX XXXX XXXX XXXX")
-    }
-    
-    struct Constants {
-        static let sidePadding: CGFloat = 16
-        static let topPadding: CGFloat = 8
-    }
-
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(
-            x: bounds.origin.x + Constants.sidePadding,
-            y: bounds.origin.y + Constants.topPadding,
-            width: bounds.size.width - Constants.sidePadding * 2,
-            height: bounds.size.height - Constants.topPadding * 2
-        )
-    }
-
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return self.textRect(forBounds: bounds)
     }
     
     override var intrinsicContentSize: CGSize {

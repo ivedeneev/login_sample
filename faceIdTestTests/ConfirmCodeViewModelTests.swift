@@ -111,7 +111,7 @@ class MockAuthService: AuthServiceProtocol {
     var loginObservable: Observable<String> = .empty()
     
     func loginByPhone(phone: String) -> Observable<String> {
-        loginObservable
+        loginObservable.do(onNext: { print("MockAuthService".uppercased(), $0) })
     }
     
     func confirmCode(code: String, token: String) -> Observable<AuthResult> {
