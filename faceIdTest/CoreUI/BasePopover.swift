@@ -172,13 +172,6 @@ class BasePopover: BaseViewController {
             dismiss(animated: true, completion: nil)
         }
         
-//        view.snp.updateConstraints { (make) in
-//            make.height.equalTo(height)
-//            if shouldAnimateToBottom {
-//                make.bottom.equalToSuperview()
-//            }
-//        }
-        
         view.constraints.first(where: { $0.firstAttribute == .height })?.constant = height
         
         if shouldAnimateToBottom {
@@ -210,11 +203,6 @@ class BasePopover: BaseViewController {
     func updateUI(fraction: CGFloat) {
     }
     
-//    func animateKeyboard(context: ReactiveCocoa.KeyboardChangeContext) {
-//
-//    }
-    
     func handleTouchesEnded() {
-//        UIApplication.shared.delegate!.window!!.endEditing(true)
     }
 }

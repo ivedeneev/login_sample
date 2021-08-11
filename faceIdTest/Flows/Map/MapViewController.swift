@@ -18,7 +18,7 @@ final class MapViewController: BaseViewController {
     lazy var mapView = MKMapView()
     lazy var locationManager = CLLocationManager()
     lazy var rideOptions = RideOptionsController()
-    lazy var currentLocationLabel = UILabel()
+    lazy var currentLocationLabel = UIImageView(image: UIImage(named: "my_location"))
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     lazy var director = CollectionDirector(collectionView: collectionView)
@@ -38,6 +38,7 @@ final class MapViewController: BaseViewController {
         view.addSubview(collectionView)
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.accessibilityLabel = "fav_places"
         
         NSLayoutConstraint.activate([
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -78,9 +79,6 @@ final class MapViewController: BaseViewController {
             locationManager.requestWhenInUseAuthorization()
         }
         
-        currentLocationLabel.backgroundColor = Color.lightBlueGray()
-        currentLocationLabel.numberOfLines = 2
-        currentLocationLabel.font = .systemFont(ofSize: 14, weight: .medium)
         view.addSubview(currentLocationLabel)
         
         let profileBtn = UIBarButtonItem(image: UIImage(named: "profile"), style: .plain, target: nil, action: nil)
@@ -109,6 +107,13 @@ final class MapViewController: BaseViewController {
         viewModel.paymentMethod
             .asDriver()
             .drive(rideOptions.paymentMethodButton.rx.paymentMethod)
+            .disposed(by: disposeBag)
+        
+        viewModel.humanReadableLocation
+            .drive(
+                navigationItem.rx.title,
+                rideOptions.pointsView.fromTextField.rx.text
+            )
             .disposed(by: disposeBag)
     }
     
@@ -157,46 +162,35 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        print("regionWillChangeAnimated", mapView.centerCoordinate)
+//        print("regionWillChangeAnimated", mapView.centerCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         currentLocationLabel.center = mapView.center
-        currentLocationLabel.frame.size = CGSize(width: 40, height: 40)
+        currentLocationLabel.contentMode = .scaleAspectFit
+        currentLocationLabel.frame.size = CGSize(width: 50, height: 106)
                 
-        let geocoder = CLGeocoder()
-        let loc = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        geocoder.reverseGeocodeLocation(loc, preferredLocale: .init(identifier: "ru_RU")) { [weak self] (placemarks, error) in
-            guard let mark = placemarks?.first?.name else {
-                return
-            }
-            
-            self?.navigationItem.title = mark
-            
-            self?.rideOptions.pointsView.fromTextField.text = mark
-        }
+        viewModel.pickupLocation.onNext(mapView.centerCoordinate)
     }
 }
 
 
 
-
 class Marker: NSObject, MKAnnotation {
-  let title: String?
-  let coordinate: CLLocationCoordinate2D
+    let title: String?
+    let coordinate: CLLocationCoordinate2D
 
-  init(
-    title: String?,
-    coordinate: CLLocationCoordinate2D
-  ) {
-    self.title = title
-    self.coordinate = coordinate
+    init(
+        title: String?,
+        coordinate: CLLocationCoordinate2D
+    ) {
+        self.title = title
+        self.coordinate = coordinate
 
-    super.init()
-  }
+        super.init()
+    }
 
-  var subtitle: String? {
-    return "fdfd"
-  }
+    var subtitle: String? {
+        return "fdfd"
+    }
 }
-

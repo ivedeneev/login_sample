@@ -1,5 +1,6 @@
 PODS:
   - IVCollectionKit (1.0.0)
+  - Resolver (1.4.3)
   - RxBlocking (6.2.0):
     - RxSwift (= 6.2.0)
   - RxCocoa (6.2.0):
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - IVCollectionKit
+  - Resolver
   - RxBlocking
   - RxCocoa
   - RxSwift
@@ -34,6 +36,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - IVCollectionKit
+    - Resolver
     - RxBlocking
     - RxCocoa
     - RxRelay
@@ -45,6 +48,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   IVCollectionKit: 3ac2e04b709700927327139f0e416988c8bbfbb0
+  Resolver: c0956ef605a64f63458166653fa4ef71df5acd98
   RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
@@ -54,6 +58,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
 
-PODFILE CHECKSUM: 60fff2ee2ba8fee3924b5e47600edb1f97b1586a
+PODFILE CHECKSUM: 1378607c29493cb294ceb1fc2d147ddbd7f1bf44
 
 COCOAPODS: 1.10.1

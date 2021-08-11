@@ -7,7 +7,7 @@
 
 import UIKit
 import UserNotifications
-
+import Resolver
 
 //@main
 @UIApplicationMain
@@ -19,7 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, _) in
             
         }
-
+        
+        let IS_UI_TESTS = ProcessInfo.processInfo.arguments.contains("UI_TESTS")
+        
+        if IS_UI_TESTS {
+            setupDependenciesForUITesting()
+        } else {
+            setupDependencies()
+        }
         
         return true
     }
@@ -51,3 +58,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
 }
 
+extension AppDelegate {
+    func setupDependenciesForUITesting() {
+        let env = ProcessInfo.processInfo.environment
+        if let code = env["pinCode"] {
+            MockPrefs.shared.pinCode = code
+        }
+        
+        if let code = env["pinIsOn"] {
+            MockPrefs.shared.pinIsOn = code == "true"
+        }
+        
+        if let bio = env["biometricsIsEnabled"] {
+            MockPrefs.shared.biometricsIsOn = bio == "true"
+        }
+        
+        Resolver.register(factory: { GeocodedLocationProviderImpl() })
+        Resolver.register(factory: { MockPrefs.shared as PreferencesProtocol })
+    }
+    
+    func setupDependencies() {
+        Resolver.register(factory: { GeocodedLocationProviderImpl() })
+        Resolver.register(factory: { Preferences() as PreferencesProtocol })
+    }
+}

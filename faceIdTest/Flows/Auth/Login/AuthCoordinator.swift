@@ -10,10 +10,6 @@ import RxSwift
 
 final class AuthCoordinator: BaseCoordinator<AuthResult> {
     
-    deinit {
-        print("AuthCoordinator")
-    }
-    
     private let disposeBag = DisposeBag()
     
     init(_ window: UIWindow?) {
@@ -25,7 +21,6 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
     }
     
     override func start() -> Observable<AuthResult> {
-        
         let loginVc = LoginViewController()
         let vm = LoginViewModel()
         loginVc.viewModel = vm
@@ -79,7 +74,11 @@ final class AuthCoordinator: BaseCoordinator<AuthResult> {
     
     func suggestEnablePin() -> Observable<Bool> {
         Observable.create { [rootViewController] observer in
-            let ac = UIAlertController(title: "Добавить вход по коду?", message: "Вы можете добавить код позже в настройках", preferredStyle: .actionSheet)
+            let ac = UIAlertController(
+                title: "Добавить вход по коду?",
+                message: "Вы можете добавить код позже в настройках",
+                preferredStyle: .actionSheet
+            )
             
             ac.addAction(
                 .init(title: "Добавить", style: .default, handler: { _ in

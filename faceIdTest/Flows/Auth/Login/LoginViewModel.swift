@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxSwiftExt
+import Resolver
 
 struct LoginOutput: Equatable {
     let token: String
@@ -32,6 +33,8 @@ final class LoginViewModel: LoginViewModelProtocol {
     var resendPhone: AnyObserver<Void>
     var tokenForPhoneNumber: Observable<LoginOutput>
     
+//    @Injected var _authService: AuthServiceProtocol
+    
     private let disposeBag = DisposeBag()
     
     init(authService: AuthServiceProtocol = AuthService()) {
@@ -44,20 +47,21 @@ final class LoginViewModel: LoginViewModelProtocol {
         let phoneObservable = _phoneSubject.asObservable().share()
         
         let validPhoneObservable = phoneObservable
-            .merge(with: _resendSubject.asObservable()
-            .withLatestFrom(phoneObservable))
+            .merge(with: _resendSubject.withLatestFrom(phoneObservable))
             .filter { $0.isValidPhone }
         
         let phoneEvents = validPhoneObservable
             .flatMapLatest { (phone) in
                 authService.loginByPhone(phone: phone).materialize()
-            }.share()
+            }
+            .share()
         
         tokenForPhoneNumber = phoneEvents.elements()
             .withLatestFrom(
                 validPhoneObservable,
                 resultSelector: { LoginOutput(token: $0, phone: $1) }
             )
+
         
         let _isLoading = BehaviorRelay<Bool>(value: false)
         isLoading = _isLoading.asDriver()

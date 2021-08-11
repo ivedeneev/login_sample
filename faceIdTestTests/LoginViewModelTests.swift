@@ -10,6 +10,7 @@ import RxSwift
 import RxBlocking
 import RxTest
 @testable import faceIdTest
+import Resolver
 
 class LoginViewModelTests: XCTestCase {
     
@@ -19,6 +20,9 @@ class LoginViewModelTests: XCTestCase {
     var viewModel: LoginViewModel!
     var isLoading: TestableObserver<Int>!
     var phoneInputEvents: TestableObservable<String>!
+    var token: String!
+    var phone: String!
+    var resolver: Resolver!
     
     override func setUp() {
         super.setUp()
@@ -27,6 +31,11 @@ class LoginViewModelTests: XCTestCase {
         scheduler = TestScheduler(initialClock: 0)
         service = MockAuthService()
         viewModel = LoginViewModel(authService: service)
+        token = "test_token"
+        phone = "79153051653"
+        
+        resolver = Resolver()
+        resolver.register { MockAuthService() as AuthServiceProtocol }
     }
     
     override func tearDown() {
@@ -34,22 +43,28 @@ class LoginViewModelTests: XCTestCase {
         disposeBag = DisposeBag()
     }
     
-    func test_didLoginEmmitsValueOnSuccess() {
-        let token = "test_token"
-        let phone = "79153051653"
-        bindInputs(phone: phone)
-        setConfirmCodeResult(.next(0, token))
+    func test_isLoading() {
+        bindInputs()
+        setConfirmCodeResult(.next(30, token))
         
-        
-        let sut = scheduler.start { self.viewModel.tokenForPhoneNumber }
-        XCTAssertEqual(sut.events, [.next(2000, LoginOutput(token: token, phone: phone))])
+        let sut = scheduler.start(created: 0, subscribed: 0, disposed: 500) { self.viewModel.isLoading }
+        XCTAssertEqual(sut.events, [.next(0, false), .next(320, true), .next(350, false)])
     }
     
-    func bindInputs(phone: String) {
+    func test_didLoginEmmitsValueOnSuccess() {
+        bindInputs()
+        setConfirmCodeResult(.next(0, token))
+        
+        let sut = scheduler.start { self.viewModel.tokenForPhoneNumber }
+        // 100 + 11 * 20
+        XCTAssertEqual(sut.events, [.next(320, LoginOutput(token: token, phone: phone))])
+    }
+    
+    func bindInputs() {
         let events: [Recorded<Event<String>>] = (1...phone.count).map { i in
-            .next(200 + 100 * i, String(phone.prefix(i)))
+            .next(100 + 20 * i, String(phone.prefix(i)))
         }
-        print(events.map { $0.value })
+
         phoneInputEvents = scheduler.createHotObservable(events)
         phoneInputEvents.bind(to: viewModel.phoneNumber).disposed(by: disposeBag)
     }

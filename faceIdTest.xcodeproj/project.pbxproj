@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		698A977CA0B29465FE95B766 /* Pods_faceIdTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719048586F56FD096C1D931C /* Pods_faceIdTest.framework */; };
+		6D0F331B3CB165CB72A6D75C /* Pods_faceIdTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF0D229882527E992DC9475E /* Pods_faceIdTestUITests.framework */; };
 		8F890C8A6064F02EF34F5A47 /* Pods_faceIdTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29DEE608CE8498166CE4D760 /* Pods_faceIdTestTests.framework */; };
 		D60E48EA25D44F7A00DCB6E7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E48E925D44F7A00DCB6E7 /* Settings.swift */; };
 		D61333D525E850ED00305626 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61333D425E850ED00305626 /* SettingsViewController.swift */; };
@@ -27,6 +28,8 @@
 		D69FEE8E26A4AD8200B3B226 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE8C26A4AD8200B3B226 /* Assets.swift */; };
 		D69FEE9426A8345100B3B226 /* PinFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE9326A8345100B3B226 /* PinFlowTests.swift */; };
 		D69FEE9826A835A500B3B226 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE9726A835A500B3B226 /* LoginViewModelTests.swift */; };
+		D69FEE9C26A87F2E00B3B226 /* AuthCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEE9B26A87F2E00B3B226 /* AuthCoordinatorTests.swift */; };
+		D69FEEC326AA831800B3B226 /* GeocodedLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69FEEC226AA831800B3B226 /* GeocodedLocationProvider.swift */; };
 		D6A0E11925CB48A000C8717A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E11825CB48A000C8717A /* UserService.swift */; };
 		D6A0E11D25CB48ED00C8717A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E11C25CB48ED00C8717A /* Address.swift */; };
 		D6A0E12225CBD92000C8717A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E12125CBD92000C8717A /* MapViewModel.swift */; };
@@ -71,10 +74,12 @@
 		D6BF9E0F25CE8D32000C468C /* ConfigureRideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E0E25CE8D32000C468C /* ConfigureRideController.swift */; };
 		D6BF9E1425CE8EEF000C468C /* RidePointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */; };
 		D6BF9E1725CE953B000C468C /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF9E1625CE953B000C468C /* Ride.swift */; };
+		D6C1903826C1AA4100016A2C /* faceIdTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1903726C1AA4100016A2C /* faceIdTestUITests.swift */; };
+		D6C1907526C24D5000016A2C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E48E925D44F7A00DCB6E7 /* Settings.swift */; };
+		D6C1917026C2C1A700016A2C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5C25CA9658003B3412 /* AccountManager.swift */; };
 		D6C2423C266F88DA00CDB286 /* UILabel+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */; };
 		D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDD33725D7F34300D76EBE /* PinCodeController.swift */; };
 		D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */; };
-		D6FEC87C261474E200961873 /* MVPLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FEC87B261474E200961873 /* MVPLoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,13 +90,22 @@
 			remoteGlobalIDString = D698B56025C32E05004BAFF6;
 			remoteInfo = faceIdTest;
 		};
+		D6C1903A26C1AA4100016A2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D698B55925C32E05004BAFF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D698B56025C32E05004BAFF6;
+			remoteInfo = faceIdTest;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17C33B70A6557510345D2C0A /* Pods-faceIdTestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTestUITests.debug.xcconfig"; path = "Target Support Files/Pods-faceIdTestUITests/Pods-faceIdTestUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1C5BBA63F1322EE676B1258B /* Pods-faceIdTestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTestTests.release.xcconfig"; path = "Target Support Files/Pods-faceIdTestTests/Pods-faceIdTestTests.release.xcconfig"; sourceTree = "<group>"; };
 		282C177B8A8C25DCD5827426 /* Pods-faceIdTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTest.release.xcconfig"; path = "Target Support Files/Pods-faceIdTest/Pods-faceIdTest.release.xcconfig"; sourceTree = "<group>"; };
 		29DEE608CE8498166CE4D760 /* Pods_faceIdTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_faceIdTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E8E742D25245E936DAF5105 /* Pods-faceIdTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTest.debug.xcconfig"; path = "Target Support Files/Pods-faceIdTest/Pods-faceIdTest.debug.xcconfig"; sourceTree = "<group>"; };
+		4716E0F11C83CA7472B36B94 /* Pods-faceIdTestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTestUITests.release.xcconfig"; path = "Target Support Files/Pods-faceIdTestUITests/Pods-faceIdTestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		719048586F56FD096C1D931C /* Pods_faceIdTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_faceIdTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C09ACFBB74D0ABF63B1FAF /* Pods-faceIdTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-faceIdTestTests.debug.xcconfig"; path = "Target Support Files/Pods-faceIdTestTests/Pods-faceIdTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D60E48E925D44F7A00DCB6E7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -123,6 +137,8 @@
 		D69FEE8C26A4AD8200B3B226 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		D69FEE9326A8345100B3B226 /* PinFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinFlowTests.swift; sourceTree = "<group>"; };
 		D69FEE9726A835A500B3B226 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		D69FEE9B26A87F2E00B3B226 /* AuthCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorTests.swift; sourceTree = "<group>"; };
+		D69FEEC226AA831800B3B226 /* GeocodedLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodedLocationProvider.swift; sourceTree = "<group>"; };
 		D6A0E11825CB48A000C8717A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D6A0E11C25CB48ED00C8717A /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		D6A0E12125CBD92000C8717A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -169,10 +185,13 @@
 		D6BF9E0E25CE8D32000C468C /* ConfigureRideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureRideController.swift; sourceTree = "<group>"; };
 		D6BF9E1325CE8EEF000C468C /* RidePointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidePointsView.swift; sourceTree = "<group>"; };
 		D6BF9E1625CE953B000C468C /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
+		D6C1903526C1AA4100016A2C /* faceIdTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = faceIdTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6C1903726C1AA4100016A2C /* faceIdTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = faceIdTestUITests.swift; sourceTree = "<group>"; };
+		D6C1903926C1AA4100016A2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Reactive.swift"; sourceTree = "<group>"; };
 		D6CDD33725D7F34300D76EBE /* PinCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeController.swift; sourceTree = "<group>"; };
 		D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeViewModelTests.swift; sourceTree = "<group>"; };
-		D6FEC87B261474E200961873 /* MVPLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVPLoginViewController.swift; sourceTree = "<group>"; };
+		EF0D229882527E992DC9475E /* Pods_faceIdTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_faceIdTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +211,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D6C1903226C1AA4100016A2C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D0F331B3CB165CB72A6D75C /* Pods_faceIdTestUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -202,6 +229,8 @@
 				282C177B8A8C25DCD5827426 /* Pods-faceIdTest.release.xcconfig */,
 				84C09ACFBB74D0ABF63B1FAF /* Pods-faceIdTestTests.debug.xcconfig */,
 				1C5BBA63F1322EE676B1258B /* Pods-faceIdTestTests.release.xcconfig */,
+				17C33B70A6557510345D2C0A /* Pods-faceIdTestUITests.debug.xcconfig */,
+				4716E0F11C83CA7472B36B94 /* Pods-faceIdTestUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -211,6 +240,7 @@
 			children = (
 				719048586F56FD096C1D931C /* Pods_faceIdTest.framework */,
 				29DEE608CE8498166CE4D760 /* Pods_faceIdTestTests.framework */,
+				EF0D229882527E992DC9475E /* Pods_faceIdTestUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -239,6 +269,7 @@
 			children = (
 				D698B56325C32E05004BAFF6 /* faceIdTest */,
 				D6B1E37125E706440066C248 /* faceIdTestTests */,
+				D6C1903626C1AA4100016A2C /* faceIdTestUITests */,
 				D698B56225C32E05004BAFF6 /* Products */,
 				6752B36F861844598D3B158E /* Pods */,
 				A6DB38F8C952D449B9969307 /* Frameworks */,
@@ -250,6 +281,7 @@
 			children = (
 				D698B56125C32E05004BAFF6 /* faceIdTest.app */,
 				D6B1E37025E706440066C248 /* faceIdTestTests.xctest */,
+				D6C1903526C1AA4100016A2C /* faceIdTestUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,7 +291,6 @@
 			children = (
 				D69FEE5126A490DD00B3B226 /* Resources */,
 				D6C2423A266F88C000CDB286 /* Extensions */,
-				D6FEC876261474C200961873 /* MVP */,
 				D6BF9E1225CE8ECC000C468C /* Views */,
 				D6A0E11B25CB48C400C8717A /* Model */,
 				D6A8FD8025CA98AE003B3412 /* Services */,
@@ -364,6 +395,7 @@
 				D6A8FD5C25CA9658003B3412 /* AccountManager.swift */,
 				D6A8FD5D25CA9658003B3412 /* Coordinator.swift */,
 				D60E48E925D44F7A00DCB6E7 /* Settings.swift */,
+				D69FEEC226AA831800B3B226 /* GeocodedLocationProvider.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -486,6 +518,7 @@
 				D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */,
 				D69FEE9326A8345100B3B226 /* PinFlowTests.swift */,
 				D69FEE9726A835A500B3B226 /* LoginViewModelTests.swift */,
+				D69FEE9B26A87F2E00B3B226 /* AuthCoordinatorTests.swift */,
 			);
 			path = faceIdTestTests;
 			sourceTree = "<group>";
@@ -530,6 +563,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D6C1903626C1AA4100016A2C /* faceIdTestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D6C1903726C1AA4100016A2C /* faceIdTestUITests.swift */,
+				D6C1903926C1AA4100016A2C /* Info.plist */,
+			);
+			path = faceIdTestUITests;
+			sourceTree = "<group>";
+		};
 		D6C2423A266F88C000CDB286 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,30 +589,6 @@
 				D6AFF5CE25DFD16400CC5CE3 /* PinCodeViewModel.swift */,
 			);
 			path = Pin;
-			sourceTree = "<group>";
-		};
-		D6FEC876261474C200961873 /* MVP */ = {
-			isa = PBXGroup;
-			children = (
-				D6FEC87F261474E500961873 /* Auth */,
-			);
-			path = MVP;
-			sourceTree = "<group>";
-		};
-		D6FEC87F261474E500961873 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				D6FEC880261474FE00961873 /* Login */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		D6FEC880261474FE00961873 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				D6FEC87B261474E200961873 /* MVPLoginViewController.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -616,6 +634,26 @@
 			productReference = D6B1E37025E706440066C248 /* faceIdTestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D6C1903426C1AA4100016A2C /* faceIdTestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6C1903E26C1AA4100016A2C /* Build configuration list for PBXNativeTarget "faceIdTestUITests" */;
+			buildPhases = (
+				E459759653AFF66A862D8C08 /* [CP] Check Pods Manifest.lock */,
+				D6C1903126C1AA4100016A2C /* Sources */,
+				D6C1903226C1AA4100016A2C /* Frameworks */,
+				D6C1903326C1AA4100016A2C /* Resources */,
+				DA29AE4D737DFA5693542742 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D6C1903B26C1AA4100016A2C /* PBXTargetDependency */,
+			);
+			name = faceIdTestUITests;
+			productName = faceIdTestUITests;
+			productReference = D6C1903526C1AA4100016A2C /* faceIdTestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -629,6 +667,10 @@
 						CreatedOnToolsVersion = 12.2;
 					};
 					D6B1E36F25E706440066C248 = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = D698B56025C32E05004BAFF6;
+					};
+					D6C1903426C1AA4100016A2C = {
 						CreatedOnToolsVersion = 12.2;
 						TestTargetID = D698B56025C32E05004BAFF6;
 					};
@@ -652,6 +694,7 @@
 			targets = (
 				D698B56025C32E05004BAFF6 /* faceIdTest */,
 				D6B1E36F25E706440066C248 /* faceIdTestTests */,
+				D6C1903426C1AA4100016A2C /* faceIdTestUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -669,6 +712,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D6B1E36E25E706440066C248 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D6C1903326C1AA4100016A2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -774,6 +824,45 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT\"/SwiftGen/bin/swiftgen\n";
 		};
+		DA29AE4D737DFA5693542742 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-faceIdTestUITests/Pods-faceIdTestUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-faceIdTestUITests/Pods-faceIdTestUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-faceIdTestUITests/Pods-faceIdTestUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E459759653AFF66A862D8C08 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-faceIdTestUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -798,6 +887,7 @@
 				D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */,
 				D61FEA5125D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				D6A8FD7825CA981D003B3412 /* AuthCoordinator.swift in Sources */,
+				D69FEEC326AA831800B3B226 /* GeocodedLocationProvider.swift in Sources */,
 				D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */,
 				D6BF9E0F25CE8D32000C468C /* ConfigureRideController.swift in Sources */,
 				D6A8FD5825CA9650003B3412 /* Color.swift in Sources */,
@@ -821,7 +911,6 @@
 				D699F86525CC41C8001E7577 /* TariffSliderCell.swift in Sources */,
 				D6A8FDC125CAE7CA003B3412 /* MapViewController.swift in Sources */,
 				D60E48EA25D44F7A00DCB6E7 /* Settings.swift in Sources */,
-				D6FEC87C261474E200961873 /* MVPLoginViewController.swift in Sources */,
 				D6A8FD5E25CA9658003B3412 /* AccountManager.swift in Sources */,
 				D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */,
 				D6AFF5C425DE688200CC5CE3 /* PinPadItem.swift in Sources */,
@@ -849,7 +938,18 @@
 				D6B1E37325E706440066C248 /* faceIdTestTests.swift in Sources */,
 				D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */,
 				D6B1E37D25E706540066C248 /* PinTypeTests.swift in Sources */,
+				D69FEE9C26A87F2E00B3B226 /* AuthCoordinatorTests.swift in Sources */,
 				D69FEE9426A8345100B3B226 /* PinFlowTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D6C1903126C1AA4100016A2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6C1907526C24D5000016A2C /* Settings.swift in Sources */,
+				D6C1903826C1AA4100016A2C /* faceIdTestUITests.swift in Sources */,
+				D6C1917026C2C1A700016A2C /* AccountManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +960,11 @@
 			isa = PBXTargetDependency;
 			target = D698B56025C32E05004BAFF6 /* faceIdTest */;
 			targetProxy = D6B1E37525E706440066C248 /* PBXContainerItemProxy */;
+		};
+		D6C1903B26C1AA4100016A2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D698B56025C32E05004BAFF6 /* faceIdTest */;
+			targetProxy = D6C1903A26C1AA4100016A2C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1100,6 +1205,46 @@
 			};
 			name = Release;
 		};
+		D6C1903C26C1AA4100016A2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17C33B70A6557510345D2C0A /* Pods-faceIdTestUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6S6ATT56J;
+				INFOPLIST_FILE = faceIdTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivedeneev.faceIdTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = faceIdTest;
+			};
+			name = Debug;
+		};
+		D6C1903D26C1AA4100016A2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4716E0F11C83CA7472B36B94 /* Pods-faceIdTestUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C6S6ATT56J;
+				INFOPLIST_FILE = faceIdTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivedeneev.faceIdTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = faceIdTest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1126,6 +1271,15 @@
 			buildConfigurations = (
 				D6B1E37725E706440066C248 /* Debug */,
 				D6B1E37825E706440066C248 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6C1903E26C1AA4100016A2C /* Build configuration list for PBXNativeTarget "faceIdTestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6C1903C26C1AA4100016A2C /* Debug */,
+				D6C1903D26C1AA4100016A2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

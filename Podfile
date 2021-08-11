@@ -1,5 +1,9 @@
 platform :ios, '12.0'
 
+#def shared
+#
+#end
+
 target 'faceIdTest' do
   use_frameworks!
   inhibit_all_warnings!
@@ -10,6 +14,7 @@ target 'faceIdTest' do
   pod 'RxCocoa'
   pod 'IVCollectionKit'
   pod 'SwiftGen'
+  pod 'Resolver'
 
 end
 
@@ -17,13 +22,26 @@ target 'faceIdTestTests' do
   use_frameworks!
   inhibit_all_warnings!
   
-  pod 'SnapKit'
+#  pod 'SnapKit'
   pod 'RxSwift'
   pod 'RxSwiftExt'
   pod 'RxCocoa'
   pod 'RxTest'
   pod 'RxBlocking'
+  pod 'Resolver'
 
+end
+
+target 'faceIdTestUITests' do
+  use_frameworks!
+  inhibit_all_warnings!
+  
+  pod 'RxSwift'
+  pod 'RxSwiftExt'
+  pod 'RxCocoa'
+  pod 'RxTest'
+  pod 'RxBlocking'
+  pod 'Resolver'
 end
 
 

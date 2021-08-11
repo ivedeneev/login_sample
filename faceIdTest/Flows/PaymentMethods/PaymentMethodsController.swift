@@ -91,7 +91,7 @@ final class SelectPaymentMethodCoordinator: BaseCoordinator<PaymentMethodResult>
 
 class AddCardViewController: BaseViewController {
     
-    private let cardTextField = CardTextField()
+    private let cardTextField = MaskedTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,11 +128,12 @@ class AddCardViewController: BaseViewController {
         stackView.addArrangedSubview(helloLabel)
         
         cardTextField.placeholder = "Card number"
+        cardTextField.formattingMask = "XXXX XXXX XXXX XXXX"
         let scanButton = UIButton()
         scanButton.setImage(Asset.faceId, for: .normal)
         cardTextField.rightView = scanButton
         cardTextField.rightViewMode = .always
-        cardTextField.font = .monospacedDigitSystemFont(ofSize: 16, weight: .semibold)
+        cardTextField.font = .monospacedDigitSystemFont(ofSize: 16, weight: .regular)
         
 //        cardTextField.backgroundColor = Color.secondaryBackground()
         cardTextField.clipsToBounds = true
@@ -148,10 +149,16 @@ class AddCardViewController: BaseViewController {
         st2.axis = .horizontal
         st2.spacing = 16
         
-        let expirationDateField = FloatingLabelTextField()
-        let cvvField = FloatingLabelTextField()
+        let expirationDateField = MaskedTextField()
+        let cvvField = MaskedTextField()
         expirationDateField.placeholder = "Expires"
         cvvField.placeholder = "CVV"
+        expirationDateField.formattingMask = "XX/XX"
+        cvvField.formattingMask = "XXX"
+        expirationDateField.tintColor = Color.accent()
+        cvvField.tintColor = Color.accent()
+        expirationDateField.font = .monospacedDigitSystemFont(ofSize: 28, weight: .regular)
+        cvvField.font = .monospacedDigitSystemFont(ofSize: 28, weight: .regular)
         st2.addArrangedSubview(expirationDateField)
         st2.addArrangedSubview(cvvField)
         stackView.addArrangedSubview(st2)
@@ -171,7 +178,14 @@ class AddCardViewController: BaseViewController {
     }
 }
 
-class CardTextField: FloatingLabelTextField {
+protocol MaskedTextFieldDelegate {
+    
+}
+
+class MaskedTextField: FloatingLabelTextField {
+    
+    var formattingMask: String!
+    let underlineView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -186,6 +200,18 @@ class CardTextField: FloatingLabelTextField {
         keyboardType = .decimalPad
         textContentType = .creditCardNumber
         addTarget(self, action: #selector(didChangeEditing), for: .editingChanged)
+    
+        underlineView.backgroundColor = Color.separatorColor()
+        underlineView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(underlineView)
+        
+        NSLayoutConstraint.activate([
+            underlineView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            underlineView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            underlineView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            underlineView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
     }
     
     @objc private func didChangeEditing() {
@@ -193,13 +219,9 @@ class CardTextField: FloatingLabelTextField {
 //            text = delegate.formatPhoneNumber(for: self)
 //            return
 //        }
-//
+
         guard var t = text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         
-        text = t.formattedNumber(mask: "XXXX XXXX XXXX XXXX")
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: 100, height: 56)
+        text = t.formattedNumber(mask: formattingMask)
     }
 }

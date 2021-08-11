@@ -7,20 +7,23 @@
 
 import UIKit
 import RxSwift
+import Resolver
 
 final class AppCoordinator: BaseCoordinator<Void> {
     
     private var window: UIWindow?
+    
+    @Injected var accountManager: AccountManager
     
     init(window: UIWindow?) {
         self.window = window
     }
    
     override func start() -> Observable<Void> {
-//        let isLoggedIn = true
-        let isLoggedIn = false
+        let isLoggedIn = true
+//        let isLoggedIn = false
         
-        if isLoggedIn {
+        if accountManager.isLoggedIn {
             return coordinate(to: MapCoordinator(window))
         } else {
             return coordinate(to: AuthCoordinator(window))

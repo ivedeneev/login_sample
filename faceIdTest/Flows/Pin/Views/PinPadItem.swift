@@ -24,6 +24,7 @@ final class PinPadItem: UIControl {
             digitLabel.text = d.description
             clipsToBounds = true
             layer.cornerRadius = 30
+            accessibilityLabel = "pin_pad_\(d)"
         }
     }
     

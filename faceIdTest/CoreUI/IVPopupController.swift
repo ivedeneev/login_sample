@@ -154,7 +154,12 @@ class FadeAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             transVC = toVC as! PopupControllerProtocol
             transitionContext.containerView.insertSubview(toVC.view, aboveSubview: fromVC.view)
             let originalFrame = transVC.contentFrame
-            transVC.contentView.frame = CGRect(x: originalFrame.minX, y: fromVC.view.frame.maxY, width: originalFrame.width, height: originalFrame.height)
+            transVC.contentView.frame = CGRect(
+                x: originalFrame.minX,
+                y: fromVC.view.frame.maxY,
+                width: originalFrame.width,
+                height: originalFrame.height
+            )
         } else {
             transVC = fromVC as! PopupControllerProtocol
         }

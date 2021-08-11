@@ -29,6 +29,9 @@ internal enum Asset {
     internal static var keypadDelete: UIImage {
         return image(named: "keypad_delete")
     }
+    internal static var myLocation: UIImage {
+        return image(named: "my_location")
+    }
     internal static var plus: UIImage {
         return image(named: "plus")
     }
@@ -52,6 +55,7 @@ internal enum Asset {
         faceId,
         fingerprint,
         keypadDelete,
+        myLocation,
         plus,
         profile,
         ridePoints,

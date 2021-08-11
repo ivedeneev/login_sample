@@ -7,11 +7,14 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import Resolver
 
 final class MapCoordinator: BaseCoordinator<Void> {
     
     weak var window: UIWindow?
     private let disposeBag = DisposeBag()
+    @Injected var preferences: PreferencesProtocol
     
     init(_ window: UIWindow?) {
         super.init()
@@ -53,6 +56,35 @@ final class MapCoordinator: BaseCoordinator<Void> {
             .bind(to: vm.paymentMethod)
             .disposed(by: disposeBag)
         
+        
+        let pinIsPresented = PublishRelay<Bool>()
+        let showPinEvents = NotificationCenter.default.rx.notification(UIApplication.willEnterForegroundNotification)
+            .mapTo(preferences.pinIsOn)
+            .withLatestFrom(pinIsPresented.startWith(false), resultSelector: { $0 && !$1 })
+            .filter { $0 }
+            .share()
+        
+        showPinEvents.mapTo(true).bind(to: pinIsPresented).disposed(by: disposeBag)
+        
+        let pinEvents = showPinEvents
+            .filter { $0 }
+            .flatMapLatest { [weak self] _ -> Observable<EnablePinResult> in
+                guard let self = self else { return .empty() }
+                let c = ConfirmCodeCoordniator(rootViewController: self.rootViewController)
+                c.animated = false
+                return self.coordinate(to: c)
+            }
+            .share()
+        
+        pinEvents.mapTo(false).bind(to: pinIsPresented).disposed(by: disposeBag)
+            
+        pinEvents
+            .withUnretained(self)
+            .bind { coord, result in
+                coord.rootViewController?.presentedViewController?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
         return .never()
     }
     
@@ -81,4 +113,10 @@ final class MapCoordinator: BaseCoordinator<Void> {
 //    private func showRideConfirmation() -> Observable<Void> {
 //
 //    }
+}
+
+extension Observable {
+    func printElements(prefix: String = "") -> Observable<Element> {
+        self.do(onNext: { print(prefix, $0) })
+    }
 }

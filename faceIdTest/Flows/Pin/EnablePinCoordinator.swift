@@ -93,13 +93,21 @@ final class RemovePinCoordinator: BaseCoordinator<EnablePinResult> {
 }
 
 final class ConfirmCodeCoordniator: BaseCoordinator<EnablePinResult> {
+    
+    var animated = true
+    
     override func start() -> Observable<EnablePinResult> {
         let type = PinCodeType.confirm
         let vm = PinCodeViewModel(pinType: type)
         let vc = PinCodeController()
         vc.viewModel = vm
+        
+        if !animated {
+            vc.modalPresentationStyle = .fullScreen
+        }
 
-        rootViewController?.present(vc, animated: true, completion: nil)
+        let root = rootViewController?.presentedViewController ?? rootViewController
+        root?.present(vc, animated: animated, completion: nil)
         
         return vm.didAuthenticate.mapTo(EnablePinResult.enabled)
             .merge(with: vc.rx.deallocated.mapTo(EnablePinResult.cancel))

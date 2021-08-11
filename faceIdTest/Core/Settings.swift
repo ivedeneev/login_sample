@@ -6,16 +6,19 @@
 //
 
 import Foundation
-import RxSwift
-import RxRelay
+//import RxSwift
 
-//protocol PreferencesProtocol: AnyObject {
-//    var pinCode: String? { get set }
-//    var pinIsOn: Bool { get set }
-//    var biometricsIsOn: Bool { get set }
-//}
+protocol PreferencesProtocol: AnyObject {
+    var pinCode: String? { get set }
+    var pinIsOn: Bool { get set }
+    var biometricsIsOn: Bool { get set }
+}
 
-final class Preferences {
+final class Preferences: PreferencesProtocol {
+    
+    init() {
+        print("Preferences")
+    }
     
     @Setting<String?>("pin_code", defaultValue: nil)
     var pinCode: String?
@@ -27,27 +30,16 @@ final class Preferences {
     var biometricsIsOn: Bool
 }
 
-extension Preferences: ReactiveCompatible {}
-extension Reactive where Base: Preferences {
-//    var pinCode: Binder<String?> {
-//        Binder(base) { (base, pin) in
-//            base.pinCode = pin
-//        }
-//    }
+//extension Preferences: ReactiveCompatible {}
+//extension Reactive where Base: Preferences {
 //
-//    var biometricsIsOn: Binder<Bool> {
-//        Binder(base) { (base, isOn) in
-//            base.biometricsIsOn = isOn
+//    func keyPath<Value>(kp: WritableKeyPath<Base, Value>) -> Binder<Value> {
+//        Binder(base) { (base, value) in
+//            var b = base
+//            b[keyPath: kp] = value
 //        }
 //    }
-//    
-    func keyPath<Value>(kp: WritableKeyPath<Base, Value>) -> Binder<Value> {
-        Binder(base) { (base, value) in
-            var b = base
-            b[keyPath: kp] = value
-        }
-    }
-}
+//}
 
 ///  Обертка над `UserDefaults` для настроек, которые не требуют особой безопасности
 ///  Пример исппользования:
@@ -94,16 +86,31 @@ struct Setting<T> {
 
         userDefaults.set(newValue, forKey: key)
     }
-    
-    //    private func getValue() -> T where T: RawRepresentable {
-    //        guard let value = userDefaults.value(forKey: key) as? T.RawValue else {
-    //            return defaultValue
-    //        }
-    //
-    //        return T(rawValue: value) ?? defaultValue
-    //    }
+}
 
-    //    private func setValue(_ newValue: T) where T: RawRepresentable {
-    //        userDefaults.set(newValue.rawValue, forKey: key)
-    //    }
+//    private func getValue() -> T where T: RawRepresentable {
+//        guard let value = userDefaults.value(forKey: key) as? T.RawValue else {
+//            return defaultValue
+//        }
+//
+//        return T(rawValue: value) ?? defaultValue
+//    }
+
+//    private func setValue(_ newValue: T) where T: RawRepresentable {
+//        userDefaults.set(newValue.rawValue, forKey: key)
+//    }
+
+
+class MockPrefs: PreferencesProtocol, CustomStringConvertible {
+    var pinCode: String?
+    var pinIsOn: Bool = false
+    var biometricsIsOn: Bool = false
+
+    static let shared = MockPrefs()
+
+    private init() {}
+
+    var description: String {
+        Unmanaged.passUnretained(self).toOpaque().debugDescription
+    }
 }

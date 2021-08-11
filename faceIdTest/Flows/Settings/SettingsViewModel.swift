@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import Resolver
 
 protocol SettingsViewModelProtocol {
     var showEnablePin: AnyObserver<Void> { get }
@@ -35,9 +36,9 @@ final class SettingsViewModel: SettingsViewModelProtocol {
     let toggleBiometrics: AnyObserver<Bool>
     
     private let disposeBag = DisposeBag()
-    private let prefs: Preferences
+    private let prefs: PreferencesProtocol
     
-    init(prefs: Preferences = Preferences()) {
+    init(prefs: PreferencesProtocol = Resolver.resolve()) {
         
         self.prefs = prefs
         
@@ -56,13 +57,11 @@ final class SettingsViewModel: SettingsViewModelProtocol {
         let _biometrics = PublishSubject<Bool>()
         toggleBiometrics = _biometrics.asObserver()
         
-//        _biometrics.asObservable()
-//            .debug()
-//            .bind(to: prefs.rx.biometricsIsOn)
-//            .disposed(by: disposeBag)
         _biometrics.asObservable()
-            .debug()
-            .bind(to: prefs.rx.keyPath(kp: \.biometricsIsOn))
+//            .bind(to: prefs.rx.keyPath(kp: \.biometricsIsOn))
+            .bind { isOn in
+                prefs.biometricsIsOn = isOn
+            }
             .disposed(by: disposeBag)
     }
 }

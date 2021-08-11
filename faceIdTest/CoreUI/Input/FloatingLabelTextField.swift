@@ -10,19 +10,16 @@ import UIKit
 
 class FloatingLabelTextField : UITextField {
     
-    var placeholderFont: UIFont?
+    private var placeholderFont: UIFont! {
+        didSet {
+            placeholderLabel.font = placeholderFont
+            invalidateIntrinsicContentSize()
+        }
+    }
     private let underlineLayer = CALayer()
     private var placeholderLabel = UILabel()
-    var flotatingLabelTopPosition: CGFloat = -14
+    var flotatingLabelTopPosition: CGFloat = 0
     var showUnderlineView = true
-    
-//    var kg_placeholder: String? {
-//        didSet {
-//            guard kg_placeholder != nil else { return }
-//            placeholderLabel.text = kg_placeholder
-//            placeholderLabel.sizeToFit()
-//        }
-//    }
     
     override var placeholder: String? {
         didSet {
@@ -30,6 +27,18 @@ class FloatingLabelTextField : UITextField {
             placeholderLabel.text = placeholder
             placeholderLabel.sizeToFit()
         }
+    }
+    
+    override var font: UIFont? {
+        didSet {
+            placeholderFont = font!
+            placeholderLabel.sizeToFit()
+        }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        let height = font!.lineHeight * 2.5
+        return CGSize(width: 200, height: height)
     }
     
     deinit {
@@ -47,11 +56,10 @@ class FloatingLabelTextField : UITextField {
     }
     
     private func initialSetup() {
-        placeholderFont = .systemFont(ofSize: 13)
         layer.addSublayer(underlineLayer)
         underlineLayer.backgroundColor = UIColor.separator.cgColor
         borderStyle = .none
-        clipsToBounds = false
+        backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
         
         placeholderLabel.textColor = UIColor.secondaryLabel
         addSubview(placeholderLabel)
@@ -84,7 +92,7 @@ class FloatingLabelTextField : UITextField {
     private func setPlaceholderTopAttributes() {
         placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         placeholderLabel.frame.origin.x = 0
-        let top: CGFloat = (bounds.height - placeholderLabel.font.lineHeight + padding.top) / 2 - font!.lineHeight * 0.75 - 4
+        let top: CGFloat = 0
         placeholderLabel.frame.origin.y = top
     }
     
@@ -110,19 +118,22 @@ class FloatingLabelTextField : UITextField {
         }
     }
     
-    let padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
+    private var padding: UIEdgeInsets {
+        UIEdgeInsets(top: font!.lineHeight / 2, left: 0, bottom: font!.lineHeight / 2, right: 0);
+    }
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         bounds.inset(by: padding)
     }
 
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        .zero//textRect(forBounds: bounds)
+        .zero
     }
 
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         bounds.inset(by: padding)
     }
+
     
     override func layoutSubviews() {
         super.layoutSubviews()

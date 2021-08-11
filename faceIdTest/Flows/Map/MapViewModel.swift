@@ -9,6 +9,8 @@ import Foundation
 import RxSwift
 import CoreLocation
 import RxRelay
+import Resolver
+import RxCocoa
 
 protocol MapViewModelProtocol {
     
@@ -16,7 +18,7 @@ protocol MapViewModelProtocol {
     var pickupLocation: AnyObserver<CLLocationCoordinate2D> { get }
     
     /// reverse geocoded location
-    var humanReadableLocation: Observable<String> { get }  // relay?
+    var humanReadableLocation: Driver<String> { get }  // relay?
     
 //    var favoritePlaces: Observable<[Address]> { get }
     
@@ -39,7 +41,7 @@ protocol MapViewModelProtocol {
 final class MapViewModel: MapViewModelProtocol {
     var pickupLocation: AnyObserver<CLLocationCoordinate2D>
     
-    var humanReadableLocation: Observable<String>
+    var humanReadableLocation: Driver<String>
     
     var routeCoordinates: AnyObserver<(CLLocationCoordinate2D, CLLocationCoordinate2D)>
     
@@ -59,16 +61,28 @@ final class MapViewModel: MapViewModelProtocol {
     private var currentLocation = BehaviorRelay<Address?>(value: Address(name: "Дом", lat: 37, lon: 55))
     private let disposeBag = DisposeBag()
     
-    init() {
-        pickupLocation = .init(eventHandler: { (_) in
+//    @Injected var geocodingProvider: GeocodedLocationProvider
+    
+    init(
+        geocodingProvider: GeocodedLocationProvider = GeocodedLocationProviderImpl()
+    ) {
+        
+        let pickupSubject = PublishSubject<CLLocationCoordinate2D>()
+        pickupLocation = pickupSubject.asObserver()
+        
+        
+        humanReadableLocation =
+            pickupSubject
+//                .debug()
+                .flatMapLatest(geocodingProvider.geocoded)
+                .asDriver(onErrorJustReturn: nil)
+                .compactMap { $0?.name ?? "Unknown location" }
             
-        })
+            
         
         routeCoordinates = .init(eventHandler: { (_) in
             
         })
-        
-        humanReadableLocation = .empty()
         
         let _profile = PublishSubject<Void>()
         showProfile = _profile.asObserver()

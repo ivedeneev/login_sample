@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-
+import Resolver
 
 protocol PinCodeViewModelProtocol {
     /// Пользователь ввел код
@@ -63,7 +63,11 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     
-    init(pinType: PinCodeType, prefs: Preferences = Preferences(), codeLength: Int = 4) {
+    init(
+        pinType: PinCodeType,
+        prefs: PreferencesProtocol = Resolver.resolve(),
+        codeLength: Int = 4)
+    {
         self.pinType = pinType
         
         let _codeSubject = PublishSubject<String>()
@@ -79,12 +83,18 @@ final class PinCodeViewModel: PinCodeViewModelProtocol {
         if pinType.needsConfirmation {
             let firstCode = _code.take(1)
             shouldConfirmCode = _code.mapToVoid().take(1).share()
-            let correctlyRepeatedCode = _code.skip(1).withLatestFrom(firstCode, resultSelector: { $0 == $1 }).share()
+            
+            let correctlyRepeatedCode = _code.skip(1)
+                .withLatestFrom(firstCode, resultSelector: { $0 == $1 })
+                .share()
+            
             incorrectCode = correctlyRepeatedCode.filter { !$0 }.mapToVoid()
             didAuthenticate = correctlyRepeatedCode.filter { $0 }.mapToVoid()
             
             correctlyRepeatedCode.withLatestFrom(_code)
-                .bind(to: prefs.rx.keyPath(kp: \.pinCode))
+                .bind { code in
+                    prefs.pinCode = code
+                }
                 .disposed(by: disposeBag)
         } else {
             let maybeCorrectCode = _code
