@@ -75,10 +75,12 @@ extension AppDelegate {
         
         Resolver.register(factory: { GeocodedLocationProviderImpl() })
         Resolver.register(factory: { MockPrefs.shared as PreferencesProtocol })
+        Resolver.register(factory: { AccountManager() })
     }
     
     func setupDependencies() {
         Resolver.register(factory: { GeocodedLocationProviderImpl() })
         Resolver.register(factory: { Preferences() as PreferencesProtocol })
+        Resolver.register(factory: { AccountManager() })
     }
 }

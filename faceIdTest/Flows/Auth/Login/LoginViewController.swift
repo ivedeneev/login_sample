@@ -9,6 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import RxSwiftExt
+import AGInputControls
 
 final class LoginViewController: BaseViewController {
     
@@ -115,3 +116,48 @@ final class LoginViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
 }
+
+extension String {
+    func formattedNumber(mask: String) -> String {
+        let rawPhone = digitsOnly()
+
+        var result = ""
+        var index = rawPhone.startIndex
+        for ch in mask where index < rawPhone.endIndex {
+            if ch == "X" {
+                result.append(rawPhone[index])
+                index = rawPhone.index(after: index)
+            } else {
+                result.append(ch)
+            }
+        }
+        return result
+    }
+    
+    func digitsOnly() -> String {
+        return components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
+    }
+
+    var isValidPhone: Bool {
+        return digitsOnly().count == 11
+    }
+
+    var isValidEmail: Bool {
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let pred = NSPredicate(format:"SELF MATCHES %@", regex)
+        return pred.evaluate(with: self)
+    }
+}
+
+#if canImport(RxSwift)
+import RxSwift
+
+extension Reactive where Base: PhoneTextField {
+    var formattedPhone: Observable<String> {
+        controlEvent(.editingChanged)
+            .map { [weak base] in
+                return base?.text ?? ""
+            }
+    }
+}
+#endif

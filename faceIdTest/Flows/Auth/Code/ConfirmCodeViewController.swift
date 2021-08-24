@@ -9,13 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxSwiftExt
+import AGInputControls
 
 final class ConfirmCodeViewController: BaseViewController {
     
     var viewModel: ConfirmCodeViewModelProtocol!
     private let disposeBag = DisposeBag()
     
-    let codeTextField = CodeTextField()
+    let codeTextField = OTPCodeTextField()
     let stackView = UIStackView()
     let helloLabel = UILabel()
     let errorLabel = UILabel()
@@ -52,8 +53,8 @@ final class ConfirmCodeViewController: BaseViewController {
         
         stackView.addArrangedSubview(helloLabel)
         
-        codeTextField.highlightStyle = .rect
-        codeTextField.digitsBackgroundColor = Color.secondaryBackground()
+        codeTextField.decoration = .rect
+        codeTextField.decorationColor = Color.secondaryBackground()
 //        codeTextField.font = .monospacedDigitSystemFont(ofSize: 30, weight: .light)
         codeTextField.font = code
         stackView.addArrangedSubview(codeTextField)

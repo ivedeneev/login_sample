@@ -20,16 +20,17 @@ final class AppCoordinator: BaseCoordinator<Void> {
     }
    
     override func start() -> Observable<Void> {
-        let isLoggedIn = true
-//        let isLoggedIn = false
-        
+//        return coordinate(to: ProductSearchCoordinator(window))
+//        let isLoggedIn = true
+        let isLoggedIn = false
+
         if accountManager.isLoggedIn {
             return coordinate(to: MapCoordinator(window))
         } else {
             return coordinate(to: AuthCoordinator(window))
                 .flatMap { [weak self] _ -> Observable<Void> in
                     guard let self = self else { return .empty() }
-                    
+
                     return self.coordinate(to: MapCoordinator(self.window))
                 }
         }

@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import IVCollectionKit
+import AGInputControls
 
 final class PaymentMethodsController: CollectionViewController, PopupContentView {
     var frameInPopup: CGRect {
@@ -91,7 +92,7 @@ final class SelectPaymentMethodCoordinator: BaseCoordinator<PaymentMethodResult>
 
 class AddCardViewController: BaseViewController {
     
-    private let cardTextField = MaskedTextField()
+    private let cardTextField = FloatingLabelTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +101,7 @@ class AddCardViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cardTextField.becomeFirstResponder()
+        _  = cardTextField.becomeFirstResponder()
     }
     
     private func setup() {
@@ -149,8 +150,8 @@ class AddCardViewController: BaseViewController {
         st2.axis = .horizontal
         st2.spacing = 16
         
-        let expirationDateField = MaskedTextField()
-        let cvvField = MaskedTextField()
+        let expirationDateField = FloatingLabelTextField()
+        let cvvField = FloatingLabelTextField()
         expirationDateField.placeholder = "Expires"
         cvvField.placeholder = "CVV"
         expirationDateField.formattingMask = "XX/XX"
@@ -175,53 +176,5 @@ class AddCardViewController: BaseViewController {
         
         let close = UIBarButtonItem(barButtonSystemItem: .close, target: nil, action: nil)
         navigationItem.leftBarButtonItem = close
-    }
-}
-
-protocol MaskedTextFieldDelegate {
-    
-}
-
-class MaskedTextField: FloatingLabelTextField {
-    
-    var formattingMask: String!
-    let underlineView = UIView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    private func setup() {
-        keyboardType = .decimalPad
-        textContentType = .creditCardNumber
-        addTarget(self, action: #selector(didChangeEditing), for: .editingChanged)
-    
-        underlineView.backgroundColor = Color.separatorColor()
-        underlineView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(underlineView)
-        
-        NSLayoutConstraint.activate([
-            underlineView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            underlineView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            underlineView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            underlineView.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-    }
-    
-    @objc private func didChangeEditing() {
-//        if let delegate = formattingDelegate {
-//            text = delegate.formatPhoneNumber(for: self)
-//            return
-//        }
-
-        guard var t = text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
-        
-        text = t.formattedNumber(mask: formattingMask)
     }
 }

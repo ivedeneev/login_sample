@@ -38,7 +38,6 @@
 		D6A0E12E25CBE9EF00C8717A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A0E12D25CBE9EF00C8717A /* ProfileViewController.swift */; };
 		D6A8FD4925CA95B3003B3412 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD4725CA95B3003B3412 /* AppCoordinator.swift */; };
 		D6A8FD4A25CA95B3003B3412 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD4825CA95B3003B3412 /* AppDelegate.swift */; };
-		D6A8FD5725CA964F003B3412 /* CodeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5325CA964F003B3412 /* CodeTextField.swift */; };
 		D6A8FD5825CA9650003B3412 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5425CA964F003B3412 /* Color.swift */; };
 		D6A8FD5925CA9650003B3412 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5525CA964F003B3412 /* Font.swift */; };
 		D6A8FD5A25CA9650003B3412 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5625CA964F003B3412 /* BaseViewController.swift */; };
@@ -51,12 +50,10 @@
 		D6A8FD7C25CA981D003B3412 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD7725CA981D003B3412 /* LoginViewController.swift */; };
 		D6A8FD8225CA98C1003B3412 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD8125CA98C1003B3412 /* AuthService.swift */; };
 		D6A8FDB125CADA2B003B3412 /* ConfirmCodeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDB025CADA2B003B3412 /* ConfirmCodeCoordinator.swift */; };
-		D6A8FDB525CADDE8003B3412 /* PhoneTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDB425CADDE8003B3412 /* PhoneTextField.swift */; };
 		D6A8FDB925CAE279003B3412 /* PersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDB825CAE279003B3412 /* PersonalDataViewController.swift */; };
 		D6A8FDC125CAE7CA003B3412 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC025CAE7CA003B3412 /* MapViewController.swift */; };
 		D6A8FDC625CAF279003B3412 /* BasePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC525CAF279003B3412 /* BasePopover.swift */; };
 		D6A8FDC925CAF370003B3412 /* RideOptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FDC825CAF370003B3412 /* RideOptionsController.swift */; };
-		D6AFF5C025DE50AA00CC5CE3 /* FloatingLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */; };
 		D6AFF5C425DE688200CC5CE3 /* PinPadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5C325DE688200CC5CE3 /* PinPadItem.swift */; };
 		D6AFF5C825DE693600CC5CE3 /* DotsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5C725DE693600CC5CE3 /* DotsField.swift */; };
 		D6AFF5CB25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */; };
@@ -77,6 +74,8 @@
 		D6C1903826C1AA4100016A2C /* faceIdTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C1903726C1AA4100016A2C /* faceIdTestUITests.swift */; };
 		D6C1907526C24D5000016A2C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60E48E925D44F7A00DCB6E7 /* Settings.swift */; };
 		D6C1917026C2C1A700016A2C /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A8FD5C25CA9658003B3412 /* AccountManager.swift */; };
+		D6C192E026D0044D00016A2C /* ProductSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C192DF26D0044D00016A2C /* ProductSearchViewController.swift */; };
+		D6C192E826D0124C00016A2C /* ProductSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C192E726D0124C00016A2C /* ProductSearchViewModel.swift */; };
 		D6C2423C266F88DA00CDB286 /* UILabel+Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */; };
 		D6CDD33825D7F34300D76EBE /* PinCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CDD33725D7F34300D76EBE /* PinCodeController.swift */; };
 		D6D5B124260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */; };
@@ -147,7 +146,6 @@
 		D6A0E12D25CBE9EF00C8717A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D6A8FD4725CA95B3003B3412 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D6A8FD4825CA95B3003B3412 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D6A8FD5325CA964F003B3412 /* CodeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeTextField.swift; sourceTree = "<group>"; };
 		D6A8FD5425CA964F003B3412 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		D6A8FD5525CA964F003B3412 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		D6A8FD5625CA964F003B3412 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -160,12 +158,10 @@
 		D6A8FD7725CA981D003B3412 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = faceIdTest/Flows/Auth/Login/LoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		D6A8FD8125CA98C1003B3412 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D6A8FDB025CADA2B003B3412 /* ConfirmCodeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeCoordinator.swift; sourceTree = "<group>"; };
-		D6A8FDB425CADDE8003B3412 /* PhoneTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextField.swift; sourceTree = "<group>"; };
 		D6A8FDB825CAE279003B3412 /* PersonalDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewController.swift; sourceTree = "<group>"; };
 		D6A8FDC025CAE7CA003B3412 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		D6A8FDC525CAF279003B3412 /* BasePopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePopover.swift; sourceTree = "<group>"; };
 		D6A8FDC825CAF370003B3412 /* RideOptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideOptionsController.swift; sourceTree = "<group>"; };
-		D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingLabelTextField.swift; sourceTree = "<group>"; };
 		D6AFF5C325DE688200CC5CE3 /* PinPadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPadItem.swift; sourceTree = "<group>"; };
 		D6AFF5C725DE693600CC5CE3 /* DotsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsField.swift; sourceTree = "<group>"; };
 		D6AFF5CA25DE6C5D00CC5CE3 /* EnablePinCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnablePinCoordinator.swift; sourceTree = "<group>"; };
@@ -188,6 +184,8 @@
 		D6C1903526C1AA4100016A2C /* faceIdTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = faceIdTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C1903726C1AA4100016A2C /* faceIdTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = faceIdTestUITests.swift; sourceTree = "<group>"; };
 		D6C1903926C1AA4100016A2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6C192DF26D0044D00016A2C /* ProductSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSearchViewController.swift; sourceTree = "<group>"; };
+		D6C192E726D0124C00016A2C /* ProductSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSearchViewModel.swift; sourceTree = "<group>"; };
 		D6C2423B266F88DA00CDB286 /* UILabel+Reactive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Reactive.swift"; sourceTree = "<group>"; };
 		D6CDD33725D7F34300D76EBE /* PinCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeController.swift; sourceTree = "<group>"; };
 		D6D5B123260A0F3A00AE6A04 /* ConfirmCodeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCodeViewModelTests.swift; sourceTree = "<group>"; };
@@ -403,7 +401,6 @@
 		D6A8FD5125CA9605003B3412 /* CoreUI */ = {
 			isa = PBXGroup;
 			children = (
-				D6AFF5BD25DE4F4900CC5CE3 /* Input */,
 				D6A0E12A25CBE00B00C8717A /* IVPopupController.swift */,
 				D6A8FDC525CAF279003B3412 /* BasePopover.swift */,
 				D6A8FD5625CA964F003B3412 /* BaseViewController.swift */,
@@ -418,6 +415,7 @@
 		D6A8FD5225CA9609003B3412 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				D6C192DE26D0042E00016A2C /* Test_ProductSearch */,
 				D6CDD33625D7F30600D76EBE /* Pin */,
 				D60E48E725D44F0A00DCB6E7 /* Settings */,
 				D6BF9E0D25CE8D10000C468C /* ConfigureRide */,
@@ -490,16 +488,6 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
-		D6AFF5BD25DE4F4900CC5CE3 /* Input */ = {
-			isa = PBXGroup;
-			children = (
-				D6AFF5BF25DE50AA00CC5CE3 /* FloatingLabelTextField.swift */,
-				D6A8FD5325CA964F003B3412 /* CodeTextField.swift */,
-				D6A8FDB425CADDE8003B3412 /* PhoneTextField.swift */,
-			);
-			path = Input;
-			sourceTree = "<group>";
-		};
 		D6AFF5C225DE687200CC5CE3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +558,15 @@
 				D6C1903926C1AA4100016A2C /* Info.plist */,
 			);
 			path = faceIdTestUITests;
+			sourceTree = "<group>";
+		};
+		D6C192DE26D0042E00016A2C /* Test_ProductSearch */ = {
+			isa = PBXGroup;
+			children = (
+				D6C192DF26D0044D00016A2C /* ProductSearchViewController.swift */,
+				D6C192E726D0124C00016A2C /* ProductSearchViewModel.swift */,
+			);
+			path = Test_ProductSearch;
 			sourceTree = "<group>";
 		};
 		D6C2423A266F88C000CDB286 /* Extensions */ = {
@@ -882,8 +879,10 @@
 				D6A8FD7A25CA981D003B3412 /* ConfirmCodeViewController.swift in Sources */,
 				D6A0E12B25CBE00B00C8717A /* IVPopupController.swift in Sources */,
 				D68ECB8025D09F4B00F38294 /* Card.swift in Sources */,
+				D6C192E026D0044D00016A2C /* ProductSearchViewController.swift in Sources */,
 				D6A8FD4925CA95B3003B3412 /* AppCoordinator.swift in Sources */,
 				D6A8FD7925CA981D003B3412 /* ConfirmCodeViewModel.swift in Sources */,
+				D6C192E826D0124C00016A2C /* ProductSearchViewModel.swift in Sources */,
 				D6AFF5CF25DFD16400CC5CE3 /* PinCodeViewModel.swift in Sources */,
 				D61FEA5125D18DB400E528AD /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				D6A8FD7825CA981D003B3412 /* AuthCoordinator.swift in Sources */,
@@ -898,12 +897,10 @@
 				D6A0E12E25CBE9EF00C8717A /* ProfileViewController.swift in Sources */,
 				D6BF9DF925CDF12D000C468C /* CommonButton.swift in Sources */,
 				D6BF9E0325CE7463000C468C /* Tariff.swift in Sources */,
-				D6A8FDB525CADDE8003B3412 /* PhoneTextField.swift in Sources */,
 				D6BF9DFD25CDF605000C468C /* MyAddressesController.swift in Sources */,
 				D6A8FDB125CADA2B003B3412 /* ConfirmCodeCoordinator.swift in Sources */,
 				D6BF9DF025CDDD37000C468C /* ProfileHeaderCell.swift in Sources */,
 				D698B56725C32E05004BAFF6 /* SceneDelegate.swift in Sources */,
-				D6AFF5C025DE50AA00CC5CE3 /* FloatingLabelTextField.swift in Sources */,
 				D6BF9E0A25CE8854000C468C /* PaymentMethodsController.swift in Sources */,
 				D6A8FD5925CA9650003B3412 /* Font.swift in Sources */,
 				D69FEE8D26A4AD8200B3B226 /* Strings.swift in Sources */,
@@ -926,7 +923,6 @@
 				D6A8FDC925CAF370003B3412 /* RideOptionsController.swift in Sources */,
 				D6A0E11925CB48A000C8717A /* UserService.swift in Sources */,
 				D6A8FD8225CA98C1003B3412 /* AuthService.swift in Sources */,
-				D6A8FD5725CA964F003B3412 /* CodeTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@ target 'faceIdTest' do
   pod 'IVCollectionKit'
   pod 'SwiftGen'
   pod 'Resolver'
+  pod 'AGInputControls', :git => 'https://github.com/ivedeneev/AGInputControls.git'
 
 end
 
